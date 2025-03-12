@@ -1,11 +1,8 @@
 'use client'
-import type { Metadata } from "next";
-import Navbar from "../../components/Navbar";
 import React from "react";
 import { VscHome, VscArchive, VscAccount, VscSettingsGear } from "react-icons/vsc";
 import "./globals.css";
 import Dock from "../../components/Dock";
-import Home from "./page";
 
 export default function RootLayout({
   children,
