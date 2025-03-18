@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Matter from "matter-js";
 
 interface FallingTextProps {

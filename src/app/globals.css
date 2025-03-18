@@ -1,5 +1,7 @@
 @import "tailwindcss";
-
+*{
+  font-family: poppins;
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -10,6 +12,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +26,15 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: poppins;
+}
+
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
 }
