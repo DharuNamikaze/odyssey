@@ -101,7 +101,7 @@ export default function RootLayout({
         <title>Odyssey</title>
       </head>
       <body>
-        <div className="relative  w-full">
+        <div className="relative w-full">
           <FloatingNav navItems={navItems} />
         </div>
         {children}
