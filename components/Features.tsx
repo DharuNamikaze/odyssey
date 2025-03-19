@@ -51,7 +51,6 @@ export function DotBackgroundDemo() {
     </div>
   );
 }
-
 const Features = () => {
   return (
     <section className=''>

@@ -5,6 +5,7 @@ import React from "react";
 import Preview from "../../components/Preview";
 import Features from "../../components/Features";
 import { cn } from "../../lib/utils";
+import Join from "../../components/Join";
 export default function Home() {
   return (
     <main>
@@ -17,7 +18,6 @@ export default function Home() {
                 "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]",
                 "pointer-events-none absolute inset-0 [background-size:40px_40px] select-none",
                 "[background-image:linear-gradient(to_right,#171717_1px,transparent_1px),linear-gradient(to_bottom,#171717_1px,transparent_1px)]"
-      
               )}
             />
             {/* Radial gradient for the container to give a faded look */}
@@ -29,12 +29,13 @@ export default function Home() {
             </div>
         {/* Centered Quote */}
         <span className="absolute bottom-6 w-full text-center text-blue-300 sm:text-lg md:text-xl">
-          &quot;The best way to end something is to starve it&quot;
+          {`~`} The best way to end something is to starve it
         </span>
       </div>
 
       <Preview />
       <Features />
+      <Join/>
     </main>
   );
 }
