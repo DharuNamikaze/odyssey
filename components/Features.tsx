@@ -1,26 +1,54 @@
+'use client'
 import React from 'react'
 import { cn } from "../lib/utils";
-export function SpotlightPreview() {
+import { IconSquareRoundedCheckFilled } from "@tabler/icons-react"
+export function DotBackgroundDemo() {
   return (
-    <div className="relative flex h-screen w-full overflow-hidden rounded-md bg-black/[0.96] antialiased md:items-center md:justify-center">
+    <div className="relative flex h-[50rem] w-full items-center justify-center bg-white dark:bg-black">
       <div
         className={cn(
+          "absolute inset-0",
+          "[background-size:20px_20px]",
+          "[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
+          "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]",
           "pointer-events-none absolute inset-0 [background-size:40px_40px] select-none",
-          "[background-image:linear-gradient(to_right,#171717_1px,transparent_1px),linear-gradient(to_bottom,#171717_1px,transparent_1px)]",
+          "[background-image:linear-gradient(to_right,#171717_1px,transparent_1px),linear-gradient(to_bottom,#171717_1px,transparent_1px)]"
+
         )}
       />
-
-      <div className="relative z-10 mx-auto w-full max-w-7xl p-4 pt-20 md:pt-30">
-        <h1 className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-500 bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl">
+      {/* Radial gradient for the container to give a faded look */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
+      <div>
+        <h1 className="text-center relative z-20 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-8 text-5xl font-bold text-transparent sm:text-7xl">
           Why <br /> Odyssey?
         </h1>
-        <p className="mx-auto mt-4 max-w-lg text-center text-base font-normal text-neutral-300">
-          Odyssey helps you to rewire your brain neurons aids in increasing productivity at work, improve attention span. Here, we are drawing the attention towards the text
-          section of the page. I don&apos;t know why but I&apos;m running out of
-          copy.
-        </p>
+        <div className="max-w-lg flex items-center mx-auto text-center z-20 text-neutral-300">
+          <ul className="max-w-lg space-y-3 text-neutral-300 z-20">
+            <li className="flex items-start gap-2">
+              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
+              <span>Provides insights on your progress.</span>
+              
+            </li>
+            <li className="flex items-start gap-2">
+              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
+              <span>Tracks habits and encourages consistency.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
+              <span>Help you to enhance your cognitive function.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
+              <span>Improves attention span and focus over time.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
+              <span>Boosts productivity and efficiency in your daily tasks.</span>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>  
+    </div>
   );
 }
 
@@ -29,7 +57,8 @@ const Features = () => {
     <section className=''>
       {/* <Image className='-z-10 absolute w-screen  min-h-60' alt='' src="/feature-bg.jpg" width={300} height={100} />
       <div className='text-4xl py-10'>Why Odyssey?</div> */}
-      <SpotlightPreview />
+      {/* <  /> */}
+      <DotBackgroundDemo />
     </section>
   )
 }
