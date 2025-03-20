@@ -78,10 +78,11 @@ export function SparklesPreview() {
           className="w-full h-full"
           particleColor="#FFFFFF"
         />
-        <Link href="SignUp">
-          <button className='flex mx-auto text-3xl hover:underline hover:underline-offset-2 hover:cursor-pointer'>Join Now</button>
 
+        <Link href="SignUp">
+          <button className='flex mx-auto text-3xl hover:underline hover:underline-offset-2 hover:cursor-pointer '>Join Now</button>
         </Link>
+
         <motion.div
           className="flex space-x-4 space-y-5 justify-center"
           initial={{ opacity: 0, y: 100, x: 250 }} // Fade in + Move up effect
@@ -97,21 +98,21 @@ export function SparklesPreview() {
             <IconSend />
           </motion.div>
         </motion.div>
-        
+
 
         {/* Radial Gradient to prevent sharp edges */}
         <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
       </div>
-      
+
     </div>
-    
+
   );
 }
 const Join = () => {
   return (
     <section>
       <SparklesPreview />
-      
+
     </section>
   )
 }

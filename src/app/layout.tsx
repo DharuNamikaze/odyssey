@@ -99,6 +99,7 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1.0"
         />
         <title>Odyssey</title>
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body>
         <div className="relative w-full">
