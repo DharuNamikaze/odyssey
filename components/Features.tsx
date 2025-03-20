@@ -26,16 +26,7 @@ export function DotBackgroundDemo() {
           <ul className="max-w-lg space-y-3 text-neutral-300 z-20">
             <li className="flex items-start gap-2">
               <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
-              <span>Provides insights on your progress.</span>
-              
-            </li>
-            <li className="flex items-start gap-2">
-              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
               <span>Tracks habits and encourages consistency.</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
-              <span>Help you to enhance your cognitive function.</span>
             </li>
             <li className="flex items-start gap-2">
               <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />

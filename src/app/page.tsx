@@ -6,6 +6,7 @@ import Preview from "../../components/Preview";
 import Features from "../../components/Features";
 import { cn } from "../../lib/utils";
 import Join from "../../components/Join";
+import Footer from "../../components/Footer";
 export default function Home() {
   return (
     <main>
@@ -28,7 +29,7 @@ export default function Home() {
             </h1>
             </div>
         {/* Centered Quote */}
-        <span className="absolute bottom-6 w-full text-center text-blue-300 sm:text-lg md:text-xl">
+        <span className="absolute bottom-6 w-full text-center text-green-400 sm:text-lg md:text-xl">
           {`~`} The best way to end something is to starve it
         </span>
       </div>
@@ -36,6 +37,7 @@ export default function Home() {
       <Preview />
       <Features />
       <Join/>
+      <Footer/>
     </main>
   );
 }

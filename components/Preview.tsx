@@ -57,7 +57,6 @@ const items = [
       icon: <IconHeart className="h-4 w-4 text-pink-500" />,
     },
   ];
-  
 
 const Preview = () => {
   return (
