@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.13.0",
     "@tabler/icons-react": "^3.31.0",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
     "clsx": "^2.1.1",
+    "convex": "^1.22.0",
     "framer-motion": "^11.3.24",
     "gsap": "^3.12.7",
     "matter-js": "^0.20.0",

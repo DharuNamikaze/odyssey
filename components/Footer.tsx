@@ -9,7 +9,7 @@ const Footer = () => {
         <span>Odyssey</span>
         <span >Build by <span className='hover:text-gray-400 cursor-pointer'>@dharu_namikaze</span></span>
       </div>
-      <div className='flex flex-1 flex-row space-x-20 px-2 py-2 justify-center items-center'>
+      <div className='flex flex-1 flex-row space-x-20 px-2 py-2 justify-center items-center font-light'>
         <ul>
           <Link href='/' target='_blank'><li>Pricing</li></Link>
           <Link href='mailto:dharunamikaze@gmail.com' target='_blank'><li>Contact</li></Link>
@@ -17,8 +17,8 @@ const Footer = () => {
           <Link href='/' target='_blank'><li>About</li> </Link>
         </ul>
         <ul className='flex flex-col'>
-          <Link href='/' target='_blank'><li>Instagram</li></Link>
-          <Link href='mailto:dharunamikaze@gmail.com' target='_blank'><li>Github</li></Link>
+          <Link href='https://www.instagram.com/dharu_namikaze/' target='_blank'><li>Instagram</li></Link>
+          <Link href='https://github.com/DharuNamikaze/' target='_blank'><li>Github</li></Link>
           <Link href="https://ui.aceternity.com/" target='_blank'> <li> X</li></Link>
           <Link href='/' target='_blank'><li>About</li> </Link>
         </ul>
