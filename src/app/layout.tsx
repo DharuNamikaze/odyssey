@@ -13,6 +13,7 @@ import {
   IconMessage, IconUser,
 } from "@tabler/icons-react";
 import { FloatingNav } from "../../components/ui/floating-nav";
+
 export const navItems = [
   {
     name: "Home",
@@ -90,6 +91,7 @@ export default function RootLayout({
   const updateUser = () => {
     setIsNew(!isNew)
   }
+
   return (
     <html lang="en">
       <head>
@@ -99,7 +101,7 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1.0"
         />
         <title>Odyssey</title>
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" type="image/svg" href="/Odyssey1.png" />
       </head>
       <body>
         <div className="relative w-full">

@@ -79,9 +79,9 @@ export function SparklesPreview() {
           particleColor="#FFFFFF"
         />
 
-        <Link href="SignUp">
-          <button className='flex mx-auto text-3xl hover:underline hover:underline-offset-2 hover:cursor-pointer '>Join Now</button>
-        </Link>
+        <span className='m-0 p-0'>
+          <Link href="SignUp" className='flex justify-center  mx-auto text-xl hover:underline hover:underline-offset-2 hover:cursor-pointer '>Join Now</Link>
+        </span>
 
         <motion.div
           className="flex space-x-4 space-y-5 justify-center"
