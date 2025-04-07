@@ -37,7 +37,7 @@ body {
 }
 
 .ico {
-  animation: spin infinite 6s;
+  animation: spin infinite 5s;
 }
 
 @keyframes spotlight {

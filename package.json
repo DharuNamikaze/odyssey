@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.25.6",
     "@clerk/nextjs": "^6.13.0",
     "@tabler/icons-react": "^3.31.0",
     "@tsparticles/engine": "^3.8.1",
@@ -25,6 +26,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "scrolltrigger": "^1.0.1",
+    "styled-components": "^6.1.17",
     "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {

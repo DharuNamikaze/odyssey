@@ -1,8 +1,16 @@
 'use client'
 import React from "react";
-import "./globals.css";
 import { useState } from "react";
+import "./globals.css";
 import { FloatingDock } from "../../components/ui/floating-dock";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 import {
   IconBrandGithub,
   IconBrandX,
@@ -113,6 +121,17 @@ export default function RootLayout({
             items={links}
           />}
         </div>
+        <ClerkProvider>
+          <div className="flex justify-end items-center p-4 gap-4 h-16">
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -79,8 +79,9 @@ export function SparklesPreview() {
           particleColor="#FFFFFF"
         />
 
+        {}
         <span >
-          <button className='flex justify-center mx-auto text-[1em] font-medium bg-white text-black px-5 py-2 rounded-lg hover:cursor-pointer hover:bg-gray-300'><Link href="SignUp">Join Now</Link></button>
+          <button className='flex justify-center mx-auto text-[1em] font-medium bg-white text-black px-5 py-2 rounded-lg hover:cursor-pointer hover:bg-gray-300'><Link href="./authPage">Join Now</Link></button>
         </span>
 
         <motion.div
