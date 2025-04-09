@@ -33,7 +33,6 @@ export default function Home() {
           {`~`} The best way to end something is to starve it
         </span>
       </div>
-
       <Preview />
       <Features />
       <Join />

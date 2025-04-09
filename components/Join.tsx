@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { motion } from "framer-motion";
 import { SparklesCore } from "../components/ui/Sparkles";
 import { IconBulb, IconBoltFilled, IconAward, IconBellRinging, IconBrain, IconSend } from '@tabler/icons-react';
-
 export function SparklesPreview() {
   return (
     <div className="h-[40rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
@@ -81,7 +80,9 @@ export function SparklesPreview() {
 
         {}
         <span >
-          <button className='flex justify-center mx-auto text-[1em] font-medium bg-white text-black px-5 py-2 rounded-lg hover:cursor-pointer hover:bg-gray-300'><Link href="./authPage">Join Now</Link></button>
+          <button className='flex justify-center mx-auto text-[1em] font-medium bg-white text-black px-5 py-2 rounded-lg hover:cursor-pointer hover:bg-gray-300'>
+            <Link href="/AuthPage">Join Now</Link>
+            </button>
         </span>
 
         <motion.div

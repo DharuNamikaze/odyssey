@@ -40,6 +40,7 @@ export const navItems = [
       <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
     ),
   },
+  
 ];
 
 const links = [
@@ -121,17 +122,6 @@ export default function RootLayout({
             items={links}
           />}
         </div>
-        <ClerkProvider>
-          <div className="flex justify-end items-center p-4 gap-4 h-16">
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
-        </ClerkProvider>
       </body>
     </html>
   );
