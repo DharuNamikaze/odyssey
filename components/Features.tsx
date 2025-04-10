@@ -36,6 +36,10 @@ export function DotBackgroundDemo() {
               <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
               <span>Boosts productivity and efficiency in your daily tasks.</span>
             </li>
+            <li className="flex items-start gap-2">
+              <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
+              <span>Creates awareness about actions and choices.</span>
+            </li>
           </ul>
         </div>
       </div>
