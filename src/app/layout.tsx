@@ -1,5 +1,6 @@
 'use client'
 import React from "react";
+import { AuthProvider } from "../../context/AuthContext";
 import "./globals.css";
 import {
   IconHome,
@@ -26,7 +27,7 @@ export const navItems = [
       <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
     ),
   },
-  
+
 ];
 
 export default function RootLayout({
@@ -34,12 +35,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const [Open, setOpen] = useState(false);
-  
-  const handleClick = () => {
-    setOpen(true)
-  }
 
   return (
     <html lang="en">
@@ -53,12 +48,13 @@ export default function RootLayout({
         <link rel="icon" type="image/svg" href="/Odyssey1.png" />
       </head>
       <body>
-        <div className="relative w-full">
-          <FloatingNav navItems={navItems} onClick={handleClick} />
-        </div>
-        {children}
+        <AuthProvider>
+          <div className="relative w-full">
+            <FloatingNav navItems={navItems}/>
+          </div>
+          {children}
+        </AuthProvider>
         <div className="flex items-center justify-center w-full ">
-    
         </div>
       </body>
     </html>

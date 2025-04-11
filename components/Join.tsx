@@ -1,10 +1,13 @@
 "use client";
 import React from 'react'
-import Link from 'next/link';
 import { motion } from "framer-motion";
 import { SparklesCore } from "../components/ui/Sparkles";
 import { IconBulb, IconBoltFilled, IconAward, IconBellRinging, IconBrain, IconSend } from '@tabler/icons-react';
+import { useAuth } from "../context/AuthContext";
+
 export function SparklesPreview() {
+  const { setOpen } = useAuth();
+
   return (
     <div className="h-[40rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
       <motion.div
@@ -78,12 +81,10 @@ export function SparklesPreview() {
           particleColor="#FFFFFF"
         />
 
-        {}
-        <span >
-          <button className='flex justify-center mx-auto text-[1em] font-medium bg-white text-black px-5 py-2 rounded-lg hover:cursor-pointer hover:bg-gray-300'>
-            <Link href="/AuthPage">Join Now</Link>
-            </button>
-        </span>
+        <button onClick={() => setOpen(true)}
+          className='flex justify-center mx-auto text-[1em] font-medium bg-white text-black px-5 py-2 rounded-lg hover:cursor-pointer hover:bg-gray-300'>
+          Join Now
+        </button>
 
         <motion.div
           className="flex space-x-4 space-y-5 justify-center"

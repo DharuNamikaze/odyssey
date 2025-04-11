@@ -1,18 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "motion/react";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent,} from "motion/react";
 import { cn } from "../../lib/utils";
 import Link from "next/link";
+import { useAuth } from "../../context/AuthContext";
 
 export const FloatingNav = ({
   navItems,
   className,
-  onClick,
 }: {
   navItems: {
     name: string;
@@ -20,15 +15,10 @@ export const FloatingNav = ({
     icon?: JSX.Element;
   }[];
   className?: string;
-  onClick?: (data:Event) => void;
 }) => {
+  const { setOpen } = useAuth();
   const { scrollYProgress } = useScroll();
-
   const [isNew, setIsNew] = useState(true);
-  // hard coding new for now
-  const handleClick = ()=>{
-
-  }
   const [visible, setVisible] = useState(false);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
@@ -79,10 +69,10 @@ export const FloatingNav = ({
             <span className="hidden sm:block text-sm">{navItem.name}</span>
           </Link>
         ))}
-        <Link href="/AuthPage" className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
-          <span onClick={()=> handleClick}>{!isNew? "Login" : "Signup"}</span>
+        <button onClick={()=> setOpen(true)} className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full hover:cursor-pointer">
+          {!isNew ? "Login" : "Signup"}
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
-        </Link>
+        </button>
       </motion.div>
     </AnimatePresence>
   );

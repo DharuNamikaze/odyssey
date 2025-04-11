@@ -23,7 +23,7 @@ export function DotBackgroundDemo() {
           Why <br /> Odyssey?
         </h1>
         <div className="max-w-lg flex items-center mx-auto text-center z-20 text-neutral-300">
-          <ul className="max-w-lg space-y-3 text-neutral-300 z-20">
+          <ul className="max-w-lg space-y-3 text-neutral-300 max-sm:text-sm z-20">
             <li className="flex items-start gap-2">
               <IconSquareRoundedCheckFilled className="min-w-4 min-h-4 text-green-400" />
               <span>Tracks habits and encourages consistency.</span>
