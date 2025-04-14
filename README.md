@@ -1,7 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Yes, This is a [Next.js](https://nextjs.org) project
 
-## Getting Started with Odyssey
+# Getting Started
 Your beloved productivity app, all in one.
+
+## 🧠 Philosophy Behind Odyssey
+
+Odyssey is more than a habit tracker. It’s a personal growth engine inspired by:
+
+Stoicism and mindfulness
+
+Video game mechanics (XP, levels, rewards)
+
+Neuroscience & psychology (energy-based tracking, focus tips)
+
+Gamified productivity (Atomic habits, Kaizen, Flow theory)
+
+It adapts to you — not the other way around.
 
 First, run the development server:
 
