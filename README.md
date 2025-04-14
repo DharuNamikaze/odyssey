@@ -36,17 +36,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 ## ✨ Upcoming Features
 
 
-#### 🪙 Coin Shop to redeem perks
+##### 🪙 Coin Shop to redeem perks
 
-#### 🧬 AI-generated personalized challenges
+##### 🧬 AI-generated personalized challenges
 
-#### 🌐 Public leaderboard with anonymous stats
+##### 🌐 Public leaderboard with anonymous stats
 
-#### ⏳ Pomodoro + Focus Timer
+##### ⏳ Pomodoro + Focus Timer
 
-#### 📖 Life journal with streak & mood memory
+##### 📖 Life journal with streak & mood memory
 
-#### 📅 Calendar integrations
+##### 📅 Calendar integrations
 
 
 ## Learn More
