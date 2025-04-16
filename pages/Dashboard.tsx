@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../src/app/globals.css'
 const Dashboard = () => {
     const day = new Date();

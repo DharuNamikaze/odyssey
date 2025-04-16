@@ -41,7 +41,7 @@ body {
 }
 .loader{
   color: white;
-  animation: spin infinite 0.3s;
+  animation: spin infinite 0.8s;
 }
 .load{
   color: white;
