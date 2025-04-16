@@ -1,6 +1,5 @@
 'use client'
 import React from "react";
-import { AuthProvider } from "../../context/AuthContext";
 import "./globals.css";
 import {
   IconHome,
@@ -48,12 +47,10 @@ export default function RootLayout({
         <link rel="icon" type="image/svg" href="/Odyssey1.png" />
       </head>
       <body>
-        <AuthProvider>
-          <div className="relative w-full">
-            <FloatingNav navItems={navItems}/>
-          </div>
-          {children}
-        </AuthProvider>
+        <div className="relative w-full">
+          <FloatingNav navItems={navItems} />
+        </div>
+        {children}
         <div className="flex items-center justify-center w-full ">
         </div>
       </body>

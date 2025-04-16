@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# apis
+/lib/firebase.ts
+/lib/firebaseAdmin.ts
+
 # production
 /build
 

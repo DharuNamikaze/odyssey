@@ -39,6 +39,13 @@ body {
 .ico {
   animation: spin infinite 5s;
 }
+.loader{
+  color: white;
+  animation: spin infinite 0.3s;
+}
+.load{
+  color: white;
+}
 
 @keyframes spotlight {
   0% {
