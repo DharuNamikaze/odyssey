@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import FullSidebar from '../components/FullSideBar';
 import '../src/app/globals.css'
 
@@ -14,7 +14,9 @@ const Dashboard = () => {
     }
     return (
         <>
+            <div className="flex justify-center items-center fixed greeting">{greeting()} da! </div>
             <FullSidebar />
+
         </>
         // <section>
         //     <div className='px-10 py-10 mx-10 my-10 bg-amber-500' >

@@ -39,12 +39,34 @@ body {
 .ico {
   animation: spin infinite 5s;
 }
-.loader{
+
+.loader {
   color: white;
   animation: spin infinite 0.8s;
 }
-.load{
+
+.load {
   color: white;
+}
+
+.greeting {
+  position: fixed;
+  inset: 0;
+  animation: wish 3s linear;
+}
+
+@keyframes wish {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0%;
+  }
 }
 
 @keyframes spotlight {
