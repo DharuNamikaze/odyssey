@@ -12,7 +12,7 @@ export function Sidebar() {
         setLoading(true);
         const auth = getAuth();
         signOut(auth);
-        console.log(signOut(auth));
+        console.log("user signout succesfully");
         setLoading(false);
     }
     useEffect(() => {
@@ -45,18 +45,18 @@ export function Sidebar() {
                 <IconEdit />
             </Link> </span>
             <menu className="border-2 border-blue-600 p-0.5 rounded-lg flex flex-col justify-between space-y-5">
-                <span>Menu</span>
-                <li >Search</li>
-                <li>Inbox</li>
-                <li>Odyssey AI</li>
+                <span >Menu</span>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 ' >Search</li>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '>Inbox</li>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '>Odyssey AI</li>
             </menu>
             <menu className="flex flex-col flex-1">
                 Favorites
-                <li >Projects</li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 ' >Projects</li>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
+                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
             </menu>
             <button className='flex gap-5 p-2 cursor-pointer' onClick={handleSignOut}><IconLogout2 /> Logout </button>
         </nav>
