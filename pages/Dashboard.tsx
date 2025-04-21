@@ -13,9 +13,9 @@ const Dashboard = () => {
     }
     return (
         <>
-            <section className="bg-gray-200 w-screen h-screen">
+            <section className="bg-blue-200 w-screen h-screen">
                 {/* {greeting()} */}
-                <main className="bg-gray-700 w-screen h-screen">
+                <main className="bg-blue-700-700 w-screen h-screen">
                 <Sidebar />
 
                 </main>

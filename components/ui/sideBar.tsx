@@ -25,24 +25,22 @@ export function Sidebar() {
         fetchBro()
     }, [])
     const LoadingModal = () => (
-        <div className="fixed inset-100 flex items-center justify-center">
-            <div className='mb-3 p-6 flex items-center justify-center'><IconFidgetSpinner className='loader' /></div>
+        <div className="fixed inset-0 flex items-center justify-center bg-black z-50">
+            <div className='flex items-center justify-center bg-black'><IconFidgetSpinner className='loader' /></div>
         </div>
     );
 
     return (
         <nav className="text-black bg-amber-100 p-2 flex flex-col h-screen w-[25vh] rounded-lg z-50">
             {loading && <LoadingModal />}
-            <span className="border-2 border-amber-600 rounded-lg p-1 flex justify-between "> <strong>{bro?.displayName}</strong> <Link href="" className="">
+            <span className="border-2 border-blue-600 rounded-lg p-1 flex justify-between "> <strong>{bro?.displayName}</strong> <Link href="" className="">
                 <IconEdit />
             </Link> </span>
-            <menu className="flex flex-col">
+            <menu className="border-2 border-blue-600 rounded-lg flex flex-col justify-between space-y-5">
                 Menu
                 <li >Search</li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Inbox</li>
+                <li>Odyssey AI</li>
             </menu>
             <menu className="flex flex-col">
                 Favorites
