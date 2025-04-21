@@ -7,7 +7,6 @@ import {
 } from "@tabler/icons-react";
 import { FloatingNav } from "../../components/ui/floating-nav";
 
-
 export const navItems = [
   {
     name: "Home",
@@ -47,6 +46,7 @@ export default function RootLayout({
         <link rel="icon" type="image/svg" href="/Odyssey1.png" />
       </head>
       <body>
+
         <div className="relative w-full">
           <FloatingNav navItems={navItems} />
         </div>
@@ -54,6 +54,6 @@ export default function RootLayout({
         <div className="flex items-center justify-center w-full ">
         </div>
       </body>
-    </html>
+    </html >
   );
 }

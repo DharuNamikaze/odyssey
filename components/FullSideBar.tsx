@@ -1,6 +1,6 @@
 "use client";
-import React, { lazy, useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sideBar";
+import React, { useState } from "react";
+import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
 import { IconFidgetSpinner } from "@tabler/icons-react";
 import { BubbleChart } from '../components/charts/BubbleChart'
 import { DonutMeter } from "../components/charts/DonutMeter";
