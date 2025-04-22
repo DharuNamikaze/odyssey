@@ -14,9 +14,10 @@ const Dashboard = () => {
     return (
         <>
             <section className="bg-blue-200 w-screen h-screen">
-                {/* {greeting()} */}
-                <main className="bg-blue-700-700 w-screen h-screen">
-                <Sidebar />
+
+                <main className="bg-blue-700-700 w-screen h-screen p-2">
+                    <Sidebar />
+                    <span> {greeting()} </span>
 
                 </main>
             </section>

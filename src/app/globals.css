@@ -11,7 +11,7 @@
 
 @layer base {
   li {
-    @apply hover:text-gray-400;
+    @apply hover:text-gray-400 cursor-pointer;
   }
 }
 

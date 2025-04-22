@@ -1,19 +1,20 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { IconEdit, IconFidgetSpinner, IconLogout2 } from '@tabler/icons-react'
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { getAuth, signOut } from "../../lib/firebase";
+import { useRouter } from 'next/router';
 
 export function Sidebar() {
     const [bro, setBro] = useState<User | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
-
+    const router = useRouter()
     const handleSignOut = () => {
-        setLoading(true);
         const auth = getAuth();
         signOut(auth);
-        console.log("user signout succesfully");
         setLoading(false);
+        router.push("/");
+        console.log("user signout successfully");
     }
     useEffect(() => {
         const fetchBro = () => {
@@ -39,24 +40,24 @@ export function Sidebar() {
     );
 
     return (
-        <nav className="text-black bg-amber-100 p-2 flex flex-col h-screen w-[30vh] rounded-lg z-50">
+        <nav className=" bg-black p-2 flex flex-col h-screen w-[30vh] rounded-lg z-50 space-y-5">
             {loading && <LoadingModal />}
-            <span className="border-2 border-blue-600 rounded-lg p-1 flex justify-between "> <strong>{bro?.displayName}</strong> <Link href="" className="">
+            <span className=" cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between space-y-1"> <strong>{bro?.displayName}</strong> <Link href="" className="">
                 <IconEdit />
             </Link> </span>
-            <menu className="border-2 border-blue-600 p-0.5 rounded-lg flex flex-col justify-between space-y-5">
-                <span >Menu</span>
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 ' >Search</li>
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '>Inbox</li>
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '>Odyssey AI</li>
+            <menu className=" cursor-pointer border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-2">
+                <span className='cursor-pointer' >Menu</span>
+                <input className='rounded-lg p-1 hover:bg-gray-800' placeholder='Search' />
+                <li className='rounded-lg p-1 hover:bg-gray-800'>Inbox</li>
+                <li className='rounded-lg p-1 hover:bg-gray-800'>Odyssey AI</li>
             </menu>
-            <menu className="flex flex-col flex-1">
-                Favorites
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 ' >Projects</li>
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
-                <li className='text-black bg-white rounded-lg p-1 hover:border-1 '></li>
+            <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-4">
+                <span className='cursor-pointer'>Favorites</span>
+                <li className='hover:bg-gray-800 rounded-lg p-0.5'></li>
+                <li className='hover:bg-gray-800 rounded-lg p-0.5'></li>
+            </menu>
+            <menu className="border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-4">
+                <span className='cursor-pointer hover:bg-gray-800 rounded-lg p-0.5'>Private</span>
             </menu>
             <button className='flex gap-5 p-2 cursor-pointer' onClick={handleSignOut}><IconLogout2 /> Logout </button>
         </nav>
