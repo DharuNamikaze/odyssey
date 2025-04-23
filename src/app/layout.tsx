@@ -1,38 +1,26 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./globals.css";
-import {
-  IconHome,
-  IconMessage, IconUser,
-} from "@tabler/icons-react";
-import { FloatingNav } from "../../components/ui/floating-nav";
-
-export const navItems = [
-  {
-    name: "Home",
-    link: "/",
-    icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
-  },
-  {
-    name: "About",
-    link: "/about",
-    icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white" />,
-  },
-  {
-    name: "Contact",
-    link: "/contact",
-    icon: (
-      <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
-    ),
-  },
-
-];
+import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [bro, setBro] = useState<null | User>(null)
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentBro) => {
+      if (currentBro) {
+        setBro(currentBro)
+      } else {
+        setBro(null)
+      }
+    })
+    return () => unsubscribe()
+  }, [])
 
   return (
     <html lang="en">
@@ -47,9 +35,7 @@ export default function RootLayout({
       </head>
       <body>
 
-        <div className="relative w-full">
-          <FloatingNav navItems={navItems} />
-        </div>
+        {/* {!bro && } */}
         {children}
         <div className="flex items-center justify-center w-full ">
         </div>

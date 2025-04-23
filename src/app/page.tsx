@@ -7,9 +7,39 @@ import Features from "../../components/Features";
 import { cn } from "../../lib/utils";
 import Join from "../../components/Join";
 import Footer from "../../components/Footer";
+import {
+  IconHome,
+  IconMessage, IconUser,
+} from "@tabler/icons-react";
+import { FloatingNav } from "../../components/ui/floating-nav";
+
+export const navItems = [
+  {
+    name: "Home",
+    link: "/",
+    icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
+  },
+  {
+    name: "About",
+    link: "/about",
+    icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white" />,
+  },
+  {
+    name: "Contact",
+    link: "/contact",
+    icon: (
+      <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
+    ),
+  },
+
+];
 export default function Home() {
+
   return (
     <main>
+      <div className="relative w-full">
+        < FloatingNav navItems={navItems} />
+      </div>
       <div className="relative flex h-screen w-full items-center justify-center bg-white dark:bg-black">
         <div
           className={cn(

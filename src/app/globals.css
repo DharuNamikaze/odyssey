@@ -55,6 +55,36 @@ body {
   animation: wish 3s linear;
 }
 
+.heatmap-container {
+  display: flex;
+  gap: 3px;
+  overflow-x: auto;
+  padding: 12px;
+}
+
+.heatmap-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.heatmap-day {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.heatmap-day:hover {
+  outline: 1px solid #333;
+  cursor: pointer;
+}
+
+.heatmap-day.empty {
+  visibility: hidden;
+}
+
+
 @keyframes wish {
   0% {
     opacity: 0;

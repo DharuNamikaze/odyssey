@@ -1,8 +1,16 @@
 "use client";
 import React from "react";
-import '../src/app/globals.css';
-import { Sidebar } from "../components/ui/Sidebar";
+import '../globals.css'
+import { Sidebar } from "../../../components/ui/Sidebar";
+import dynamic from 'next/dynamic';
+import { BubbleChart } from "../../../components/charts/BubbleChart";
+import { LineChartStep } from "../../../components/charts/LineChartStep";
+
 const Dashboard = () => {
+    const Heatmap = dynamic(() => import('../../../components/charts/Heatmap'), {
+        ssr: false,
+      });
+
     const day = new Date();
     const time = day.getHours();
     const greeting = () => {
@@ -14,11 +22,12 @@ const Dashboard = () => {
     return (
         <>
             <section className="bg-blue-200 w-screen h-screen">
-
                 <main className="bg-blue-700-700 w-screen h-screen p-2">
                     <Sidebar />
-                    <span> {greeting()} </span>
-
+                    <BubbleChart/>
+                    <LineChartStep/>
+                    <Heatmap/>
+                    <span className="inset-0 w-screen flex justify-center items-center"> {greeting()} </span>
                 </main>
             </section>
         </>
