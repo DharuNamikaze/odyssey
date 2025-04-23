@@ -47,7 +47,7 @@ const Heatmap: React.FC<{ year?: number }> = ({ year = new Date().getFullYear() 
   }
 
   return (
-    <div className="heatmap-container ">
+    <div className="heatmap-container">
       {weeks.map((week, wi) => (
         <div key={wi} className="heatmap-week ">
           {week.map((day, di) =>

@@ -34,7 +34,6 @@ export default function RootLayout({
         <link rel="icon" type="image/svg" href="/Odyssey1.png" />
       </head>
       <body>
-
         {/* {!bro && } */}
         {children}
         <div className="flex items-center justify-center w-full ">

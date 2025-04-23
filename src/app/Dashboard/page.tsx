@@ -1,15 +1,35 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import '../globals.css'
-import { Sidebar } from "../../../components/ui/Sidebar";
 import dynamic from 'next/dynamic';
-import { BubbleChart } from "../../../components/charts/BubbleChart";
+import { User, onAuthStateChanged } from 'firebase/auth'
+import { getAuth } from "../../../lib/firebase";
 import { LineChartStep } from "../../../components/charts/LineChartStep";
 
 const Dashboard = () => {
+    const [bro, setBro] = useState<User | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
+    useEffect(() => {
+        const fetchBro = () => {
+            try {
+                const auth = getAuth();
+                const unsubscribe = onAuthStateChanged(auth, (currentBro) => {
+                    if (currentBro) setBro(currentBro);
+                    else setBro(null);
+                    setLoading(false)
+                })
+                return () => unsubscribe;
+            } catch (err) {
+                console.log(err, "Error ra elai")
+                setLoading(false)
+            }
+        }
+        fetchBro()
+    }, [bro])
+
     const Heatmap = dynamic(() => import('../../../components/charts/Heatmap'), {
         ssr: false,
-      });
+    });
 
     const day = new Date();
     const time = day.getHours();
@@ -21,15 +41,19 @@ const Dashboard = () => {
     }
     return (
         <>
-            <section className="bg-blue-200 w-screen h-screen">
-                <main className="bg-blue-700-700 w-screen h-screen p-2">
-                    <Sidebar />
-                    <BubbleChart/>
-                    <LineChartStep/>
-                    <Heatmap/>
-                    <span className="inset-0 w-screen flex justify-center items-center"> {greeting()} </span>
-                </main>
-            </section>
+            <main className="bg-[#1E1E1E] flex flex-col gap-10 p-10 rounded-xl">
+                <span className="flex justify-center items-center text-center text-2xl "> {greeting()}, {bro?.displayName} </span>
+                <div className="p-10 rounded-xl gap-5 flex flex-col shadow-2xl shadow-black ">
+                    <span className="text-3xl text-blue-500 font-medium">Sleep Hours 💤</span>
+                    <LineChartStep />
+                </div>
+                <div className="p-10 rounded-xl gap-5 flex flex-col shadow-2xl shadow-black">
+                    <span className="text-3xl text-blue-500 font-medium ">Habit Consistency 💪 💤</span>
+                    <Heatmap />
+                </div>
+
+
+            </main>
         </>
         // {/* <FullSidebar /> */ }
         // <section>

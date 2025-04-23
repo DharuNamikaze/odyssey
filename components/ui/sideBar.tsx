@@ -1,19 +1,24 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { IconEdit, IconFidgetSpinner, IconLogout2 } from '@tabler/icons-react'
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { getAuth, signOut } from "../../lib/firebase";
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 export function Sidebar() {
     const [bro, setBro] = useState<User | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
-    const router = useRouter()
+    const router = useRouter();
+
     const handleSignOut = () => {
+        setLoading(true);
         const auth = getAuth();
         signOut(auth);
-        setLoading(false);
         console.log("user signout successfully");
+        setLoading(false);
+        router.push("/");
+        setLoading(false)
     }
     useEffect(() => {
         const fetchBro = () => {
@@ -33,25 +38,26 @@ export function Sidebar() {
         fetchBro()
     }, [])
     const LoadingModal = () => (
-        <div className="fixed h-screen inset-0 flex items-center justify-center bg-black z-50">
-            <div className='flex h-screen items-center justify-center bg-black'><IconFidgetSpinner className='loader' /></div>
+        <div className="fixed h-full inset-0 flex items-center justify-center bg-black z-50">
+            <div className='flex h-full items-center justify-center bg-black'><IconFidgetSpinner className='loader' /></div>
         </div>
     );
 
     return (
-        <nav className="bg-black p-2 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5">
+        <nav className="bg-black p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky">
             {loading && <LoadingModal />}
             <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between space-y-1"> <strong>{bro?.displayName}</strong> <Link href="" className="">
                 <IconEdit />
-            </Link> </span>
+            </Link> 
+            </span>
             <menu className="cursor-pointer border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-2">
-                <span className='cursor-pointer underline-offset-3 underline text-blue-400' >Menu</span>
+                <span className='cursor-pointer text-blue-400' >Menu</span>
                 <input className='rounded-lg p-1  hover:bg-gray-800' placeholder='Search' />
                 <Link href="/"><li className='rounded-lg p-1 hover:bg-gray-800'>Inbox</li></Link>
                 <Link href="/"><li className='rounded-lg p-1 hover:bg-gray-800'>Odyssey AI</li></Link>
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
-                <span className='cursor-pointer underline-offset-3 underline text-blue-400'>Personal</span>
+                <span className='cursor-pointer text-blue-400'>Personal</span>
                 <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-gray-800'>Dashboard</li> </Link>
                 <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-gray-800'>Achievements</li></Link>
                 <Link href="/Profile"><li className='rounded-lg p-1 hover:bg-gray-800'>Profile</li></Link>
@@ -60,16 +66,16 @@ export function Sidebar() {
 
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
-                <span className='cursor-pointer underline-offset-3 underline text-blue-400'>Favorites</span>
+                <span className='cursor-pointer text-blue-400'>Favorites</span>
                 <li className='hover:bg-gray-800 rounded-lg p-1'></li>
                 <li className='hover:bg-gray-800 rounded-lg p-1'></li>
             </menu>
             <menu className="border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-4">
-                <span className='cursor-pointer underline underline-offset-3 text-blue-400'>Private</span>
+                <span className='cursor-pointer text-blue-400'>Private</span>
                 <li className='hover:bg-gray-800 rounded-lg p-1'></li>
                 <li className='hover:bg-gray-800 rounded-lg p-1'></li>
             </menu>
-            <Link href="/" className='flex gap-5 p-2 cursor-pointer' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
+            <Link href="/" className='flex gap-5 p-2 cursor-pointer bg-red-600 rounded-lg' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
         </nav>
     )
 }
