@@ -55,25 +55,28 @@ export function LineChartStep() {
   if (!d) {
     return null;
   }
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
 
   return (
     <div>
       <div className="flex justify-center mb-4">
         <button
           onClick={() => setTimePeriod("current")}
-          className="bg-blue-500 text-white px-4 py-2 rounded mx-2"
+          className="bg-blue-500 text-white px-4 py-2 rounded mx-2 cursor-pointer"
         >
-          Current Month
+          {monthNames[currentMonth]}
         </button>
         <button
           onClick={() => setTimePeriod("last6")}
-          className="bg-blue-500 text-white px-4 py-2 rounded mx-2"
+          className="bg-blue-500 text-white px-4 py-2 rounded mx-2 cursor-pointer"
         >
           Last 6 Months
         </button>
         <button
           onClick={() => setTimePeriod("last12")}
-          className="bg-blue-500 text-white px-4 py-2 rounded mx-2"
+          className="bg-blue-500 text-white px-4 py-2 rounded mx-2 cursor-pointer"
         >
           Last 12 Months
         </button>

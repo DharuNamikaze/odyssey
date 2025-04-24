@@ -52,30 +52,30 @@ export function Sidebar() {
             </span>
             <menu className="cursor-pointer border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400' >Menu</span>
-                <input className='rounded-lg p-1  hover:bg-gray-800' placeholder='Search' />
-                <Link href="/"><li className='rounded-lg p-1 hover:bg-gray-800'>Inbox</li></Link>
-                <Link href="/"><li className='rounded-lg p-1 hover:bg-gray-800'>Odyssey AI</li></Link>
+                <input className='rounded-lg p-1  hover:bg-[#3e3e3e] text-white' placeholder='Search' />
+                <Link href="/"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Inbox</li></Link>
+                <Link href="/"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Odyssey AI</li></Link>
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400'>Personal</span>
-                <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-gray-800'>Dashboard</li> </Link>
-                <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-gray-800'>Achievements</li></Link>
-                <Link href="/Profile"><li className='rounded-lg p-1 hover:bg-gray-800'>Profile</li></Link>
-                <Link href="/Wellness"><li className='rounded-lg p-1 hover:bg-gray-800'>Wellness</li> </Link>
-                <Link href="/Habits"><li className='rounded-lg p-1 hover:bg-gray-800'>Habits</li> </Link>
+                <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Dashboard</li> </Link>
+                <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Achievements</li></Link>
+                <Link href="/Profile"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Profile</li></Link>
+                <Link href="/Wellness"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Wellness</li> </Link>
+                <Link href="/Habits"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Habits</li> </Link>
 
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400'>Favorites</span>
-                <li className='hover:bg-gray-800 rounded-lg p-1'></li>
-                <li className='hover:bg-gray-800 rounded-lg p-1'></li>
+                <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
+                <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
             <menu className="border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-4">
                 <span className='cursor-pointer text-blue-400'>Private</span>
-                <li className='hover:bg-gray-800 rounded-lg p-1'></li>
-                <li className='hover:bg-gray-800 rounded-lg p-1'></li>
+                <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
+                <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
-            <Link href="/" className='flex gap-5 p-2 cursor-pointer bg-red-600 rounded-lg' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
+            <Link href="/" className='flex gap-5 p-2 cursor-pointer hover:bg-[#3e3e3e] rounded-lg' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
         </nav>
     )
 }

@@ -24,9 +24,10 @@ const generateHeatmapData = (year: number): HeatmapDayData[] => {
     count: contributions[format(day, 'yyyy-MM-dd')] || 0,
   }));
 };
+// const random = Math.random()  
 
 const colorForCount = (count: number) => {
-  if (count === 0) return '#2a2a1a';
+  if (count === 0) return '#3f3f3f';
   if (count <= 1) return '#9be9a8';
   if (count <= 3) return '#40c463';
   if (count <= 5) return '#30a14e';
@@ -49,7 +50,7 @@ const Heatmap: React.FC<{ year?: number }> = ({ year = new Date().getFullYear() 
   return (
     <div className="heatmap-container">
       {weeks.map((week, wi) => (
-        <div key={wi} className="heatmap-week ">
+        <div key={wi} className="heatmap-week  ">
           {week.map((day, di) =>
             day ? (
               <div
