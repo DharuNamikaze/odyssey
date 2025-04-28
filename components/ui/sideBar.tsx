@@ -16,7 +16,6 @@ export function Sidebar() {
         const auth = getAuth();
         signOut(auth);
         console.log("user signout successfully");
-        setLoading(false);
         router.push("/");
         setLoading(false)
     }

@@ -103,22 +103,6 @@ function Page() {
             SleeperShell
           </span>
         </div>
-        {/* Destroyer */}
-        <div className='flex flex-col justify-center items-center'>
-          <Image
-            src="/consistencyKing.png"
-            alt="KingMedal"
-            width={200}
-            height={200}
-            className={achieve
-              ? `shadow-2xl shadow-black rounded-full m-10 `
-              : `text-white shadow-2xl shadow-black rounded-full m-10 grayscale opacity-50`
-            }
-          />
-          <span className={`text-lg mt-4 ${achieve ? 'text-green-400' : 'text-gray-500'} transition-colors duration-500`}>
-            Destroyer
-          </span>
-        </div>
       </div>
     </>
   )

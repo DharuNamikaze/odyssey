@@ -70,14 +70,6 @@ const Dashboard = () => {
                 </div>
             </main>
         </>
-        // {/* <FullSidebar /> */ }
-        // <section>
-        //     <div className='px-10 py-10 mx-10 my-10 bg-amber-500' >
-        //         Logout
-        //         <button>Logout</button>
-        //         <div></div>
-        //     </div>
-        // </section>
     )
 }
 
