@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { IconEdit, IconFidgetSpinner, IconLogout2 } from '@tabler/icons-react'
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { getAuth, signOut } from "../../lib/firebase";
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export function Sidebar() {
     const [bro, setBro] = useState<User | null>(null)
@@ -44,10 +44,10 @@ export function Sidebar() {
     );
 
     return (
-        <nav className="bg-black p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky">
+        <nav className="text-xs  bg-black p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky">
             {loading && <LoadingModal />}
-            <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between space-y-1"> <strong>{bro?.displayName}</strong> <Link href="" className="">
-                <IconEdit />
+            <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between items-center text-center space-y-1"> <strong>{bro?.displayName}</strong> <Link href="" className="">
+                <IconEdit className='w-5 h-5'/>
             </Link> 
             </span>
             <menu className="cursor-pointer border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-2">
@@ -75,7 +75,7 @@ export function Sidebar() {
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
-            <Link href="/" className='flex gap-5 p-2 cursor-pointer hover:bg-[#3e3e3e] rounded-lg' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
+            <Link href="/" className='flex gap-5 p-2 cursor-pointer hover:bg-[#3e3e3e] rounded-lg items-center' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
         </nav>
     )
 }

@@ -6,6 +6,7 @@ export const NavBar = () => {
     const [streak, setStreak] = useState<number>(0)
     const [bro, setBro] = useState<User | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
+
     useEffect(() => {
         const fetchBro = () => {
             try {
@@ -24,6 +25,16 @@ export const NavBar = () => {
         }
         fetchBro()
     }, [bro])
+    useEffect(() => {
+
+        if (bro) {
+            setLoading(true)
+            setStreak(prev => prev + 1);
+        } else {
+            setStreak(0);
+        }
+    }, [bro])
+
 
     const day = new Date();
     const time = day.getHours();
@@ -35,9 +46,12 @@ export const NavBar = () => {
     }
     return (
         <>
-            <div className='flex flex-col bg-amber-300 h-[7vh] w-screen '>
-                <span className="text-2xl"> {greeting()}, {bro?.displayName} </span>
-                <span>{streak}</span>
+            <div className='flex bg-black shadow-2xl shadow-black rounded-full p-4 h-[7vh] w-full items-center gap-10 '>
+                <span className="text-lg "> {greeting()}, {bro?.displayName} </span>
+                <span className='flex justify-start flex-row-reverse flex-1 gap-5 text-sm'>
+                    <button className='hover:bg-[#688069] cursor-pointer rounded-full px-4 py-2 text-white'>{streak}🔥</button>
+                    <button className='hover:bg-[#688069] cursor-pointer rounded-full px-4 py-2 text-white'>🌟 125</button>
+                </span>
             </div>
         </>
     )

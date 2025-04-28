@@ -1,10 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import '../globals.css'
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
+import { HorizontalBarChart } from "../../../components/charts/BarChartHorizontal";
 import { User, onAuthStateChanged } from 'firebase/auth'
 import { getAuth } from "../../../lib/firebase";
-import { LineChartStep } from "../../../components/charts/LineChartStep";
+import { IconFidgetSpinner } from '@tabler/icons-react';
+import { LineChart } from '../../../components/charts/LineChart';
+import { LineCustomChart } from '../../../components/charts/LineCustomChart'
+// import { LineChartStep } from "../../../components/charts/LineChartStep";
 
 const Dashboard = () => {
     const [bro, setBro] = useState<User | null>(null)
@@ -27,21 +31,42 @@ const Dashboard = () => {
         fetchBro()
     }, [bro])
 
-    const Heatmap = dynamic(() => import('../../../components/charts/Heatmap'), {
-        ssr: false,
-    });
+    // const Heatmap = dynamic(() => import('../../../components/charts/Heatmap'), {
+    //     ssr: false,
+    // });
+    const LoadingModal = () => (
+        <div className="fixed h-screen inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="p-6 flex items-center justify-center h-screen">
+                <div className='mb-3 flex items-center justify-center h-screen'><IconFidgetSpinner className='loader' /></div>
+            </div>
+        </div>
+    );
     return (
         <>
-            <main className="bg-[#1E1E1E] flex flex-col gap-10 p-10 rounded-xl">
-                <div className="flex flex-col gap-2">
-                    <div className="p-10 rounded-xl gap-5 flex flex-col shadow-2xl shadow-black ">
-                        <span className="text-3xl text-blue-500 font-medium">Sleep Hours 💤</span>
-                        <LineChartStep />
+            <main className="flex flex-col gap-10 ">
+                {loading && LoadingModal()}
+                <div className="grid grid-cols-1 gap-6 z-5">
+                    <h6 className="text-xl mt-5">Summary</h6>
+                    <div className="flex gap-6 z-5 p-4 rounded-2xl bg-[var(--bggray)] items-center ">
+                        <div className="grid grid-cols-2 gap-5 items-center text-sm">
+                            <div className="rounded-2xl bg-black p-3 ">Streak 🔥: 1</div>
+                            <div className="rounded-2xl bg-black p-3 ">Aura 🌟: 125</div>
+                            <div className="rounded-2xl bg-black p-3 ">Level:</div>
+                        </div>
                     </div>
-                    <div className="p-10 rounded-xl gap-5 flex flex-col shadow-2xl shadow-black">
-                        <span className="text-3xl text-blue-500 font-medium ">Habit Consistency 💪</span>
-                        <Heatmap />
+                    <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3 ">
+                        <HorizontalBarChart />
+                        <span className="flex justify-center">Habits</span>
                     </div>
+                    <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
+                        <LineChart />
+                        <span className="flex justify-center">Sleep Hours</span>
+                    </div>
+                    <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
+                        <LineCustomChart />
+                        <span className="flex justify-center">Sleep Hours</span>
+                    </div>
+
                 </div>
             </main>
         </>
