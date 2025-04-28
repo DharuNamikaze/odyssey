@@ -85,6 +85,10 @@ body {
   visibility: hidden;
 }
 
+.badge {
+  animation: wish;
+}
+
 
 @keyframes wish {
   0% {
@@ -110,4 +114,18 @@ body {
     opacity: 1;
     transform: translate(-50%, -40%) scale(1);
   }
+}
+
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(4, 0, 0.2, 1);
+}
+
+.duration-500 {
+  transition-duration: 5s;
+}
+
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4,4, 0.2, 1);
 }

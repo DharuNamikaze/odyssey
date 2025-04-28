@@ -46,7 +46,7 @@ export function Sidebar() {
     return (
         <nav className="text-xs  bg-black p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky">
             {loading && <LoadingModal />}
-            <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between items-center text-center space-y-1"> <strong>{bro?.displayName}</strong> <Link href="" className="">
+            <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between items-center text-center "> <strong>{bro?.displayName}</strong> <Link href="" className="">
                 <IconEdit className='w-5 h-5'/>
             </Link> 
             </span>
@@ -58,8 +58,8 @@ export function Sidebar() {
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400'>Personal</span>
-                <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Dashboard</li> </Link>
-                <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Achievements</li></Link>
+                <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] bg-green-900 text-white'>Dashboard</li> </Link>
+                <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] bg-green-900 text-white'>Achievements</li></Link>
                 <Link href="/Profile"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Profile</li></Link>
                 <Link href="/Wellness"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Wellness</li> </Link>
                 <Link href="/Habits"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Habits</li> </Link>
