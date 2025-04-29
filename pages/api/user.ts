@@ -7,11 +7,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const userData = req.body;
 
-      if (!userData.uid) {
+      if (!userData.Uid) {
         return res.status(400).json({ error: 'UID missing' });
       }
 
-      const userRef = db.collection('User').doc(userData.uid);
+      const userRef = db.collection('User').doc(userData.Uid);
       const userDoc = await userRef.get();
 
       if (userDoc.exists) {
