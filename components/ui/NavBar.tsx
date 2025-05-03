@@ -28,7 +28,6 @@ export const NavBar = () => {
         fetchBro()
     }, [bro])
     useEffect(() => {
-
         if (bro) {
             setLoading(true)
             setAvatar(bro.photoURL)
@@ -36,7 +35,6 @@ export const NavBar = () => {
         } else {
             setStreak(0);
         }
-
     }, [bro])
 
 
@@ -53,7 +51,7 @@ export const NavBar = () => {
             <div className='flex bg-black shadow-2xl shadow-black rounded-full p-4 h-[7vh] w-full items-center gap-10 '>
                 <span className="text-lg "> {greeting()}</span>
                 <span className='flex justify-start flex-row-reverse flex-1 gap-4 text-sm'>
-                    <Image className='hover:bg-[#688069] cursor-pointer rounded-full p-5 z-50' src={avatar || '/consistencyKing.png'} width="10" height="10" alt="DP"></Image > 
+                    <Image className='hover:bg-[#688069] cursor-pointer rounded-full z-50' src={avatar || '/consistencyKing.png'} width={35} height={0} alt="DisplayPicture" ></Image > 
                     <button className='hover:bg-[#688069] cursor-pointer rounded-full p-2 text-white'>{streak}🔥</button>
                     <button className='hover:bg-[#688069] cursor-pointer rounded-full p-2 text-white'>🌟 125</button>
                 </span>

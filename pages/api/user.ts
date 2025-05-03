@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (userDoc.exists) {
         // User exists, update only recentLogin
         await userRef.update({
-          recentLogin: new Date().toISOString(),
+          RecentLogin: new Date().toISOString(),
         });
       } else {
         // New user, create entry
