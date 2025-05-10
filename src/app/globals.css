@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 * {
   font-family: poppins;
 }
@@ -10,6 +9,15 @@
   --bggray: #2e2e2e;
 }
 
+<<<<<<< HEAD
+=======
+.poppins {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+>>>>>>> 6d1749c (frontend, backend, db works fine, added some methods)
 @layer base {
   li {
     @apply hover:text-gray-400 cursor-pointer;

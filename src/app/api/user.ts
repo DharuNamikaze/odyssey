@@ -1,6 +1,6 @@
 // /pages/api/user.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { db } from '../../lib/firebaseAdmin'; // your firebase-admin config file
+import { db } from '../../../lib/firebaseAdmin'; // your firebase-admin config file
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {

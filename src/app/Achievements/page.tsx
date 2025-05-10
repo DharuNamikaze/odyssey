@@ -1,13 +1,13 @@
 'use client'
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { IconFidgetSpinner } from '@tabler/icons-react';
+import { IconFidgetSpinner, IconCrown } from '@tabler/icons-react';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
-import Image from 'next/image';
+
 function Page() {
   const [bro, setBro] = useState<User | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  const [achieve, setAchieve] = useState<boolean>(false)
+  const [achieve, setAchieve] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchBro = () => {
@@ -39,70 +39,24 @@ function Page() {
       {loading && LoadingModal()}
       <div className='flex items-center '>
         <div className='flex flex-col justify-center items-center'>
-          <Image
-            src="/consistencyKing.png"
-            alt="KingMedal"
-            width={200}
-            height={200}
+          <span
             className={achieve
-              ? `shadow-2xl shadow-black rounded-full m-10 `
-              : `text-white shadow-2xl shadow-black rounded-full m-10 grayscale opacity-50`
+              ? `text-indigo-400 shadow-xl shadow-black rounded-full mt-5 p-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
             }
-          />
-          <span className={`text-lg mt-4 ${achieve ? 'text-green-400' : 'text-gray-500'} transition-colors duration-500`}>
+          ><IconCrown /></span>
+          <span className={`text-lg mt-4 ${achieve ? '' : 'text-gray-500'}`}>
             Consistency
           </span>
         </div>
 
 
         {/* Habit Hacker Badge */}
-        <div className='flex flex-col justify-center items-center'>
-          <Image
-            src="/consistencyKing.png"
-            alt="KingMedal"
-            width={200}
-            height={200}
-            className={achieve
-              ? `shadow-2xl shadow-black rounded-full m-10 `
-              : `text-white shadow-2xl shadow-black rounded-full m-10 grayscale opacity-50`
-            }
-          />
-          <span className={`text-lg mt-4 ${achieve ? 'text-green-400' : 'text-gray-500'} transition-colors duration-500`}>
-            Habit
-          </span>
-        </div>
+        
         {/* Grit */}
-        <div className='flex flex-col justify-center items-center'>
-          <Image
-            src="/consistencyKing.png"
-            alt="KingMedal"
-            width={200}
-            height={200}
-            className={achieve
-              ? `shadow-2xl shadow-black rounded-full m-10 `
-              : `text-white shadow-2xl shadow-black rounded-full m-10 grayscale opacity-50`
-            }
-          />
-          <span className={`text-lg mt-4 ${achieve ? 'text-green-400' : 'text-gray-500'} transition-colors duration-500`}>
-            Grit
-          </span>
-        </div>
+
         {/* SleeperShell */}
-        <div className='flex flex-col justify-center items-center'>
-          <Image
-            src="/consistencyKing.png"
-            alt="KingMedal"
-            width={200}
-            height={200}
-            className={achieve
-              ? `shadow-2xl shadow-black rounded-full m-10 `
-              : `text-white shadow-2xl shadow-black rounded-full m-10 grayscale opacity-50`
-            }
-          />
-          <span className={`text-lg mt-4 ${achieve ? 'text-green-400' : 'text-gray-500'} transition-colors duration-500`}>
-            SleeperShell
-          </span>
-        </div>
+
       </div>
     </>
   )

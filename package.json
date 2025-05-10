@@ -35,7 +35,11 @@
 >>>>>>> 6e90f4d (sidebar/dashboard)
 =======
     "firebase-admin": "^13.3.0",
+<<<<<<< HEAD
 >>>>>>> 26dfe8a (connected frontend and backend)
+=======
+    "firebase-tools": "^14.2.2",
+>>>>>>> 6d1749c (frontend, backend, db works fine, added some methods)
     "framer-motion": "^11.3.24",
     "gsap": "^3.12.7",
     "lucide-react": "^0.487.0",
@@ -49,6 +53,7 @@
 =======
     "react": "^19.1.0",
     "react-apexcharts": "^1.7.0",
+    "react-calendar": "^5.1.0",
     "react-dom": "^19.1.0",
 >>>>>>> f9a163d (added heatmap, sleep graph ui)
     "react-icons": "^5.5.0",

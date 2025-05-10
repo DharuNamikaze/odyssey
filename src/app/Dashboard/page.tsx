@@ -8,9 +8,9 @@ import { getAuth } from "../../../lib/firebase";
 import { IconFidgetSpinner } from '@tabler/icons-react';
 import { LineChart } from '../../../components/charts/LineChart';
 import { LineCustomChart } from '../../../components/charts/LineCustomChart'
-// import { LineChartStep } from "../../../components/charts/LineChartStep";
 
 const Dashboard = () => {
+    const [date, setDate] = useState<Nullable<Date>>(null);
     const [bro, setBro] = useState<User | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
@@ -52,6 +52,7 @@ const Dashboard = () => {
                             <div className="rounded-2xl bg-black p-3 ">Streak 🔥: 1</div>
                             <div className="rounded-2xl bg-black p-3 ">Aura 🌟: 125</div>
                             <div className="rounded-2xl bg-black p-3 ">Level:</div>
+                            
                         </div>
                     </div>
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3 ">
@@ -65,14 +66,13 @@ const Dashboard = () => {
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
                         <LineCustomChart />
                         <span className="flex justify-center">Sleep Hours</span>
+                        
                     </div>
-
                 </div>
+                
             </main>
         </>
     )
 }
 
 export default Dashboard
-
-
