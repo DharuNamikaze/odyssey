@@ -8,6 +8,7 @@ import { getAuth } from "../../../lib/firebase";
 import { IconFidgetSpinner } from '@tabler/icons-react';
 import { LineChart } from '../../../components/charts/LineChart';
 import { LineCustomChart } from '../../../components/charts/LineCustomChart'
+import Levels from '../../../data/levels';
 
 const Dashboard = () => {
     const [date, setDate] = useState<Nullable<Date>>(null);
@@ -51,13 +52,14 @@ const Dashboard = () => {
                         <div className="grid grid-cols-2 gap-5 items-center text-sm">
                             <div className="rounded-2xl bg-black p-3 ">Streak 🔥: 1</div>
                             <div className="rounded-2xl bg-black p-3 ">Aura 🌟: 125</div>
-                            <div className="rounded-2xl bg-black p-3 ">Level:</div>
+                            <div className="rounded-2xl bg-black p-3 ">Level: {Levels[0][0]} </div>
                             
                         </div>
                     </div>
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3 ">
                         <HorizontalBarChart />
-                        <span className="flex justify-center">Habits</span>
+                        <span className="flex justify-center">Habits</span>bun dev
+                        
                     </div>
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
                         <LineChart />

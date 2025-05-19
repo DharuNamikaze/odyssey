@@ -1,7 +1,11 @@
 'use client'
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { IconFidgetSpinner, IconCrown } from '@tabler/icons-react';
+import {
+  IconFidgetSpinner,
+  IconCrown,
+  IconHeart
+} from '@tabler/icons-react';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 
 function Page() {
@@ -37,7 +41,7 @@ function Page() {
 
     <>
       {loading && LoadingModal()}
-      <div className='flex items-center '>
+      <div className='flex items-center gap-10 '>
         <div className='flex flex-col justify-center items-center'>
           <span
             className={achieve
@@ -45,14 +49,73 @@ function Page() {
               : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
             }
           ><IconCrown /></span>
-          <span className={`text-lg mt-4 ${achieve ? '' : 'text-gray-500'}`}>
+          <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
             Consistency
+          </span>
+        </div>
+        <div className='flex flex-col justify-center items-center'>
+          <span
+            className={achieve
+              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+            }
+          ><IconHeart /></span>
+          <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
+            Breaking Bad
+          </span>
+        </div>
+
+        <div className='flex flex-col justify-center items-center'>
+          <span
+            className={achieve
+              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+            }
+          ><IconHeart /></span>
+          <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
+            Breaking Bad
+          </span>
+        </div>
+
+        <div className='flex flex-col justify-center items-center'>
+          <span
+            className={achieve
+              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+            }
+          ><IconHeart /></span>
+          <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
+            Breaking Bad
+          </span>
+        </div>
+
+        <div className='flex flex-col justify-center items-center'>
+          <span
+            className={achieve
+              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+            }
+          ><IconHeart /></span>
+          <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
+            Jack Of All Trades
+          </span>
+        </div>
+
+        <div className='flex flex-col justify-center items-center'>
+          <span
+            className={achieve
+              ? `text-yellow-400 shadow-xl shadow-black rounded-full mt-5 p-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+            }
+          ><IconHeart /></span>
+          <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
+            Habit Hacker
           </span>
         </div>
 
 
         {/* Habit Hacker Badge */}
-        
+
         {/* Grit */}
 
         {/* SleeperShell */}

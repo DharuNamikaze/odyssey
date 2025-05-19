@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { IconEdit, IconFidgetSpinner, IconLogout2, IconLayoutDashboard, IconAward, IconUser, IconCannabis } from '@tabler/icons-react'
+import { IconEdit, IconFidgetSpinner, IconLogout2, IconLayoutDashboard, IconAward, IconUser, IconCannabis, IconBrain } from '@tabler/icons-react'
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { getAuth, signOut } from "../../lib/firebase";
 import { useRouter } from 'next/navigation';
@@ -57,14 +57,16 @@ export function Sidebar() {
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400'>Personal</span>
-                <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] bg-green-900 text-white flex items-center gap-1'>
+                <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-[#3e3e3e]  text-white flex items-center gap-1'>
                     <IconLayoutDashboard className='w-4 h-4 text-indigo-500 ' /> Dashboard </li> </Link>
-                <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] bg-green-900 text-white flex items-center gap-1'>
+                <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
                     <IconAward className='w-4 h-4 text-orange-300 ' />  Achievements</li></Link>
                 <Link href="/Profile"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
                     <IconUser className='w-4 h-4 text-green-500' /> Profile</li></Link>
                 <Link href="/Habits"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
                     <IconCannabis className='w-4 h-4 text-white' />Habits</li> </Link>
+                <Link href="/GritEngine"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
+                    <IconBrain className='w-4 h-4 text-white' />Grit Engine</li> </Link>
 
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
