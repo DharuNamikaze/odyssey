@@ -52,14 +52,13 @@ const Dashboard = () => {
                         <div className="grid grid-cols-2 gap-5 items-center text-sm">
                             <div className="rounded-2xl bg-black p-3 ">Streak 🔥: 1</div>
                             <div className="rounded-2xl bg-black p-3 ">Aura 🌟: 125</div>
-                            <div className="rounded-2xl bg-black p-3 ">Level: {Levels[0][0]} </div>
-                            
+                            <div className="rounded-2xl bg-black p-3 ">Level: {""} {Levels[0][0]} </div>
                         </div>
                     </div>
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3 ">
                         <HorizontalBarChart />
-                        <span className="flex justify-center">Habits</span>bun dev
-                        
+                        <span className="flex justify-center">Habits</span>
+
                     </div>
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
                         <LineChart />
@@ -68,10 +67,8 @@ const Dashboard = () => {
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
                         <LineCustomChart />
                         <span className="flex justify-center">Sleep Hours</span>
-                        
                     </div>
                 </div>
-                
             </main>
         </>
     )

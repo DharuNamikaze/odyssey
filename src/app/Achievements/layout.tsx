@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import Sidebar from '../../../components/ui/Sidebar';
+import Sidebar from '../../../components/ui/sideBar';
 import { NavBar } from '../../../components/ui/NavBar';
 
 export default function Layout({ children }: { children: React.ReactNode }) {

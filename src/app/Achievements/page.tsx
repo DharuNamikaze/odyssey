@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import {
   IconFidgetSpinner,
   IconCrown,
-  IconHeart
+  IconHeart,
+  IconEggCracked,
 } from '@tabler/icons-react';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 
@@ -71,7 +72,7 @@ function Page() {
               ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
               : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
             }
-          ><IconHeart /></span>
+          ><IconEggCracked /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
             Breaking Bad
           </span>
@@ -85,7 +86,7 @@ function Page() {
             }
           ><IconHeart /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
-            Breaking Bad
+            Deadly Sin
           </span>
         </div>
 

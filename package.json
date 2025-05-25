@@ -9,13 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@clerk/clerk-react": "^5.25.6",
     "@clerk/nextjs": "^6.13.0",
-=======
-    "@nivo/bar": "^0.89.1",
-    "@nivo/core": "^0.89.1",
->>>>>>> 3f65c90 (sidebar and navbar style corrected)
     "@radix-ui/react-dialog": "^1.1.7",
     "@tabler/core": "^1.2.0",
     "@tabler/icons-react": "^3.31.0",
@@ -26,20 +21,11 @@
     "apexcharts": "^4.6.0",
     "axios": "^1.9.0",
     "clsx": "^2.1.1",
-<<<<<<< HEAD
-=======
     "d3": "^7.9.0",
     "date-fns": "^4.1.0",
     "firebase": "^11.6.0",
-<<<<<<< HEAD
->>>>>>> 6e90f4d (sidebar/dashboard)
-=======
     "firebase-admin": "^13.3.0",
-<<<<<<< HEAD
->>>>>>> 26dfe8a (connected frontend and backend)
-=======
     "firebase-tools": "^14.2.2",
->>>>>>> 6d1749c (frontend, backend, db works fine, added some methods)
     "framer-motion": "^11.3.24",
     "gsap": "^3.12.7",
     "lucide-react": "^0.487.0",
@@ -47,15 +33,10 @@
     "motion": "^12.9.2",
     "next": "15.2.2",
     "next-auth": "^4.24.11",
-<<<<<<< HEAD
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-=======
     "react": "^19.1.0",
     "react-apexcharts": "^1.7.0",
     "react-calendar": "^5.1.0",
     "react-dom": "^19.1.0",
->>>>>>> f9a163d (added heatmap, sleep graph ui)
     "react-icons": "^5.5.0",
     "scrolltrigger": "^1.0.1",
     "styled-components": "^6.1.17",
