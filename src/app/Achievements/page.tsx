@@ -12,7 +12,7 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 function Page() {
   const [bro, setBro] = useState<User | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  const [achieve, setAchieve] = useState<boolean>(true)
+  const [achieve, setAchieve] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchBro = () => {
@@ -32,17 +32,17 @@ function Page() {
     fetchBro()
   }, [bro])
   const LoadingModal = () => (
-    <div className="fixed h-screen inset-0 bg-black bg-opacity-50 flex items-center justify-center z-100">
-      <div className="p-6 flex items-center justify-center h-screen">
-        <div className='mb-3 flex items-center justify-center h-screen'><IconFidgetSpinner className='loader' /></div>
-      </div>
-    </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="flex items-center justify-center">
+            <IconFidgetSpinner className="loader w-8 h-8 text-white" />
+          </div>
+        </div>
   );
   return (
 
     <>
       {loading && LoadingModal()}
-      <div className='flex items-center gap-10 '>
+      <div className='grid items-center gap-5 overflow-hidden max-md:grid-cols-2 grid-cols-5 '>
         <div className='flex flex-col justify-center items-center'>
           <span
             className={achieve

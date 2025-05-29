@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
-  font-family: poppins;
+  font-family: 'Poppins';
 }
 
 :root {
@@ -44,11 +46,13 @@ body {
 
 .loader {
   color: white;
-  animation: spin infinite 0.8s;
+  animation: spin infinite 0.8s linear;
+  background-color: #0a0a0a;
 }
 
 .load {
-  color: white;
+  color: black;
+  background-color: #0a0a0a;
 }
 
 .greeting {
@@ -90,6 +94,15 @@ body {
   animation: wish;
 }
 
+/* Add the missing spin keyframes */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @keyframes wish {
   0% {
@@ -116,7 +129,6 @@ body {
     transform: translate(-50%, -40%) scale(1);
   }
 }
-
 
 .transition-all {
   transition-property: all;

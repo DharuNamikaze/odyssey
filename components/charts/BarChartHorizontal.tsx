@@ -38,7 +38,7 @@ export function HorizontalBarChart() {
       {/* Chart Area */}
       <div
         className="absolute inset-0
-          z-10
+          z-5
           h-[calc(100%-var(--marginTop)-var(--marginBottom))]
           w-[calc(100%-var(--marginLeft)-var(--marginRight))]
           translate-x-[var(--marginLeft)]

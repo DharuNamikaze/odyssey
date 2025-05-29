@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { IconEdit, IconFidgetSpinner, IconLogout2, IconLayoutDashboard, IconAward, IconUser, IconCannabis, IconBrain } from '@tabler/icons-react'
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { getAuth, signOut } from "../../lib/firebase";
+import { getAuth, signOut } from "../lib/firebase";
 import { useRouter } from 'next/navigation';
 
 export function Sidebar() {
@@ -52,7 +52,7 @@ export function Sidebar() {
             <menu className="cursor-pointer border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400' >Menu</span>
                 <input className='rounded-lg p-1  hover:bg-[#3e3e3e] text-white' placeholder='Search' id="searchBar" type='text' />
-                <Link href="/"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Inbox</li></Link>
+                <Link href="/Inbox"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Inbox</li></Link>
                 <Link href="/"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Odyssey AI</li></Link>
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
@@ -60,13 +60,13 @@ export function Sidebar() {
                 <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-[#3e3e3e]  text-white flex items-center gap-1'>
                     <IconLayoutDashboard className='w-4 h-4 text-indigo-500 ' /> Dashboard </li> </Link>
                 <Link href="/Achievements"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
-                    <IconAward className='w-4 h-4 text-orange-300 ' />  Achievements</li></Link>
+                    <IconAward className='w-4 h-4 text-yellow-300 ' />  Achievements</li></Link>
                 <Link href="/Profile"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
                     <IconUser className='w-4 h-4 text-green-500' /> Profile</li></Link>
                 <Link href="/Habits"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
-                    <IconCannabis className='w-4 h-4 text-white' />Habits</li> </Link>
+                    <IconCannabis className='w-4 h-4 text-red-400' />Habits</li> </Link>
                 <Link href="/GritEngine"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
-                    <IconBrain className='w-4 h-4 text-white' />Grit Engine</li> </Link>
+                    <IconBrain className='w-4 h-4 text-pink-400' />Grit Engine</li> </Link>
 
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">

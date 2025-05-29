@@ -1,8 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import "./globals.css";
+import './globals.css'
 import { User, getAuth, onAuthStateChanged } from "firebase/auth";
-
 export default function RootLayout({
   children,
 }: Readonly<{
