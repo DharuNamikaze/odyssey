@@ -34,10 +34,8 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(false);
 
   const LoadingModal = () => {
-    <div className="fixed h-screen inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="p-6 flex h-screen items-center justify-center">
-        <div className='mb-3 flex h-screen items-center justify-center'><IconFidgetSpinner className='loader' /></div>
-      </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
     </div>
   }
   // const userStateInfo = createContext(null)

@@ -37,8 +37,8 @@ export function Sidebar() {
         fetchBro()
     }, [])
     const LoadingModal = () => (
-        <div className="fixed h-full inset-0 flex items-center justify-center bg-black z-50">
-            <div className='flex h-full items-center justify-center bg-black'><IconFidgetSpinner className='loader' /></div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
         </div>
     );
 

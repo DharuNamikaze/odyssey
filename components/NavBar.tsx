@@ -48,7 +48,7 @@ export const NavBar = () => {
     }
     return (
         <>
-            <div className='flex bg-black shadow-2xl shadow-black rounded-full p-4 h-[7vh] w-full items-center gap-10 z-50 '>
+            <div className='flex bg-black shadow-2xl shadow-black rounded-full p-4 h-[7vh] w-full items-center gap-10 z-10 '>
                 <span className="text-lg "> {greeting()}</span>
                 <span className='flex justify-start flex-row-reverse flex-1 gap-4 text-sm'>
                     <Image className='hover:bg-[#688069] cursor-pointer rounded-full z-50' src={avatar || '/consistencyKing.png'} width={35} height={0} alt="DisplayPicture" ></Image > 

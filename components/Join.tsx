@@ -62,10 +62,8 @@ export function SparklesPreview() {
   }
 
   const LoadingModal = () => (
-    <div className="fixed h-screen inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="p-6 flex items-center justify-center h-screen">
-        <div className='mb-3 flex items-center justify-center h-screen'><IconFidgetSpinner className='loader bg-black' /></div>
-      </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
     </div>
   );
 
