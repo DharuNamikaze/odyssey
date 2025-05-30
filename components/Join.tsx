@@ -141,7 +141,7 @@ export function SparklesPreview() {
           particleColor="#FFFFFF"
         />
         <button onClick={handleIn}
-          className='flex justify-center text-center mx-auto text-[1em] font-medium bg-white text-black px-4.5 py-2.5 rounded-lg hover:cursor-pointer hover:bg-gray-300'>
+          className='flex justify-center text-center mx-auto text-[1em] font-medium bg-white text-black px-5 py-2.5 rounded-lg hover:cursor-pointer hover:bg-gray-300'>
           Join Now
         </button>
         <motion.div
