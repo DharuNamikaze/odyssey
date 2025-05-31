@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import '../globals.css'
+import DonutChartCenterText from '../../../components/charts/DonutChartCenterText'
+import BarChartHorizontalLogo from '../../../components/charts/BarChartHorizontalLogo'
 import { HorizontalBarChart } from "../../../components/charts/BarChartHorizontal";
 import { User, onAuthStateChanged } from 'firebase/auth'
 import { getAuth } from "../../../lib/firebase";
@@ -42,7 +44,7 @@ const Dashboard = () => {
     return (
         <>
             <main className="flex flex-col gap-10 overflow-hidden ">
-                <div className="grid grid-cols-1 gap-6 z-4">
+                <div className="grid grid-cols-1 gap-6 z-4 mb-10">
                     <h6 className="text-xl mt-5">Summary</h6>
                     <div className="flex gap-6 z-5 p-4 rounded-2xl bg-[var(--bggray)] items-center ">
                         <div className="max-md:grid max-md:grid-cols-1 flex gap-5 items-center text-sm">
@@ -51,19 +53,29 @@ const Dashboard = () => {
                             <div className="rounded-2xl bg-black p-3 flex flex-col text-base gap-3">Level <span className="text-xl">{Levels[0][0]}</span> </div>
                         </div>
                     </div>
-                    <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3 ">
-                        <HorizontalBarChart />
-                        <span className="flex justify-center">Habits</span>
 
+                    <div className="p-8 rounded-2xl bg-[var(--bggray)] grid max-md:grid-cols-1 grid-cols-2 flex-1 space-y-2" >
+                        <div className="space-y-9"><DonutChartCenterText /> <span className="flex justify-center">Habits</span></div>
+                        <div><HorizontalBarChart /></div>
+                        
+                        {/* <span className="flex justify-center">Habits</span> */}
                     </div>
+
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
                         <LineChart />
                         <span className="flex justify-center">Sleep Hours</span>
                     </div>
+
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3" >
                         <LineCustomChart />
                         <span className="flex justify-center">Emotion Timeline</span>
                     </div>
+
+                    <div className="p-8 rounded-2xl bg-[var(--bggray)] flex flex-col space-y-3 " >
+                        <BarChartHorizontalLogo />
+                        <span className="flex justify-center">Valued Emotion</span>
+                    </div>
+
                 </div>
             </main>
         </>

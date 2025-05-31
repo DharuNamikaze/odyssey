@@ -16,10 +16,6 @@
 # next.js
 /.next/
 /out/
-/lib/firebase.ts
-/lib/firebaseAdmin.ts
-
-# apis
 
 # production
 /build
