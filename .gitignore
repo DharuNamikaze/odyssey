@@ -20,8 +20,6 @@
 /lib/firebaseAdmin.ts
 
 # apis
-# /lib/firebase.ts
-# /lib/firebaseAdmin.ts // done this previously, pls dont care about these puny lines
 
 # production
 /build
