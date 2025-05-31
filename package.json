@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
     "firebase": "^11.8.1",
+    "firebase-admin": "^13.4.0",
     "framer-motion": "^11.3.24",
     "matter-js": "^0.20.0",
     "motion": "^12.15.0",

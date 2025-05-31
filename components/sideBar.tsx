@@ -81,7 +81,7 @@ export function Sidebar() {
             </menu>
             <Link href="/" className='flex gap-5 p-2 cursor-pointer hover:bg-[#3e3e3e] rounded-lg items-center' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
 
-        </nav>
+        </nav>  
     )
 }
 export default Sidebar;
