@@ -1,10 +1,9 @@
 'use client';
-
 import { useState, useEffect } from 'react';
-import { Page } from './types';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../../lib/firebase';
 import { useRouter } from 'next/navigation';
+import { Page } from './types';
+import { auth } from '../../../lib/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function Pages() {
   const [pages, setPages] = useState<Page[]>([]);
@@ -44,6 +43,10 @@ export default function Pages() {
   const createNewPage = async () => {
     try {
       const token = await auth.currentUser?.getIdToken();
+      if (!token) {
+        throw new Error('Not authenticated');
+      }
+
       const response = await fetch('/api/pages', {
         method: 'POST',
         headers: {
@@ -56,10 +59,21 @@ export default function Pages() {
           isPublic: false
         })
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create page');
+      }
+
       const data = await response.json();
-      router.push(`/Pages/${data.page.id}`);
+      if (data.page && data.page.id) {
+        router.push(`/Pages/${data.page.id}`);
+      } else {
+        throw new Error('Invalid response format');
+      }
     } catch (error) {
       console.error('Error creating page:', error);
+      // You might want to show this error to the user through a toast or alert
     }
   };
 

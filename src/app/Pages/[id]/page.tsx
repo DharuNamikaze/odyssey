@@ -12,6 +12,7 @@ export default function PageEditor({ params }: { params: { id: string } }) {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,6 +30,10 @@ export default function PageEditor({ params }: { params: { id: string } }) {
   const fetchPage = async (pageId: string) => {
     try {
       const token = await auth.currentUser?.getIdToken();
+      if (!token) {
+        throw new Error('Not authenticated');
+      }
+
       const response = await fetch(`/api/pages/${pageId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -36,15 +41,22 @@ export default function PageEditor({ params }: { params: { id: string } }) {
       });
       
       if (!response.ok) {
-        throw new Error('Page not found');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to fetch page');
       }
 
       const data = await response.json();
+      if (!data.page) {
+        throw new Error('Page not found');
+      }
+
       setPage(data.page);
       setTitle(data.page.title);
       setContent(data.page.content);
+      setError(null);
     } catch (error) {
       console.error('Error fetching page:', error);
+      setError(error instanceof Error ? error.message : 'An error occurred');
       router.push('/Pages');
     } finally {
       setLoading(false);
@@ -55,9 +67,15 @@ export default function PageEditor({ params }: { params: { id: string } }) {
     if (!page) return;
     
     setSaving(true);
+    setError(null);
+
     try {
       const token = await auth.currentUser?.getIdToken();
-      await fetch(`/api/pages`, {
+      if (!token) {
+        throw new Error('Not authenticated');
+      }
+
+      const response = await fetch(`/api/pages`, {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -69,8 +87,16 @@ export default function PageEditor({ params }: { params: { id: string } }) {
           content
         })
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save page');
+      }
+
+      // Optional: Show success message
     } catch (error) {
       console.error('Error saving page:', error);
+      setError(error instanceof Error ? error.message : 'Failed to save page');
     } finally {
       setSaving(false);
     }
@@ -92,6 +118,12 @@ export default function PageEditor({ params }: { params: { id: string } }) {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+          {error}
+        </div>
+      )}
+
       <div className="mb-8 space-y-4">
         <input
           type="text"

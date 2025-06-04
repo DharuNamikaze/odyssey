@@ -27,17 +27,20 @@ export async function POST(req: NextRequest) {
     const uid = await verifyFirebaseToken(req);
     const body = await req.json();
 
-    const newPage: Omit<Page, 'id'> = {
+    // Create a new page object with only defined values
+    const newPage: Partial<Omit<Page, 'id'>> = {
       title: body.title || 'Untitled',
       content: body.content || '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       userId: uid,
-      isPublic: body.isPublic || false,
-      parentId: body.parentId,
-      icon: body.icon,
-      coverImage: body.coverImage
+      isPublic: body.isPublic ?? false
     };
+
+    // Only add optional fields if they are defined
+    if (body.parentId) newPage.parentId = body.parentId;
+    if (body.icon) newPage.icon = body.icon;
+    if (body.coverImage) newPage.coverImage = body.coverImage;
 
     const docRef = await admin.firestore().collection('pages').add(newPage);
     const page = { id: docRef.id, ...newPage };
@@ -70,8 +73,16 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
+    // Only update defined fields
+    const cleanedUpdateData: Record<string, any> = {};
+    Object.entries(updateData).forEach(([key, value]) => {
+      if (value !== undefined) {
+        cleanedUpdateData[key] = value;
+      }
+    });
+
     await pageRef.update({
-      ...updateData,
+      ...cleanedUpdateData,
       updatedAt: new Date().toISOString()
     });
 
