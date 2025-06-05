@@ -10,7 +10,7 @@ import { IconFidgetSpinner } from '@tabler/icons-react';
 import { LineChart } from '../../../components/charts/LineChart';
 import { LineCustomChart } from '../../../components/charts/LineCustomChart'
 import Levels from '../../../data/levels';
-
+    
 const Dashboard = () => {
     const [date, setDate] = useState<Nullable<Date>>(null);
     const [bro, setBro] = useState<User | null>(null)
