@@ -56,7 +56,6 @@ export default function Pages() {
         body: JSON.stringify({
           title: 'Untitled',
           content: '',
-          isPublic: false
         })
       });
 

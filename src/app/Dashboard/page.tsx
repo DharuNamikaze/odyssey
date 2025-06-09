@@ -48,9 +48,9 @@ const Dashboard = () => {
                     <h6 className="text-xl mt-5">Summary</h6>
                     <div className="flex gap-6 z-5 p-4 rounded-2xl bg-[var(--bggray)] items-center ">
                         <div className="max-md:grid max-md:grid-cols-1 flex gap-5 items-center text-sm">
-                            <div className="rounded-2xl bg-black p-3 flex flex-col text-base gap-3">Streak <span className="text-xl">1🔥</span></div>
-                            <div className="rounded-2xl bg-black p-3 flex flex-col text-base gap-3">Aura <span className="text-xl">1223🌟</span></div>
-                            <div className="rounded-2xl bg-black p-3 flex flex-col text-base gap-3">Level <span className="text-xl">{Levels[0][0]}</span> </div>
+                            <div className="rounded-2xl bg-black p-2 flex flex-col text-base gap-1">Streak <span className="text-xl">1🔥</span></div>
+                            <div className="rounded-2xl bg-black p-2 flex flex-col text-base gap-1">Aura <span className="text-xl">1223🌟</span></div>
+                            <div className="rounded-2xl bg-black p-2 flex flex-col text-base gap-1">Level <span className="text-xl">{Levels[0][0]}</span> </div>
                         </div>
                     </div>
 

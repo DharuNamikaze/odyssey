@@ -12,7 +12,7 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 function Page() {
   const [bro, setBro] = useState<User | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  const [achieve, setAchieve] = useState<boolean>(false)
+  const [achieve, setAchieve] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchBro = () => {
@@ -43,8 +43,9 @@ function Page() {
     <>
       {loading && LoadingModal()}
       <div className='grid items-center gap-5 overflow-hidden max-md:grid-cols-2 grid-cols-5 '>
-        <div className='flex flex-col justify-center items-center'>
-          <span
+        
+        <div className='flex flex-col justify-center items-center' >
+          <span on
             className={achieve
               ? `text-indigo-400 shadow-xl shadow-black rounded-full mt-5 p-5`
               : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
@@ -54,6 +55,7 @@ function Page() {
             Consistency
           </span>
         </div>
+
         <div className='flex flex-col justify-center items-center'>
           <span
             className={achieve

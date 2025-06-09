@@ -13,7 +13,7 @@ export function SparklesPreview() {
   const provider = new GoogleAuthProvider();
 
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {

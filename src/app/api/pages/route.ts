@@ -34,7 +34,6 @@ export async function POST(req: NextRequest) {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       userId: uid,
-      isPublic: body.isPublic ?? false
     };
 
     // Only add optional fields if they are defined

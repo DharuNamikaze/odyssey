@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 
     const pageData = doc.data();
-    if (pageData?.userId !== uid && !pageData?.isPublic) {
+    if (pageData?.userId !== uid) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 

@@ -5,7 +5,6 @@ export interface Page {
   createdAt: string;
   updatedAt: string;
   userId: string;
-  isPublic: boolean;
   parentId?: string; // For nested pages
   icon?: string;
   coverImage?: string;
