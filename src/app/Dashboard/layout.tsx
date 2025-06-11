@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../../../components/Sidebar';
+import Sidebar from '../../../components/sideBar';
 import { NavBar } from '../../../components/NavBar';
 import '../globals.css';
 import CreateButton from '../../../components/CreateButton';

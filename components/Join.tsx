@@ -35,6 +35,7 @@ export function SparklesPreview() {
       const user = res.user;
 
       const userPayload = {
+        Aura: 0,
         Badges: [],
         CreatedAt: new Date().toDateString(),
         Email: user.email,
@@ -44,7 +45,6 @@ export function SparklesPreview() {
         Name: user.displayName,
         RecentLogin: new Date().toDateString(),
         Uid: user.uid,
-        Aura: 0,
       };
       console.log(userPayload.Uid, "uid")
       console.log('User Payload:', userPayload);
@@ -52,9 +52,10 @@ export function SparklesPreview() {
       await axios.post('/api/user', userPayload)
 
       console.log('Axios working perfectly')
+      console.log('checokout 1')
       console.log(userPayload.Uid)
-
-      router.push(`/Dashboard`)
+      console.log('checkput 2')
+      // router.push(`/Dashboard`)
     } catch (error) {
       console.log("Error sign-in err coming from join btn:", error)
     }

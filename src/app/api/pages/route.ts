@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     // Create a new page object with only defined values
     const newPage: Partial<Omit<Page, 'id'>> = {
-      title: body.title || 'Untitled',
+      title: body.title || '',
       content: body.content || '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

@@ -2,10 +2,13 @@
 import { useRouter } from 'next/router';
 import { usePage } from '../context/PageContext';
 import { NextRequest } from 'next/server';
-import { Page } from '../';
-import React, { useState, useEffect , } from 'react'
+import { Page } from '../src/app/Pages/types';
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useState, useEffect, } from 'react'
+import { auth } from '../lib/firebase';
 
-const FetchPages = (req: NextRequest) => {
+export default function FetchPages(req: NextRequest) {
+
     const [pages, setPages] = useState<Page[]>([]);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
@@ -57,7 +60,7 @@ const FetchPages = (req: NextRequest) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    title: 'Untitled',
+                    title: '',
                     content: '',
                 })
             });
@@ -81,4 +84,3 @@ const FetchPages = (req: NextRequest) => {
         }
     };
 }
-export default FetchPages;

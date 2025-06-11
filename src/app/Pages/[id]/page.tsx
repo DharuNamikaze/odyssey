@@ -39,7 +39,7 @@ export default function PageEditor({ params }: { params: { id: string } }) {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to fetch page');
@@ -65,7 +65,7 @@ export default function PageEditor({ params }: { params: { id: string } }) {
 
   const savePage = async () => {
     if (!page) return;
-    
+
     setSaving(true);
     setError(null);
 
@@ -124,37 +124,35 @@ export default function PageEditor({ params }: { params: { id: string } }) {
         </div>
       )}
 
-      <div className="mb-8 space-y-4">
-        <input
-          type="text"
-          value={title}
-          onChange={handleTitleChange}
-          className="w-full text-4xl font-bold bg-transparent border-none focus:outline-none"
-          placeholder="Untitled"
-        />
-        
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => router.push('/Pages')}
-            className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            Back
-          </button>
-          <button
-            onClick={savePage}
-            disabled={saving}
-            className={`px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors ${saving ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            {saving ? 'Saving...' : 'Save'}
-          </button>
+      <div className="flex flex-row items-center gap-4 justify-center">
+        <div className="mb-8 space-y-4">
+          <input
+            type="text"
+            value={title}
+            onChange={handleTitleChange}
+            className="w-full text-4xl font-bold bg-transparent border-none focus:outline-none "
+            placeholder="Page Title"
+          />
         </div>
+        <button
+          onClick={() => router.push('/Pages')}
+          className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          Back
+        </button>
+        <button
+          onClick={savePage}
+          disabled={saving}
+          className={`px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors ${saving ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          {saving ? 'Saving...' : 'Save'}
+        </button>
       </div>
-
-      <div className="prose max-w-none">
+      <div className="prose max-w-none mx-auto flex ">
         <textarea
           value={content}
           onChange={handleContentChange}
-          className="w-full min-h-[500px] bg-transparent border-none focus:outline-none resize-none"
+          className="flex justify-center w-full min-h-[500px] bg-transparent border-none focus:outline-none resize-none"
           placeholder="Start writing..."
         />
       </div>
