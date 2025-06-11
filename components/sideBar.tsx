@@ -1,13 +1,17 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { IconEdit, IconFidgetSpinner, IconLogout2, IconLayoutDashboard, IconAward, IconUser, IconCannabis, IconBrain } from '@tabler/icons-react'
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { getAuth, signOut } from "../lib/firebase";
 import { useRouter } from 'next/navigation';
-
+import { usePage } from '../context/PageContext'
+import { Page } from '../src/app/Pages/types';
+import { div } from 'three/src/nodes/TSL.js';
 export function Sidebar() {
-    const [bro, setBro] = useState<User | null>(null)
+
+    const { page } = usePage();
+    const [bro, setBro] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true)
     const router = useRouter();
 
@@ -67,7 +71,6 @@ export function Sidebar() {
                     <IconCannabis className='w-4 h-4 text-red-400' />Habits</li> </Link>
                 <Link href="/GritEngine"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
                     <IconBrain className='w-4 h-4 text-pink-400' />Grit Engine</li> </Link>
-
             </menu>
             <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400'>Favorites</span>
@@ -75,13 +78,26 @@ export function Sidebar() {
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
             <menu className="border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-4">
-                <span className='cursor-pointer text-blue-400'>Private</span>
+                <div className='cursor-pointer text-blue-400'>
+                    <span>Private</span>
+                    <div className='z-50 text-white w-full  h-6 rounded-lg' >
+                        {page && page.length > 0 ? (
+                            page.map((i: Page) => (
+                                <div key={i.id} className="text-sm bg-[#2e2e2f] p-1 rounded">
+                                    {i.title}
+                                </div>
+                            ))
+                        ) : (
+                            <span className="text-gray-500">No pages yet</span>
+                        )}
+                    </div>
+                </div>
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
             <Link href="/" className='flex gap-5 p-2 cursor-pointer hover:bg-[#3e3e3e] rounded-lg items-center' onClick={handleSignOut}><IconLogout2 /> Logout </Link>
 
-        </nav>  
+        </nav>
     )
 }
-export default Sidebar;
+export default React.memo(Sidebar);

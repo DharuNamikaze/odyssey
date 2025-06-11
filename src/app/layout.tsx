@@ -1,6 +1,7 @@
 import React from "react";
 import './globals.css'
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
+import CreateButton from '../../components/CreateButton'
+import { PageProvider } from '../../context/PageContext';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,12 +34,14 @@ export default function RootLayout({
       </head>
       <body>
         {/* {!bro && } */}
-        {children}
-        <div className="flex items-center justify-center w-full ">
+        <PageProvider>
+          {children}
+        </PageProvider>
+        {/* <div className="flex items-center justify-center w-full ">
           {/* <div className='absolute inset-70 inset-ring-amber-600 inset-ring border-1 z-50 flex justify-between px-5 py-5 bg-amber-100 text-black rounded-4xl '>Search
             <span>❌</span>
-          </div> */}
-        </div>
+          </div>
+        </div> */}
       </body>
     </html >
   );

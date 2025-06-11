@@ -1,7 +1,8 @@
 import React from 'react';
-import Sidebar from '../../../components/sideBar';
+import Sidebar from '../../../components/Sidebar';
 import { NavBar } from '../../../components/NavBar';
 import '../globals.css';
+import CreateButton from '../../../components/CreateButton';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -17,6 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <NavBar />
                 </div>
                 <div className="mt-16 pr-4 ">
+                    <CreateButton/>
                     {children}
                 </div>
             </div>

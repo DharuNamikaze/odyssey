@@ -10,6 +10,7 @@ export interface Page {
   coverImage?: string;
 }
 
+
 export interface Block {
   id: string;
   type: 'text' | 'heading' | 'image' | 'code' | 'bullet' | 'numbered' | 'toggle' | 'quote';

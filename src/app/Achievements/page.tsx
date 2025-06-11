@@ -45,7 +45,7 @@ function Page() {
       <div className='grid items-center gap-5 overflow-hidden max-md:grid-cols-2 grid-cols-5 '>
         
         <div className='flex flex-col justify-center items-center' >
-          <span on
+          <span
             className={achieve
               ? `text-indigo-400 shadow-xl shadow-black rounded-full mt-5 p-5`
               : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`

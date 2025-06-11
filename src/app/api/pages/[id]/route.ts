@@ -4,7 +4,7 @@ import { admin } from '../../../../../lib/firebaseAdmin';
 
 // Get a specific page
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  try {
+  try { 
     const uid = await verifyFirebaseToken(req);
     const pageRef = admin.firestore().collection('pages').doc(params.id);
     const doc = await pageRef.get();
@@ -12,6 +12,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     if (!doc.exists) {
       return NextResponse.json({ error: 'Page not found' }, { status: 404 });
     }
+    console.log(doc.readTime)
 
     const pageData = doc.data();
     if (pageData?.userId !== uid) {

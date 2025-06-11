@@ -27,7 +27,6 @@ export function SparklesPreview() {
     });
 
     return () => unsubscribe();
-
   }, [router])
 
   const handleIn = async () => {
