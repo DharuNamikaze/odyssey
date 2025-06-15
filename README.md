@@ -17,6 +17,31 @@ Gamified productivity (Atomic habits, Kaizen, Flow theory)
 
 It adapts to you — not the other way around.
 
+
+## ✨ Upcoming Features
+
+##### 🪙 Coin Shop to redeem perks
+
+##### 🧬 AI-generated personalized challenges
+
+##### 🌐 Public leaderboard with anonymous stats
+
+##### ⏳ Pomodoro + Focus Timer
+
+##### 📖 Life journal with streak & mood memory
+
+##### 📅 Calendar integrations
+
+
+## Introduction
+
+Odyssey is a prodcutive all-in-one web app which helps you to visualize your real life scoreboard
+
+### Metrics in build
+
+#### Summary Table
+![](odysseyEvalOne.png)
+
 First, run the development server:
 
 ```bash
@@ -33,22 +58,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## ✨ Upcoming Features
-
-
-##### 🪙 Coin Shop to redeem perks
-
-##### 🧬 AI-generated personalized challenges
-
-##### 🌐 Public leaderboard with anonymous stats
-
-##### ⏳ Pomodoro + Focus Timer
-
-##### 📖 Life journal with streak & mood memory
-
-##### 📅 Calendar integrations
-
-
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -58,11 +67,3 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Introduction
-
-Odyssey is a prodcutive all-in-one web app which helps you to visualize your real life scoreboard
-
-### Metrics in build
-
-#### Summary Table
-![](odysseyEvalOne.png)

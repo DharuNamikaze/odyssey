@@ -86,17 +86,6 @@ export default function Pages() {
     }
   };
 
-  useEffect(() => {
-    const handelSelectClick = () => {
-      setClick(prev => !click)
-    }
-    window.addEventListener(`click`, handelSelectClick);
-
-    return () => {
-      window.addEventListener(`click`, handelSelectClick);
-    }
-  }, [selectedPages])
-
   const deletePage = async () => {
     setClick(prev => !click)
     if (selectedPages.length === 0) return;
@@ -159,20 +148,9 @@ export default function Pages() {
         {page && page.map((p: Page) => (
           <div
             key={p.id}
-            className="p-6 border rounded-lg hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center"
+            className="p-6 border rounded-lg hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center "
           >
-            {click && <input
-              type="checkbox"
-              checked={selectedPages.includes(p.id)}
-              onChange={() => {
-                setSelectedPages(prev =>
-                  prev.includes(p.id)
-                    ? prev.filter(id => id !== p.id)
-                    : [...prev, p.id]
-                );
-              }}
-              className="mr-2"
-            />}
+
             <div
               onClick={() => router.push(`/Pages/${p.id}`)}
               className="flex-1 cursor-pointer"
@@ -185,6 +163,18 @@ export default function Pages() {
                 Last updated: {new Date(p.updatedAt).toLocaleDateString()}
               </p>
             </div>
+            {click && <input
+              type="checkbox"
+              checked={selectedPages.includes(p.id)}
+              onChange={() => {
+                setSelectedPages(prev =>
+                  prev.includes(p.id)
+                    ? prev.filter(id => id !== p.id)
+                    : [...prev, p.id]
+                );
+              }}
+              className="mr-2 flex justify-end w-6 h-6 rounded-full p-0"
+            />}
           </div>
         ))}
       </div>

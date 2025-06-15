@@ -197,6 +197,7 @@ export default function PageEditor({ params }: ParamsProps) {
           >
             <IconChevronLeft />
           </button>
+          
           <button
             onClick={savePage}
             disabled={saving || !page}
