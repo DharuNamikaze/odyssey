@@ -1,7 +1,7 @@
 // app/api/user/route.ts (for PATCH request)
 import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../lib/middleware';
-import { admin } from '../../../lib/firebaseAdmin';
+import { adminn } from '../../../lib/firebaseAdmin';
 
 // PATCH METHOD !!!!!!!!!!!!!!
 
@@ -27,7 +27,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: 'No valid fields provided' }, { status: 400 });
     }
 
-    const userRef = admin.firestore().collection('users').doc(uid);
+    const userRef = adminn.firestore().collection('users').doc(uid);
     await userRef.update(updateData);
 
     return NextResponse.json({ message: 'User data updated successfully' });
