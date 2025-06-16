@@ -1,5 +1,5 @@
 import React from "react";
-import './globals.css'
+import '../globals.css'
 import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 export default function RootLayout({
   children,
