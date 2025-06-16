@@ -5,8 +5,7 @@ import DonutChartCenterText from '../../../components/charts/DonutChartCenterTex
 import BarChartHorizontalLogo from '../../../components/charts/BarChartHorizontalLogo'
 import { HorizontalBarChart } from "../../../components/charts/BarChartHorizontal";
 import { User, onAuthStateChanged } from 'firebase/auth'
-import { getAuth } from "../../../lib/firebase";
-import { IconFidgetSpinner } from '@tabler/icons-react';
+import { getAuth } from '../../../lib/firebase';
 import { LineChart } from '../../../components/charts/LineChart';
 import { LineCustomChart } from '../../../components/charts/LineCustomChart'
 import Levels from '../../../data/levels';

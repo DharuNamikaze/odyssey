@@ -1,9 +1,9 @@
 'use client'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { IconEdit, IconNotes, IconFidgetSpinner, IconLogout2, IconLayoutDashboard, IconAward, IconUser, IconCannabis, IconBrain } from '@tabler/icons-react'
+import { IconEdit, IconNotes, IconFidgetSpinner, IconLayoutDashboard, IconAward, IconUser, IconCannabis, IconBrain } from '@tabler/icons-react'
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { getAuth, signOut } from "../lib/firebase";
+import { getAuth, signOut } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
 import { usePage } from '../context/PageContext'
 import { Page } from '../src/app/Pages/types';

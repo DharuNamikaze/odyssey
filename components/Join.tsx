@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { SparklesCore } from "../components/ui/Sparkles";
 import { IconFidgetSpinner } from "@tabler/icons-react"
 import { IconBulb, IconBoltFilled, IconAward, IconBellRinging, IconBrain, IconSend } from '@tabler/icons-react';
-import { auth, signInWithPopup, } from "../lib/firebase";
+import { auth, signInWithPopup, } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, User, GoogleAuthProvider } from "firebase/auth";
 import axios from 'axios';

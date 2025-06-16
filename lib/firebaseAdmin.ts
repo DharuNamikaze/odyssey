@@ -17,5 +17,6 @@ const app = !getApps().length ? initializeApp({
 
 const db = getFirestore(app)
 const auth = getAuth(app)
+const adminn = admin;
 
-export {auth, db, admin};
+export {auth, db, adminn};
