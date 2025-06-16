@@ -7,7 +7,7 @@ import { getAuth, signOut } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
 import { usePage } from '../context/PageContext'
 import { Page } from '../src/app/Pages/types';
-export function Sidebar() {
+export function SideBar() {
 
     const { page, setPage } = usePage();
     const [bro, setBro] = useState<User | null>(null);
@@ -118,4 +118,4 @@ export function Sidebar() {
         </nav>
     )
 }
-export default React.memo(Sidebar);
+export default React.memo(SideBar);

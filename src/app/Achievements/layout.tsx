@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sidebar } from '@/components/Sidebar';
+import { SideBar } from '@/components/SideBar';
 import { NavBar } from '../../../components/NavBar';
 import '../globals.css'
 
@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="min-h-screen flex bg-[#1f1f1f]">
             {/* Sidebar */}
             <div className="fixed top-0 left-0 h-screen w-64 bg-[#1f1f1f] p-2">
-                <Sidebar />
+                <SideBar />
             </div>
 
             {/* Main Content */}

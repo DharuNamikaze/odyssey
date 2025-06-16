@@ -1,6 +1,5 @@
 import React from "react";
 import './globals.css'
-import CreateButton from '../../components/CreateButton'
 import { PageProvider } from '../../context/PageContext';
 export default function RootLayout({
   children,

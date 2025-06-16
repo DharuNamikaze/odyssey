@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import { Sidebar } from '@/components/Sidebar';
+import { SideBar } from '@/components/SideBar';
 import { NavBar } from '../../../components/NavBar';
 import '../globals.css';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    const MemoisedSidebar = useMemo(() => <Sidebar />, [])
+    const MemoisedSidebar = useMemo(() => <SideBar />, [])
     const MemoisedNavbar = useMemo(() => <NavBar />, [])
     return (
         <div className="min-h-screen flex bg-[#1f1f1f]">
