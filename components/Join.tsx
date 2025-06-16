@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { SparklesCore } from "../components/ui/Sparkles";
 import { IconFidgetSpinner } from "@tabler/icons-react"
 import { IconBulb, IconBoltFilled, IconAward, IconBellRinging, IconBrain, IconSend } from '@tabler/icons-react';
-import { auth, signInWithPopup, } from "../lib/firebase";
+import { auth, signInWithPopup, } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, User, GoogleAuthProvider } from "firebase/auth";
 import axios from 'axios';
@@ -13,7 +13,7 @@ export function SparklesPreview() {
   const provider = new GoogleAuthProvider();
 
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -27,7 +27,6 @@ export function SparklesPreview() {
     });
 
     return () => unsubscribe();
-
   }, [router])
 
   const handleIn = async () => {
@@ -36,6 +35,7 @@ export function SparklesPreview() {
       const user = res.user;
 
       const userPayload = {
+        Aura: 0,
         Badges: [],
         CreatedAt: new Date().toDateString(),
         Email: user.email,
@@ -45,7 +45,6 @@ export function SparklesPreview() {
         Name: user.displayName,
         RecentLogin: new Date().toDateString(),
         Uid: user.uid,
-        Aura: 0,
       };
       console.log(userPayload.Uid, "uid")
       console.log('User Payload:', userPayload);
@@ -53,9 +52,10 @@ export function SparklesPreview() {
       await axios.post('/api/user', userPayload)
 
       console.log('Axios working perfectly')
+      console.log('checokout 1')
       console.log(userPayload.Uid)
-
-      router.push(`/Dashboard`)
+      console.log('checkput 2')
+      // router.push(`/Dashboard`)
     } catch (error) {
       console.log("Error sign-in err coming from join btn:", error)
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
 const Footer = () => {
   return (
     <section className='h-[17rem] bg-black border-t-1 border-t-gray-600 flex max-sm:flex-col-reverse max-sm:justify-center max-sm:items-center'>

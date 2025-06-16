@@ -1,5 +1,5 @@
 // lib/authMiddleware.ts
-import { admin } from './firebaseAdmin';
+import { adminn } from '../lib/firebaseAdmin';
 import { NextRequest } from 'next/server';
 
 export const verifyFirebaseToken = async (req: NextRequest) => {
@@ -11,7 +11,7 @@ export const verifyFirebaseToken = async (req: NextRequest) => {
   const idToken = authHeader.split('Bearer ')[1];
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const decodedToken = await adminn.auth().verifyIdToken(idToken);
     return decodedToken.uid;
   } catch (error) {
     throw new Error('Unauthorized: Invalid token');

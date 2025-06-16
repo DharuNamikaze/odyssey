@@ -16,12 +16,6 @@
 # next.js
 /.next/
 /out/
-/lib/firebase.ts
-/lib/firebaseAdmin.ts
-
-# apis
-/lib/firebase.ts
-/lib/firebaseAdmin.ts
 
 # production
 /build
@@ -39,6 +33,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 .env.local
+*.env.local
 
 # vercel
 .vercel
