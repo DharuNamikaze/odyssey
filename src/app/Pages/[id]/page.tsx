@@ -117,45 +117,48 @@ export default function PageEditor({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      {error && (
-        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-          {error}
+    <div className="min-h-screen">
+      <div className="max-w-3xl mx-auto px-6 py-12">
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+            {error}
+          </div>
+        )}
+        <div className="flex justify-end gap-3 mb-8 ">
+          <button
+            onClick={() => router.push('/Pages')}
+            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+          >
+            Back
+          </button>
+          <button
+            onClick={savePage}
+            disabled={saving}
+            className={`px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors ${saving ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            {saving ? 'Saving...' : 'Save'}
+          </button>
         </div>
-      )}
 
-      <div className="flex flex-row items-center gap-4 justify-center">
-        <div className="mb-8 space-y-4">
+        <div className="mb-6">
           <input
             type="text"
             value={title}
             onChange={handleTitleChange}
-            className="w-full text-4xl font-bold bg-transparent border-none focus:outline-none "
-            placeholder="Page Title"
+            className="w-full text-5xl font-bold text-gray-100 bg-transparent border-none focus:outline-none placeholder-gray-400"
+            placeholder="Untitled"
           />
         </div>
-        <button
-          onClick={() => router.push('/Pages')}
-          className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-        >
-          Back
-        </button>
-        <button
-          onClick={savePage}
-          disabled={saving}
-          className={`px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors ${saving ? 'opacity-50 cursor-not-allowed' : ''}`}
-        >
-          {saving ? 'Saving...' : 'Save'}
-        </button>
+
+        {/* Content */}
+        <div>
+          <textarea
+            value={content}
+            onChange={handleContentChange}
+            className="w-full min-h-[600px] text-lg leading-relaxed text-white bg-transparent border-none focus:outline-none resize-none placeholder-gray-400"
+            placeholder="Start writing..."
+          />
+        </div>
       </div>
-      <div className="prose max-w-none mx-auto flex ">
-        <textarea
-          value={content}
-          onChange={handleContentChange}
-          className="flex justify-center w-full min-h-[500px] bg-transparent border-none focus:outline-none resize-none"
-          placeholder="Start writing..."
-        />
-      </div>
-    </div>
-  );
+    </div>);
 }
