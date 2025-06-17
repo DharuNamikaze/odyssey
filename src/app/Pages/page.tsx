@@ -101,7 +101,7 @@ export default function Pages() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {pages.map((page) => (
+        {pages.map((page:Page) => (
           <div
             key={page.id}
             onClick={() => router.push(`/Pages/${page.id}`)}

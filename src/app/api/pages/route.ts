@@ -1,13 +1,13 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../../lib/middleware';
-import { admin } from '../../../../lib/firebaseAdmin';
+import { adminn } from '../../../../lib/firebaseAdmin';
 import { Page } from '../../Pages/types';
 
 // GET all pages for a user
 export async function GET(req: NextRequest) {
   try {
     const uid = await verifyFirebaseToken(req);
-    const pagesRef = admin.firestore().collection('pages');
+    const pagesRef = adminn.firestore().collection('pages');
     const snapshot = await pagesRef.where('userId', '==', uid).get();
 
     const pages = snapshot.docs.map(doc => ({
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     if (body.icon) newPage.icon = body.icon;
     if (body.coverImage) newPage.coverImage = body.coverImage;
 
-    const docRef = await admin.firestore().collection('pages').add(newPage);
+    const docRef = await adminn.firestore().collection('pages').add(newPage);
     const page = { id: docRef.id, ...newPage };
 
     return NextResponse.json({ page }, { status: 201 });
@@ -61,7 +61,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: 'Page ID is required' }, { status: 400 });
     }
 
-    const pageRef = admin.firestore().collection('pages').doc(id);
+    const pageRef = adminn.firestore().collection('pages').doc(id);
     const doc = await pageRef.get();
 
     if (!doc.exists) {
@@ -102,7 +102,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: 'Page ID is required' }, { status: 400 });
     }
 
-    const pageRef = admin.firestore().collection('pages').doc(id);
+    const pageRef = adminn.firestore().collection('pages').doc(id);
     const doc = await pageRef.get();
 
     if (!doc.exists) {

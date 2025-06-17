@@ -9,7 +9,7 @@ import { getAuth } from '../../../lib/firebase';
 import { LineChart } from '../../../components/charts/LineChart';
 import { LineCustomChart } from '../../../components/charts/LineCustomChart'
 import Levels from '../../../data/levels';
-    
+
 const Dashboard = () => {
     const [date, setDate] = useState<Nullable<Date>>(null);
     const [bro, setBro] = useState<User | null>(null)
@@ -56,7 +56,7 @@ const Dashboard = () => {
                     <div className="p-8 rounded-2xl bg-[var(--bggray)] grid max-md:grid-cols-1 grid-cols-2 flex-1 space-y-2" >
                         <div className="space-y-9"><DonutChartCenterText /> <span className="flex justify-center">Habits</span></div>
                         <div><HorizontalBarChart /></div>
-                        
+
                         {/* <span className="flex justify-center">Habits</span> */}
                     </div>
 

@@ -21,7 +21,7 @@ const defaultData: Item[] = [
   { name: "Reading", value: 123 },
   { name: "Meditation", value: 123 },
   { name: "Sleep", value: 123 },
-  { name: "Nutrition", value: 112 },
+  { name: "Nutrition", value: 155 },
 ];
 
 const defaultColors = [

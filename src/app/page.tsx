@@ -8,6 +8,7 @@ import { cn } from "../../lib/utils";
 import Join from "../../components/Join";
 import Footer from "../../components/Footer";
 import {
+  IconChalkboard,
   IconHome,
   IconMessage, IconUser,
 } from "@tabler/icons-react";
@@ -38,9 +39,11 @@ export default function Home() {
   return (
     <main>
       <div className="relative w-full">
+        
         < FloatingNav navItems={navItems} />
       </div>
       <div className="relative flex h-screen w-full items-center justify-center bg-white dark:bg-black">
+        
         <div
           className={cn(
             "absolute inset-0",
