@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { use, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Page } from '../types';
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-
-export default function PageEditor({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: Promise<{ id: string }>
+}
+export default function PageEditor({ params }: PageProps) {
   const [page, setPage] = useState<Page | null>(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -14,6 +16,7 @@ export default function PageEditor({ params }: { params: { id: string } }) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { id } = use(params)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -21,11 +24,11 @@ export default function PageEditor({ params }: { params: { id: string } }) {
         router.push('/');
         return;
       }
-      fetchPage(params.id);
+      fetchPage(id);
     });
 
     return () => unsubscribe();
-  }, [params.id]);
+  }, [id]);
 
   const fetchPage = async (pageId: string) => {
     try {
@@ -33,7 +36,6 @@ export default function PageEditor({ params }: { params: { id: string } }) {
       if (!token) {
         throw new Error('Not authenticated');
       }
-
       const response = await fetch(`/api/pages/${pageId}`, {
         headers: {
           'Authorization': `Bearer ${token}`

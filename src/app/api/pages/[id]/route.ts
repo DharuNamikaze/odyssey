@@ -1,12 +1,17 @@
+import React, { use } from 'react'
 import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../../../lib/middleware';
 import { adminn } from '../../../../../lib/firebaseAdmin';
-
+interface PageParams {
+  params: Promise<{ id: string }>
+}
 // Get a specific page
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  try { 
+export async function GET(req: NextRequest, { params }: PageParams) {
+
+  const { id } = use(params)
+  try {
     const uid = await verifyFirebaseToken(req);
-    const pageRef = adminn.firestore().collection('pages').doc(params.id);
+    const pageRef = adminn.firestore().collection('pages').doc(id);
     const doc = await pageRef.get();
 
     if (!doc.exists) {
