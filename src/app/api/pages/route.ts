@@ -2,7 +2,6 @@ import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../../lib/middleware';
 import { adminn } from '../../../../lib/firebaseAdmin';
 import { Page } from '../../Pages/types';
-
 // GET all pages for a user
 export async function GET(req: NextRequest) {
   try {
