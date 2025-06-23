@@ -64,7 +64,6 @@ export const FloatingNav = ({
     try {
       const res = await signInWithPopup(auth, provider)
       const user = res.user;
-
       const userPayload = {
         Badges: [],
         CreatedAt: new Date().toISOString(),
@@ -77,13 +76,9 @@ export const FloatingNav = ({
         Uid: user.uid,
         Aura: 0,
       };
-
       console.log('User Payload:', userPayload);
-
-      await axios.post('/api/user', userPayload)
-
-      console.log('Axios working perfectly')
-
+      await axios.post('/api/user', userPayload);
+      console.log('Axios working perfectly');
       router.push(`/Dashboard`);
     } catch (error) {
       console.error("Google sign-in error error coming from floating nav:", error);
@@ -145,7 +140,6 @@ export const FloatingNav = ({
           <IconBrandGoogleFilled />
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
         </button>
-
       </motion.div>
     </AnimatePresence>
   );

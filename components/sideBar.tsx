@@ -68,7 +68,7 @@ function SideBar() {
     );
 
     return (
-        <nav className="text-xs  bg-black p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky">
+        <nav className="text-xs  bg-black p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky ">
             {loading && <LoadingModal />}
             <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between items-center text-center " > <strong>{bro?.displayName}</strong> <Link href="/Pages" className="">
                 <IconEdit className='w-5 h-5' />
@@ -98,14 +98,14 @@ function SideBar() {
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
-            <menu className="border-2 border-black rounded-lg flex flex-col justify-between space-y-4">
+            <menu className="border-2 border-black rounded-lg flex flex-col justify-between space-y-4 ">
                 <span className='cursor-pointer text-blue-400'>Private</span>
-                <div className='z-10 text-white w-full h-4 rounded-lg flex flex-col gap-2 ' >
+                <div className='z-10 text-white w-full hi rounded-lg flex flex-col gap-2 overflow-y-auto scrollbar-thin scrollbar-track-gray-900' >
                     {page && page.length > 0 ? (
                         page.map((i: Page) => (
                             <div key={i.id} className='flex items-center text-center w-full rounded-lg p-1 hover:bg-[#3e3e3e] gap-1 '>
                                 {/* <li className="hover:bg-[#3e3e3e] rounded-lg px-2 py-1 text-sm bg-[#2e2e2f] flex flex-col gap-10"> </li> */}
-                                <IconNotes  className='w-4 h-4'/> <Link href={`/Pages/${i.id}`} className='hover:cursor-pointer'>
+                                <IconNotes className='w-4 h-4' /> <Link href={`/Pages/${i.id}`} className='hover:cursor-pointer'>
                                     {i.title}
                                 </Link>
                             </div>
@@ -115,7 +115,9 @@ function SideBar() {
                     )}
                 </div>
             </menu>
+                <button className='rounded-2xl hover:bg-gray-500 p-2.5 mb-4' onClick={handleSignOut}>Logout</button>
         </nav>
     )
 }
-export default React.memo(SideBar);
+export default SideBar;
+// React.memo();

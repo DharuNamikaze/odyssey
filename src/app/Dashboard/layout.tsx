@@ -1,8 +1,9 @@
 import React from 'react';
-import  SideBar from '@/components/SideBar';
+import  SideBar from '../../../components/SideBar';
 import { NavBar } from '../../../components/NavBar';
 import '../globals.css';
 import CreateButton from '../../../components/CreateButton';
+
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (

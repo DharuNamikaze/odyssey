@@ -61,7 +61,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #ededed;
   border-radius: 10px;
-  margin: 10px;
+  margin: 5px;
 }
 
 .ico {
@@ -139,6 +139,9 @@ body {
 
 .create-btn {
   transition: all 0.3s ease-in;
+}
+.hi{
+  height: 9.5rem;
 }
 
 /* Add the missing spin keyframes */
