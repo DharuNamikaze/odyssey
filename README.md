@@ -37,11 +37,6 @@ It adapts to you — not the other way around.
 
 Odyssey is a prodcutive all-in-one web app which helps you to visualize your real life scoreboard
 
-### Metrics in build
-
-#### Summary Table
-![](odysseyEvalOne.png)
-
 First, run the development server:
 
 ```bash
