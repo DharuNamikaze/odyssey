@@ -42,7 +42,7 @@ function SideBar() {
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [setPage]);
 
     useEffect(() => {
         const fetchBro = () => {

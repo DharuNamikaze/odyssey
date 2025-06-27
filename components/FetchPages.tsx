@@ -4,7 +4,7 @@ import { usePage } from '../context/PageContext';
 import { NextRequest } from 'next/server';
 import { Page } from '../src/app/Pages/types';
 import { onAuthStateChanged } from 'firebase/auth';
-import React, { useState, useEffect, } from 'react'
+import { useState, useEffect, } from 'react'
 import { auth } from '../lib/firebase';
 
 export default function FetchPages(req: NextRequest) {
@@ -25,7 +25,7 @@ export default function FetchPages(req: NextRequest) {
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [router]);
 
     const fetchPages = async (userId: string) => {
         try {

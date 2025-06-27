@@ -1,5 +1,5 @@
 import React from 'react';
-import { format, startOfYear, endOfYear, eachDayOfInterval, getDay, addDays } from 'date-fns';
+import { format, startOfYear, endOfYear, eachDayOfInterval, getDay } from 'date-fns';
 import '../../src/app/globals.css'; // Create this CSS file for styling
 
 interface HeatmapDayData {

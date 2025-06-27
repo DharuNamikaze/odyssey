@@ -96,8 +96,8 @@ const InteractiveBrain: React.FC = () => {
         setLoading(false);
       },
       undefined,
-      (error: ErrorEvent) => {
-        console.error('An error happened while loading the model:', error);
+      (err: unknown) => {
+        console.error('An error happened while loading the model:', err);
         setLoading(false);
       }
     );

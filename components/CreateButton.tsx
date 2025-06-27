@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import '../src/app/globals.css';
 import { IconCirclePlus } from '@tabler/icons-react'
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
-import { auth } from '../lib/firebase'
 
 const CreateButton = () => {
     const [open, setOpen] = useState<boolean>(false)
@@ -13,7 +11,7 @@ const CreateButton = () => {
         return () => op();
     }, [open])
 
-    const handleOpen = () => {
+    function handleOpen (){
         () => { }
     }
 

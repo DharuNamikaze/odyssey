@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     const page = { id: docRef.id, ...newPage };
 
     return NextResponse.json({ page }, { status: 201 });
-  } catch (err: any) {
+  } catch (err: any | unknown) {
     return NextResponse.json({ error: err.message }, { status: 401 });
   }
 }

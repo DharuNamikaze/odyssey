@@ -1,6 +1,6 @@
 import React from "react";
 import '../globals.css'
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
+// import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 export default function RootLayout({
   children,
 }: Readonly<{

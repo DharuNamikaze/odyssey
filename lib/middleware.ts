@@ -13,7 +13,7 @@ export const verifyFirebaseToken = async (req: NextRequest) => {
   try {
     const decodedToken = await adminn.auth().verifyIdToken(idToken);
     return decodedToken.uid;
-  } catch (error) {
-    throw new Error('Unauthorized: Invalid token');
+  } catch (error: unknown) {
+    throw new Error('Unauthorized: Invalid token',);
   }
 };

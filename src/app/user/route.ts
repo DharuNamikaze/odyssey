@@ -17,7 +17,11 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({ user: doc.data() }, { status: 200 });
 
-    } catch (err) {
-        return NextResponse.json({ error: err.message }, { status: 401 });
+    } catch (err: unknown) {
+        let message = 'Unknown error';
+        if (err && typeof err === 'object' && 'message' in err && typeof (err as any).message === 'string') {
+            message = (err as { message: string }).message;
+        }
+        return NextResponse.json({ error: message }, { status: 401 });
     }
 }

@@ -11,7 +11,7 @@ import { LineCustomChart } from '../../../components/charts/LineCustomChart'
 import Levels from '../../../data/levels';
 
 const Dashboard = () => {
-    const [date, setDate] = useState<Nullable<Date>>(null);
+    const [date, setDate] = useState<Date | null>(null);
     const [bro, setBro] = useState<User | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
 

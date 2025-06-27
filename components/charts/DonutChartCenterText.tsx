@@ -139,7 +139,7 @@ const DonutChartCenterText = React.memo<DonutChartProps>(({
         {/* Render slices and labels */}
         {arcs.map((d, i) => {
           const angle = computeAngle(d);
-          let centroid = arcLabel.centroid(d);
+          const centroid = arcLabel.centroid(d);
           
           if (d.endAngle > Math.PI) {
             centroid[0] += 10;

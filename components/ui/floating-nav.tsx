@@ -9,11 +9,11 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import axios from 'axios';
 import Link from "next/link";
+
 // import { useSearchParams } from 'next/navigation';
 // import { createContext, useContext } from 'react';
 
 // import useAuth from "../../lib/Auth";
-
 
 export const FloatingNav = ({
   navItems,
@@ -58,7 +58,7 @@ export const FloatingNav = ({
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, [router]);
 
   const handleGoogleIn = async () => {
     try {

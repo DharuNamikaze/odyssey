@@ -1,12 +1,12 @@
 import React from 'react'
 import InteractiveBrain from '../../../components/InteractiveBrain'
 
-const Profile = () => {
+export default function Profile() {
     return (
         <section className='mt-20 overflow-x-auto'>
-            <InteractiveBrain />
+            {/* <InteractiveBrain /> */}
+            Nothing, Wait for Integration. 
         </section>
 
-    )
+    );
 }
-export default Profile

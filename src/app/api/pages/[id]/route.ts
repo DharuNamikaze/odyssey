@@ -1,4 +1,3 @@
-import { use } from 'react'
 import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../../../lib/middleware';
 import { adminn } from '../../../../../lib/firebaseAdmin';

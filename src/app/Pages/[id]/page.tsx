@@ -29,7 +29,7 @@ export default function PageEditor({ params }: ParamsProps) {
     });
 
     return () => unsubscribe();
-  }, [id]); 
+  }, [id,router]); 
 
   const fetchPage = async (pageId: string) => {
     try {
