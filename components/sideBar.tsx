@@ -119,5 +119,6 @@ function SideBar() {
         </nav>
     )
 }
-export default SideBar;
+const MemoizedSideBar = React.memo(SideBar);
+export default MemoizedSideBar;
 // React.memo();
