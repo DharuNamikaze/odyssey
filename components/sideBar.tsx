@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { usePage } from '../context/PageContext'
 import { Page } from '../src/app/Pages/types';
 
-function SideBar() {
+export function SideBar() {
 
     const { page, setPage } = usePage();
     const [bro, setBro] = useState<User | null>(null);
@@ -120,6 +120,5 @@ function SideBar() {
         </nav>
     )
 }
-const MemoizedSideBar = React.memo(SideBar);
-export default MemoizedSideBar;
+export default React.memo(SideBar);
 // React.memo();
