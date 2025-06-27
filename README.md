@@ -61,3 +61,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Introduction
 
 Odyssey is a prodcutive all-in-one web app which helps you to visualize your real life scoreboard
+
+### Metrics in build
+
+#### Summary Table
+![](odysseyEvalOne.png)
