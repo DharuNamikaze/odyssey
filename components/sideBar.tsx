@@ -7,6 +7,7 @@ import { getAuth, signOut } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
 import { usePage } from '../context/PageContext'
 import { Page } from '../src/app/Pages/types';
+
 function SideBar() {
 
     const { page, setPage } = usePage();
