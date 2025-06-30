@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import {
   IconFidgetSpinner,
@@ -33,24 +34,24 @@ function Page() {
   }, [bro])
   const LoadingModal = () => (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="flex items-center justify-center">
-            <IconFidgetSpinner className="loader w-8 h-8 text-white" />
-          </div>
-        </div>
+      <div className="flex items-center justify-center">
+        <IconFidgetSpinner className="loader w-8 h-8 text-white" />
+      </div>
+    </div>
   );
   return (
 
     <>
       {loading && LoadingModal()}
       <div className='grid items-center gap-5 overflow-hidden max-md:grid-cols-2 grid-cols-5 '>
-        
+
         <div className='flex flex-col justify-center items-center' >
           <span
             className={achieve
-              ? `text-indigo-400 shadow-xl shadow-black rounded-full mt-5 p-5`
-              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+              ? `text-indigo-400 shadow-xl shadow-black rounded-full mt-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 `
             }
-          ><IconCrown /></span>
+          ><Image src="/assets/consistencyKing.png" alt="consistency" height={100} width={100} /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
             Consistency
           </span>
@@ -59,16 +60,16 @@ function Page() {
         <div className='flex flex-col justify-center items-center'>
           <span
             className={achieve
-              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
-              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50`
             }
-          ><IconHeart /></span>
+          ><Image src="/assets/brainer1.webp" alt="Brainer" width={100} height={100} /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
-            Breaking Bad
+            Galaxy Brain
           </span>
         </div>
 
-        <div className='flex flex-col justify-center items-center'>
+        {/* <div className='flex flex-col justify-center items-center'>
           <span
             className={achieve
               ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
@@ -78,39 +79,39 @@ function Page() {
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
             Breaking Bad
           </span>
-        </div>
+        </div> */}
 
         <div className='flex flex-col justify-center items-center'>
           <span
             className={achieve
-              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
-              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 w-[200]`
             }
-          ><IconHeart /></span>
+          ><Image src="/assets/Athlete.png" height={95} width={95} alt='Athelete' /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
-            Deadly Sin
+            Athlete
           </span>
         </div>
 
-        <div className='flex flex-col justify-center items-center'>
+        {/* <div className='flex flex-col justify-center items-center'>
           <span
             className={achieve
-              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 p-5`
-              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+              ? `text-red-400 shadow-xl shadow-black rounded-full mt-5 `
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50`
             }
           ><IconHeart /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
             Jack Of All Trades
           </span>
-        </div>
+        </div> */}
 
-        <div className='flex flex-col justify-center items-center'>
+        <div className='flex flex-col justify-center items-center p-0'>
           <span
             className={achieve
-              ? `text-yellow-400 shadow-xl shadow-black rounded-full mt-5 p-5`
-              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-5`
+              ? `text-yellow-400 shadow-xl shadow-black rounded-full mt-5 p-0`
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 p-0`
             }
-          ><IconHeart /></span>
+          ><Image src="/assets/habitHackerr.png" alt='HH' height={100} width={100} className='p-0' /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>
             Habit Hacker
           </span>

@@ -43,7 +43,7 @@ export function NavBar() {
         ) : (
           <Image
             className='hover:bg-[#688069] cursor-pointer rounded-full z-50'
-            src={avatar || '/consistencyKing.png'}
+            src={avatar || '/assets/consistencyKing.png'}
             width={35}
             height={35}
             alt="DP"

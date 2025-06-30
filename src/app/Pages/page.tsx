@@ -1,32 +1,36 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Page } from './types';
 import { auth } from '../../../lib/firebase';
-import { IconPlus, IconTrashX } from '@tabler/icons-react';
+import { IconPlus } from '@tabler/icons-react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { usePage } from '../../../context/PageContext';
 
 export default function Pages() {
-  const [pages, setPages] = useState<Page[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const { setPage } = usePage();
+  const { page, setPage } = usePage();
+  const [selectedPages, setSelectedPages] = useState<string[]>([]);
+  const [click, setClick] = useState<boolean>(false);
 
+  // Only fetch if not already in context
   useEffect(() => {
+    if (page && page.length > 0) {
+      setLoading(false);
+      return;
+    }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
         router.push('/');
         return;
       }
-      // Load user's pages
       fetchPages(user.uid);
     });
-
     return () => unsubscribe();
-  }, []);
+  }, [page, router]);
 
-  const fetchPages = async (userId: string) => {
+  const fetchPages = useCallback(async (userId: string) => {
     try {
       const token = await auth.currentUser?.getIdToken();
       if (!token) throw new Error("Not Authenticated");
@@ -36,15 +40,13 @@ export default function Pages() {
         }
       });
       const data = await response.json();
-      setPage(data.pages)
-      setPages(data.pages);
-
+      setPage(data.pages);
     } catch (error) {
       console.error('Error fetching pages:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [setPage]);
 
   const createNewPage = async () => {
     try {
@@ -71,9 +73,10 @@ export default function Pages() {
       }
 
       const data = await response.json();
+
       if (data.page && data.page.id) {
         router.push(`/Pages/${data.page.id}`);
-        setPage(data.page)
+        setPage(prev => [...prev, data.page])
       } else {
         throw new Error('Invalid response format');
       }
@@ -83,27 +86,46 @@ export default function Pages() {
     }
   };
 
+  useEffect(() => {
+    const handelSelectClick = () => {
+      setClick(prev => !click)
+    }
+    window.addEventListener(`click`, handelSelectClick);
+
+    return () => {
+      window.addEventListener(`click`, handelSelectClick);
+    }
+  }, [selectedPages])
+
   const deletePage = async () => {
-    console.log('delete')
+    setClick(prev => !click)
+    if (selectedPages.length === 0) return;
     try {
-      const token = await auth.currentUser?.getIdToken()
+      const token = await auth.currentUser?.getIdToken();
       if (!token) throw new Error("Not Authenticated enough to delete pages");
 
+      // Optimistically update UI
+      setPage(prev => prev.filter((p: Page) => !selectedPages.includes(p.id)));
+
+      // Send batch delete request (assuming your API supports it)
       const response = await fetch("/api/pages", {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer :${token}`,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': "application/json"
-        }
-      })
-      console.log(response.status)
+        },
+        body: JSON.stringify({ ids: selectedPages })
+      });
 
-      if (!response) throw new Error("No Response")
+      if (!response.ok) {
+        throw new Error("Failed to delete pages");
+      }
+      setSelectedPages([]);
+      setClick(prev => !click)
+    } catch (error) {
+      console.error("Page(s) could not be deleted", error);
+      // Optionally, revert UI if error
     }
-    catch (error: any) {
-      throw new Error("Page could not be deleted", error)
-    }
-
   }
 
   if (loading) {
@@ -125,7 +147,8 @@ export default function Pages() {
           </button>
           <button
             onClick={deletePage}
-            className=" text-white rounded-2xl hover:bg-red-800 hover:shadow-lg hover:shadow-black transition-colors rotate-45"
+            // disabled={selectedPages.length === 0}
+            className={`text-white rounded-2xl hover:bg-red-800 hover:shadow-lg hover:shadow-black transition-colors rotate-45`}
           >
             <IconPlus />
           </button>
@@ -133,19 +156,35 @@ export default function Pages() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-        {pages.map((page: Page) => (
+        {page && page.map((p: Page) => (
           <div
-            key={page.id}
-            onClick={() => router.push(`/Pages/${page.id}`)}
-            className="p-6 border rounded-lg hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer"
+            key={p.id}
+            className="p-6 border rounded-lg hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center"
           >
-            <div className="flex items-center gap-2 mb-2">
-              {page.icon && <span>{page.icon}</span>}
-              <h2 className="text-xl font-semibold">{page.title}</h2>
+            {click && <input
+              type="checkbox"
+              checked={selectedPages.includes(p.id)}
+              onChange={() => {
+                setSelectedPages(prev =>
+                  prev.includes(p.id)
+                    ? prev.filter(id => id !== p.id)
+                    : [...prev, p.id]
+                );
+              }}
+              className="mr-2"
+            />}
+            <div
+              onClick={() => router.push(`/Pages/${p.id}`)}
+              className="flex-1 cursor-pointer"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                {p.icon && <span>{p.icon}</span>}
+                <h2 className="text-xl font-semibold">{p.title}</h2>
+              </div>
+              <p className="text-gray-600 text-sm">
+                Last updated: {new Date(p.updatedAt).toLocaleDateString()}
+              </p>
             </div>
-            <p className="text-gray-600 text-sm">
-              Last updated: {new Date(page.updatedAt).toLocaleDateString()}
-            </p>
           </div>
         ))}
       </div>

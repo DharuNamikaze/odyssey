@@ -84,7 +84,7 @@ export async function GET(req: NextRequest, { params }: PageParams) {
       return NextResponse.json(
         { error: 'Resource not found' }, 
         { status: 404 }
-      );
+      );  
     }
 
     // Generic server error

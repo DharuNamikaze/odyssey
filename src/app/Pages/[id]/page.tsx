@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Page } from '../types';
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { IconChevronLeft } from '@tabler/icons-react'
 
 interface ParamsProps {
   params: Promise<{ id: string }> // Changed from paramId to id
@@ -25,17 +26,17 @@ export default function PageEditor({ params }: ParamsProps) {
         router.push('/');
         return;
       }
-      fetchPage(id); 
+      fetchPage(id);
     });
 
     return () => unsubscribe();
-  }, [id,router]); 
+  }, [id, router]);
 
   const fetchPage = async (pageId: string) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const token = await auth.currentUser?.getIdToken();
       if (!token) {
         throw new Error('Not authenticated');
@@ -54,7 +55,7 @@ export default function PageEditor({ params }: ParamsProps) {
 
       if (!response.ok) {
         let errorMessage = 'Failed to fetch page';
-        
+
         // Handle JSON parsing safely
         try {
           const contentType = response.headers.get('content-type');
@@ -69,7 +70,7 @@ export default function PageEditor({ params }: ParamsProps) {
           console.error('Failed to parse error response:', parseError);
           errorMessage = `HTTP ${response.status}: ${response.statusText}`;
         }
-        
+
         throw new Error(errorMessage);
       }
 
@@ -89,12 +90,12 @@ export default function PageEditor({ params }: ParamsProps) {
       setTitle(data.page.title || '');
       setContent(data.page.content || '');
       setError(null);
-      
+
     } catch (error) {
       console.error('Error fetching page:', error);
       const errorMessage = error instanceof Error ? error.message : 'An error occurred';
       setError(errorMessage);
-      
+
       // Only redirect on certain errors
       if (errorMessage.includes('not found') || errorMessage.includes('404')) {
         setTimeout(() => router.push('/Pages'), 2000); // Give user time to see error
@@ -131,7 +132,7 @@ export default function PageEditor({ params }: ParamsProps) {
 
       if (!response.ok) {
         let errorMessage = 'Failed to save page';
-        
+
         try {
           const contentType = response.headers.get('content-type');
           if (contentType && contentType.includes('application/json')) {
@@ -145,13 +146,13 @@ export default function PageEditor({ params }: ParamsProps) {
           console.error('Failed to parse error response:', parseError);
           errorMessage = `HTTP ${response.status}: ${response.statusText}`;
         }
-        
+
         throw new Error(errorMessage);
       }
 
       // Show success feedback (optional)
       console.log('Page saved successfully');
-      
+
     } catch (error) {
       console.error('Error saving page:', error);
       setError(error instanceof Error ? error.message : 'Failed to save page');
@@ -188,20 +189,19 @@ export default function PageEditor({ params }: ParamsProps) {
             )}
           </div>
         )}
-        
+
         <div className="flex justify-end gap-3 mb-8">
           <button
             onClick={() => router.push('/Pages')}
-            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+            className="px-2 rounded-full py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
           >
-            Back
+            <IconChevronLeft />
           </button>
           <button
             onClick={savePage}
             disabled={saving || !page}
-            className={`px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors ${
-              saving || !page ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
+            className={`px-3 py-2 text-sm bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors ${saving || !page ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
           >
             {saving ? 'Saving...' : 'Save'}
           </button>
