@@ -35,6 +35,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
 }
 
