@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid";
 import {
   IconFlame,
@@ -9,6 +10,7 @@ import {
   IconClock,
   IconHeart,
 } from "@tabler/icons-react";
+import { headers } from 'next/headers';
 
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
@@ -31,6 +33,7 @@ const items = [
     description: "Earn badges, milestones, and unlock levels as you progress.",
     header: <Skeleton />,
     icon: <IconMedal className="h-4 w-4 text-yellow-500" />,
+    image: '/achievementShowCase.png'
   },
   {
     title: "Custom Habit Categories",
@@ -70,7 +73,9 @@ const Preview = () => {
             key={i}
             title={item.title}
             description={item.description}
-            header={item.header}
+            header={item.image ? (
+              <Image src={item.image} width={400} height={400} alt={item.title} className=" object-cover rounded-xl flex-1 flex w-fit" />
+            ) : item.header}
             icon={item.icon}
             className={i === 3 || i === 6 ? "md:col-span-2" : ""}
           />

@@ -43,7 +43,7 @@ function Page() {
 
     <>
       {loading && LoadingModal()}
-      <div className='grid items-center gap-5 overflow-hidden max-md:grid-cols-2 grid-cols-5 '>
+      <div className='flex gap-3 '>
 
         <div className='flex flex-col justify-center items-center' >
           <span

@@ -69,19 +69,19 @@ export function SideBar() {
     );
 
     return (
-        <nav className="text-xs  bg-black p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky ">
+        <nav className="text-xs bg-gradient-to-tr from-black to-zinc-900 p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky ">
             {loading && <LoadingModal />}
             <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between items-center text-center " > <strong>{bro?.displayName}</strong> <Link href="/Pages" className="">
                 <IconEdit className='w-5 h-5' />
             </Link>
             </span>
-            <menu className="cursor-pointer border-2 border-black p-0.5 rounded-lg flex flex-col justify-between space-y-2">
+            <menu className="cursor-pointer p-0.5 flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400' >Menu</span>
                 <input className='rounded-lg p-1  hover:bg-[#3e3e3e] text-white' placeholder='Search' id="searchBar" type='text' />
                 <Link href="/Inbox"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Inbox</li></Link>
                 <Link href="/"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white'>Odyssey AI</li></Link>
             </menu>
-            <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
+            <menu className="p-0.5 flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400'>Personal</span>
                 <Link href="/Dashboard"><li className='rounded-lg p-1 hover:bg-[#3e3e3e]  text-white flex items-center gap-1'>
                     <IconLayoutDashboard className='w-4 h-4 text-indigo-500 ' /> Dashboard </li> </Link>
@@ -94,12 +94,12 @@ export function SideBar() {
                 <Link href="/GritEngine"><li className='rounded-lg p-1 hover:bg-[#3e3e3e] text-white flex items-center gap-1'>
                     <IconBrain className='w-4 h-4 text-pink-400' />Grit Engine</li> </Link>
             </menu>
-            <menu className="p-0.5 rounded-lg flex flex-col justify-between space-y-2">
+            <menu className="p-0.5 flex flex-col justify-between space-y-2">
                 <span className='cursor-pointer text-blue-400'>Favorites</span>
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
-            <menu className="border-2 border-black rounded-lg flex flex-col justify-between space-y-4 ">
+            <menu className="flex flex-col justify-between space-y-4 ">
                 <span className='cursor-pointer text-blue-400'>Private</span>
                 <div className='z-10 text-white w-full hi rounded-lg flex flex-col gap-2 overflow-y-auto scrollbar-thin scrollbar-track-gray-900' >
                     {page && page.length > 0 ? (
@@ -116,7 +116,7 @@ export function SideBar() {
                     )}
                 </div>
             </menu>
-                <button className='rounded-2xl hover:bg-gray-500 p-2.5 mb-4' onClick={handleSignOut}>Logout</button>
+                <button className='rounded-2xl p-2.5 mb-4 hover:bg-red-950' onClick={handleSignOut}>Logout</button>
         </nav>
     )
 }
