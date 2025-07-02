@@ -43,13 +43,13 @@ function Page() {
 
     <>
       {loading && LoadingModal()}
-      <div className='flex gap-3 '>
+      <div className='grid items-center gap-5 overflow-hidden max-lg:grid-cols-2 grid-cols-6 '>
 
         <div className='flex flex-col justify-center items-center' >
           <span
             className={achieve
               ? `text-indigo-400 shadow-xl shadow-black rounded-full mt-5`
-              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50 `
+              : `shadow-xl shadow-black rounded-full mt-5 grayscale opacity-50`
             }
           ><Image src="/assets/consistencyKing.png" alt="consistency" height={100} width={100} /></span>
           <span className={`text-base mt-4 ${achieve ? '' : 'text-gray-500'}`}>

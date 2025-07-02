@@ -37,9 +37,8 @@ const colorForCount = (count: number) => {
 const Heatmap: React.FC<{ year?: number }> = ({ year = new Date().getFullYear() }) => {
   const data = generateHeatmapData(year);
   const start = startOfYear(new Date(year, 0, 1));
-  const offset = getDay(start); // Get which day the year starts (Sunday = 0)
+  const offset = getDay(start);
 
-  // Pad beginning for proper alignment
   const paddedData: (HeatmapDayData | null)[] = Array(offset).fill(null).concat(data);
 
   const weeks: (HeatmapDayData | null)[][] = [];
@@ -47,24 +46,57 @@ const Heatmap: React.FC<{ year?: number }> = ({ year = new Date().getFullYear() 
     weeks.push(paddedData.slice(i, i + 7));
   }
 
+  // Month label logic
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+  // Find the first week of each month
+  const monthLabels: { name: string; colStart: number }[] = [];
+  let lastMonth: number | null = null;
+  weeks.forEach((week, wi) => {
+    const firstDay = week.find(cell => cell != null);
+    if (firstDay) {
+      const month = new Date(firstDay.date).getMonth();
+      if (month !== lastMonth) {
+        monthLabels.push({ name: months[month], colStart: wi });
+        lastMonth = month;
+      }
+    }
+  });
+
   return (
-    <div className="heatmap-container">
-      {weeks.map((week, wi) => (
-        <div key={wi} className="heatmap-week  ">
-          {week.map((day, di) =>
-            day ? (
-              <div
-                key={di}
-                className="heatmap-day p-2.5 rounded-full"
-                title={`${day.date}: ${day.count} contribution${day.count !== 1 ? 's' : ''}`}
-                style={{ backgroundColor: colorForCount(day.count) }}
-              />
-            ) : (
-              <div key={di} className="heatmap-day empty " />
-            )
-          )}
-        </div>
-      ))}
+    <div className="flex flex-col items-center w-full">
+      {/* Month labels */}
+      <div className="flex flex-row w-full justify-between px-8 mb-2">
+        {monthLabels.map((label, i) => (
+          <span
+            key={i}
+            className="text-xs text-neutral-400 font-semibold"
+            style={{ marginLeft: i === 0 ? `${label.colStart * 1.5}rem` : undefined }}
+          >
+            {label.name}
+          </span>
+        ))}
+      </div>
+      <div className="flex flex-row gap-1.5 mx-auto w-full">
+        {weeks.map((week, wi) => (
+          <div key={wi} className="flex flex-col gap-1 w-full mx-auto">
+            {week.map((day, di) =>
+              day ? (
+                <div
+                  key={di}
+                  className="w-4 h-4 rounded-full"
+                  title={`${day.date}: ${day.count} contribution${day.count !== 1 ? 's' : ''}`}
+                  style={{ backgroundColor: colorForCount(day.count) }}
+                />
+              ) : (
+                <div key={di} className="w-4 h-4 rounded-full bg-transparent" />
+              )
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

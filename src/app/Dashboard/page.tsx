@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import '../globals.css'
+import Heatmap from '@/components/charts/Heatmap'
 import DonutChartCenterText from '../../../components/charts/DonutChartCenterText'
 import BarChartHorizontalLogo from '../../../components/charts/BarChartHorizontalLogo'
 import { HorizontalBarChart } from "../../../components/charts/BarChartHorizontal";
@@ -67,7 +68,10 @@ const Dashboard = () => {
                     </div>
 
                     <div className="p-8 rounded-2xl bg-gradient-to-tr from-black to-zinc-700 grid max-md:grid-cols-1 grid-cols-2 flex-1 space-y-2 border-[0.1px] border-neutral-700" >
-                        <div className="space-y-9"><DonutChartCenterText /> <span className="flex justify-center">Habits</span></div>
+                        <div className="space-y-9">
+                            <DonutChartCenterText />
+                            <span className="flex justify-center font-semibold text-lg">Habits</span>
+                        </div>
                         <div><HorizontalBarChart /></div>
 
                         {/* <span className="flex justify-center">Habits</span> */}
@@ -75,17 +79,22 @@ const Dashboard = () => {
 
                     <div className="p-8 rounded-2xl bg-gradient-to-tr from-black to-zinc-700 flex flex-col space-y-3 border-[0.2px] border-neutral-700" >
                         <LineChart />
-                        <span className="flex justify-center">Sleep Hours</span>
+                        <span className="flex justify-center font-semibold text-lg">Sleep Hours</span>
                     </div>
 
                     <div className="p-8 rounded-2xl bg-gradient-to-tr from-black to-zinc-700 flex flex-col space-y-3 border-[0.2px] border-neutral-700" >
                         <LineCustomChart />
-                        <span className="flex justify-center">Emotion Timeline</span>
+                        <span className="flex justify-center font-semibold text-lg">Emotion Timeline</span>
                     </div>
 
                     <div className="p-8 rounded-2xl bg-gradient-to-tr from-black to-zinc-700 flex flex-col space-y-3 border-[0.2px] border-neutral-700 " >
                         <BarChartHorizontalLogo />
-                        <span className="flex justify-center">Valued Emotion</span>
+                        <span className="flex justify-center font-semibold text-lg">Valued Emotion</span>
+                    </div>
+
+                    <div className="p-8 rounded-2xl bg-gradient-to-tr from-black to-zinc-900 flex flex-col space-y-3 border-[0.2px] border-neutral-700 " >
+                        <Heatmap />
+                        <span className="flex justify-center font-semibold text-lg">Heatmap</span>
                     </div>
 
                 </div>

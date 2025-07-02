@@ -126,8 +126,8 @@ export default function Pages() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-end gap-3 items-center text-center mb-8">
-        <h1 className="text-3xl font-bold flex justify-normal">My Pages</h1>
-        <div className='flex items-center justify-end gap-4'>
+        <h1 className="text-3xl font-bold flex">My Pages</h1>
+        <div className='flex items-center gap-4'>
           <button
             onClick={createNewPage}
             className="flex justify-end text-white rounded-2xl hover:bg-[#424242] hover:shadow-black hover:shadow-xl transition-colors"
@@ -150,7 +150,6 @@ export default function Pages() {
             key={p.id}
             className="p-6 border rounded-lg hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center "
           >
-
             <div
               onClick={() => router.push(`/Pages/${p.id}`)}
               className="flex-1 cursor-pointer"
