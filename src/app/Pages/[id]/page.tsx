@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation';
 import { Page } from '../types';
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { IconChevronLeft } from '@tabler/icons-react'
+import { IconChevronLeft, IconTrash } from '@tabler/icons-react'
+import useDebounce from '@/lib/debounce';
 
 interface ParamsProps {
   params: Promise<{ id: string }> // Changed from paramId to id
@@ -15,8 +16,9 @@ export default function PageEditor({ params }: ParamsProps) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  // Removed manual saving state
   const [error, setError] = useState<string | null>(null);
+  const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const router = useRouter();
   const { id } = use(params);
 
@@ -105,18 +107,16 @@ export default function PageEditor({ params }: ParamsProps) {
     }
   };
 
-  const savePage = async () => {
+
+
+
+  // Debounced save function using the React hook
+  const debouncedSave = useDebounce(async (newTitle: string, newContent: string) => {
     if (!page) return;
-
-    setSaving(true);
-    setError(null);
-
+    setAutoSaveStatus('saving');
     try {
       const token = await auth.currentUser?.getIdToken();
-      if (!token) {
-        throw new Error('Not authenticated');
-      }
-
+      if (!token) throw new Error('Not authenticated');
       const response = await fetch(`/api/pages`, {
         method: 'PATCH',
         headers: {
@@ -125,48 +125,27 @@ export default function PageEditor({ params }: ParamsProps) {
         },
         body: JSON.stringify({
           id: page.id,
-          title: title.trim(),
-          content: content.trim()
+          title: newTitle.trim(),
+          content: newContent.trim()
         })
       });
-
-      if (!response.ok) {
-        let errorMessage = 'Failed to save page';
-
-        try {
-          const contentType = response.headers.get('content-type');
-          if (contentType && contentType.includes('application/json')) {
-            const errorData = await response.json();
-            errorMessage = errorData.error || errorMessage;
-          } else {
-            const errorText = await response.text();
-            errorMessage = errorText || `HTTP ${response.status}: ${response.statusText}`;
-          }
-        } catch (parseError) {
-          console.error('Failed to parse error response:', parseError);
-          errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-        }
-
-        throw new Error(errorMessage);
-      }
-
-      // Show success feedback (optional)
-      console.log('Page saved successfully');
-
+      if (!response.ok) throw new Error('Failed to save page');
+      setAutoSaveStatus('saved');
+      setTimeout(() => setAutoSaveStatus('idle'), 1000);
     } catch (error) {
-      console.error('Error saving page:', error);
-      setError(error instanceof Error ? error.message : 'Failed to save page');
-    } finally {
-      setSaving(false);
+      setAutoSaveStatus('error');
+      setTimeout(() => setAutoSaveStatus('idle'), 2000);
     }
-  };
+  }, 1000); // 1 second debounce
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
+    debouncedSave(e.target.value, content);
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+    debouncedSave(title, e.target.value);
   };
 
   if (loading) {
@@ -197,16 +176,46 @@ export default function PageEditor({ params }: ParamsProps) {
           >
             <IconChevronLeft />
           </button>
-          
-          <button
-            onClick={savePage}
-            disabled={saving || !page}
-            className={`px-3 py-2 text-sm bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors ${saving || !page ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-          >
-            {saving ? 'Saving...' : 'Save'}
-          </button>
+          {page && (
+            <button
+              onClick={async () => {
+                if (!confirm('Are you sure you want to delete this page? This action cannot be undone.')) return;
+                try {
+                  setAutoSaveStatus('saving');
+                  const token = await auth.currentUser?.getIdToken();
+                  if (!token) throw new Error('Not authenticated');
+                  const response = await fetch(`/api/pages/${page.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                      'Content-Type': 'application/json'
+                    }
+                  });
+                  if (!response.ok) throw new Error('Failed to delete page');
+                  setAutoSaveStatus('saved');
+                  setTimeout(() => setAutoSaveStatus('idle'), 1000);
+                  router.push('/Pages');
+                } catch (error) {
+                  setAutoSaveStatus('error');
+                  setTimeout(() => setAutoSaveStatus('idle'), 2000);
+                }
+              }}
+              className="px-2 py-2 text-sm bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
+            >
+              <IconTrash />
+            </button>
+          )}
         </div>
+        {/* Auto-save status indicator */}
+        {autoSaveStatus === 'saving' && (
+          <span className="text-xs text-blue-400 mb-2">Saving...</span>
+        )}
+        {autoSaveStatus === 'saved' && (
+          <span className="text-xs text-green-400 mb-2">Saved!</span>
+        )}
+        {autoSaveStatus === 'error' && (
+          <span className="text-xs text-red-400 mb-2">Auto-save failed</span>
+        )}
 
         {page ? (
           <>

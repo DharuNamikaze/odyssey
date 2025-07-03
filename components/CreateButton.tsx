@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import '../src/app/globals.css';
-import { IconCirclePlus } from '@tabler/icons-react'
+import { IconPlus } from '@tabler/icons-react'
 
 const CreateButton = () => {
     const [open, setOpen] = useState<boolean>(false)
@@ -17,8 +17,8 @@ const CreateButton = () => {
 
     return (
         <>
-            <button className={`z-50 fixed right-[2vh] top-[90.5vh] bg-black p-[0.5] border rounded-full create-btn`}  onClick={handleOpen}>
-                <IconCirclePlus width={50} height={50} />
+            <button className={`z-50 fixed right-[2vh] top-[90.5vh] bg-black p-1  rounded-full create-btn`}  onClick={handleOpen}>
+                <IconPlus width={45} height={45} />
             </button>
         </>
     )

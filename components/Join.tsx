@@ -22,7 +22,7 @@ export function SparklesPreview() {
         setUser(currentUser);
         router.push(`/Dashboard`)
       } else {
-        setLoading(false);
+        console.log("Hi")
       }
     });
 

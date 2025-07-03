@@ -35,9 +35,9 @@ export function NavBar() {
   };
 
   return (
-    <div className='flex bg-black shadow-2xl shadow-black rounded-full p-4 h-[7vh] w-full items-center gap-10 z-10'>
+    <div className='flex bg-gradient-to-tr from-black to-neutral-800 shadow-2xl shadow-black rounded-full p-4 h-[7vh] w-full items-center gap-10 z-10'>
       <span className="text-lg">{greeting()}</span>
-      <span className='flex justify-start flex-row-reverse flex-1 gap-4 text-sm'>
+      <span className='flex text-center items-center justify-start flex-row-reverse flex-1 gap-6 text-sm'>
         {imgError ? (
           <span className="text-white bg-gray-700 p-2 rounded-full">👤</span> // 👤 or custom alt text
         ) : (
@@ -50,8 +50,8 @@ export function NavBar() {
             onError={() => setImgError(true)}
           />
         )}
-        <button className='hover:bg-[#688069] cursor-pointer rounded-full p-2 text-white'>{streak}🔥</button>
-        <button className='hover:bg-[#688069] cursor-pointer rounded-full p-2 text-white'>🌟 125</button>
+        <span className='cursor-pointer rounded-full text-white'>{streak}🔥</span>
+        <span className='cursor-pointer rounded-full text-center text-white'>🌟 125</span>
       </span>
     </div>
   );

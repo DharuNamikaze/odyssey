@@ -112,7 +112,7 @@ export function LineChart() {
           <path
             d={d}
             fill="none"
-            className="stroke-fuchsia-400"
+            className="stroke-sky-600"
             strokeWidth="2"
             vectorEffect="non-scaling-stroke"
           />
@@ -129,7 +129,7 @@ export function LineChart() {
                   strokeLinecap="round"
                   fill="none"
                   stroke="currentColor"
-                  className="text-fuchsia-300"
+                  className="text-blue-300"
                 />
                 <g className="group/tooltip">
                   {/* Tooltip Line */}

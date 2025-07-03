@@ -32,6 +32,7 @@
     "netlify-cli": "^22.2.0",
     "next": "^15.3.4",
     "react": "^18.2.0",
+    "react-calendar": "^6.0.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "scrolltrigger": "^1.0.1",

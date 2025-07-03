@@ -8,7 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { usePage } from '../../../context/PageContext';
 
 export default function Pages() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { page, setPage } = usePage();
   const [selectedPages, setSelectedPages] = useState<string[]>([]);
