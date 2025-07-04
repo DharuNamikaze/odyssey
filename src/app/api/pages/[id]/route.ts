@@ -3,13 +3,13 @@ import { verifyFirebaseToken } from '../../../../../lib/middleware';
 import { adminn } from '../../../../../lib/firebaseAdmin';
 
 interface PageParams {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 // Get a specific page
 export async function GET(req: NextRequest, { params }: PageParams) {
   try {
-    const { id } = await params; // Use await instead of use() for async params
+    const { id } = params; // Use await instead of use() for async params
     
     // Validate ID parameter
     if (!id || typeof id !== 'string') {
