@@ -54,9 +54,9 @@ const Dashboard = () => {
     return (
         <>
             {/* Mobile Version */}
-            {isMobile && <Loader />}
 
             {loading ? <Loader /> :
+                { isMobile ? 
                 < main className="flex flex-col gap-10 overflow-hidden">
                     <div className="grid grid-cols-1 gap-5 z-4 mb-10">
                         <div>
@@ -114,6 +114,7 @@ const Dashboard = () => {
                     </div>
                 </main >
             }
+        }
 
             {/* Desktop Version */}
             {loading ? <Loader /> :

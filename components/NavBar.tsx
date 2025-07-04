@@ -2,14 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useRouter } from 'next/router';
 
 export function NavBar() {
   const [streak, setStreak] = useState<number>(0);
   const [bro, setBro] = useState<User | null>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
   const [imgError, setImgError] = useState(false);
-  const router = useRouter()
 
   useEffect(() => {
     const auth = getAuth();
@@ -36,9 +34,7 @@ export function NavBar() {
     return 'Good Night 🌝';
   };
 
-  const handleHome = () => {
-    router.push("/")
-  }
+
   return (
     <div className='flex bg-gradient-to-tr from-black to-neutral-800 shadow-2xl shadow-black rounded-full p-4 h-[7vh] w-full items-center gap-10 z-10'>
       <span className="text-lg">{greeting()}</span>
@@ -53,7 +49,6 @@ export function NavBar() {
             height={35}
             alt="DP"
             onError={() => setImgError(true)}
-            onClick={handleHome}
           />
         )}
         <span className='cursor-pointer rounded-full text-white'>{streak}🔥</span>
