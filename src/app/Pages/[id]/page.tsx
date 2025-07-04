@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation';
 import { Page } from '../types';
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { IconChevronLeft, IconTrash } from '@tabler/icons-react'
+
+import { IconChevronLeft, IconTrash, IconFidgetSpinner } from '@tabler/icons-react'
 import useDebounce from '@/lib/debounce';
 
 interface ParamsProps {
@@ -150,8 +151,8 @@ export default function PageEditor({ params }: ParamsProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+      <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+        <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
       </div>
     );
   }
@@ -169,7 +170,19 @@ export default function PageEditor({ params }: ParamsProps) {
           </div>
         )}
 
-        <div className="flex justify-end gap-3 mb-8">
+        <div className="flex justify-end gap-3 mb-8 items-center text-center">
+
+          {/* Auto-save bro */}
+          {autoSaveStatus === 'saving' && (
+            <span className="text-xs text-blue-400 animate-pulse">o-o</span>
+          )}
+          {autoSaveStatus === 'saved' && (
+            <span className="text-xs text-green-400 animate-pulse">{`>.<`}</span>
+          )}
+          {autoSaveStatus === 'error' && (
+            <span className="text-xs text-red-400">Auto-save failed</span>
+          )}
+
           <button
             onClick={() => router.push('/Pages')}
             className="px-2 rounded-full py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
@@ -206,16 +219,6 @@ export default function PageEditor({ params }: ParamsProps) {
             </button>
           )}
         </div>
-        {/* Auto-save status indicator */}
-        {autoSaveStatus === 'saving' && (
-          <span className="text-xs text-blue-400 mb-2">Saving...</span>
-        )}
-        {autoSaveStatus === 'saved' && (
-          <span className="text-xs text-green-400 mb-2">Saved!</span>
-        )}
-        {autoSaveStatus === 'error' && (
-          <span className="text-xs text-red-400 mb-2">Auto-save failed</span>
-        )}
 
         {page ? (
           <>

@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Page } from './types';
 import { auth } from '../../../lib/firebase';
-import { IconPlus } from '@tabler/icons-react';
+import { IconPlus, IconFidgetSpinner } from '@tabler/icons-react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { usePage } from '../../../context/PageContext';
 
@@ -118,9 +118,10 @@ export default function Pages() {
   }
 
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
-    </div>;
+    return (
+      <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+        <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
+      </div>)
   }
 
   return (
