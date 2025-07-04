@@ -100,7 +100,7 @@ export function SideBar() {
                 <li className='hover:bg-[#3e3e3e] rounded-lg p-1'></li>
             </menu>
             <menu className="flex flex-col justify-between space-y-4 ">
-                <span className='cursor-pointer text-blue-400'>Private</span>
+                <span className='cursor-pointer text-blue-400'>Private pages</span>
                 <div className='z-10 text-white w-full hi rounded-lg flex flex-col gap-2 overflow-y-auto scrollbar-thin scrollbar-track-gray-900' >
                     {page && page.length > 0 ? (
                         page.map((i: Page) => (
