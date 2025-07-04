@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import SideBar from '../../../components/Sidebar';
+import SideBar from '../../../components/SideBar';
 import { NavBar } from '../../../components/NavBar';
 import '../globals.css';
 
