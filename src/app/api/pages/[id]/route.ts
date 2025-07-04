@@ -2,14 +2,10 @@ import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../../../lib/middleware';
 import { adminn } from '../../../../../lib/firebaseAdmin';
 
-interface PageParams {
-  params: { id: string }
-}
-
 // Get a specific page
-export async function GET(req: NextRequest, { params }: PageParams) {
+export async function GET(req: NextRequest, params: { id: string }) {
   try {
-    const { id } = params; // Use await instead of use() for async params
+    const { id } = params; 
     
     // Validate ID parameter
     if (!id || typeof id !== 'string') {
