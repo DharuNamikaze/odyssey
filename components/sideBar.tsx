@@ -104,7 +104,7 @@ export function SideBar() {
                 <div className='z-10 text-white w-full hi rounded-lg flex flex-col gap-2 overflow-y-auto scrollbar-thin scrollbar-track-gray-900' >
                     {page && page.length > 0 ? (
                         page.map((i: Page) => (
-                            <button key={i.id} className='flex items-center text-center w-full rounded-lg p-1 hover:bg-[#3e3e3e] gap-1 ' onClick={handleClickPage}>
+                            <button key={i.id} className='flex items-center text-center w-full rounded-lg p-1 hover:bg-[#3e3e3e] gap-1 ' >
                                 {/* <li className="hover:bg-[#3e3e3e] rounded-lg px-2 py-1 text-sm bg-[#2e2e2f] flex flex-col gap-10"> </li> */}
                                 <IconNotes className='w-4 h-4' /> <Link href={`/Pages/${i.id}`} className='hover:cursor-pointer'>
                                     {i.title}
