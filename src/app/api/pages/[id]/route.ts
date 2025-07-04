@@ -1,9 +1,9 @@
-import { NextResponse, NextRequest, RouteParams } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../../../lib/middleware';
 import { adminn } from '../../../../../lib/firebaseAdmin';
 
 // Get a specific page
-export async function GET(req: NextRequest, context: RouteParams) {
+export async function GET(req: NextRequest, context: any) { 
   try {
     const { id } = context.params;
 
