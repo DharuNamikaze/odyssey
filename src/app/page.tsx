@@ -7,6 +7,7 @@ import Join from "../../components/Join";
 import Footer from "../../components/Footer";
 import { FloatingNav } from "../../components/ui/floating-nav";
 import { navItems } from "../constants/navItems";
+import './globals.css'
 
 export default function Home() {
   return (

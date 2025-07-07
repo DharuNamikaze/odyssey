@@ -39,8 +39,8 @@ const Dashboard = () => {
     }, [bro])
 
     return (
-        <>
-            <main className="flex flex-col gap-10 overflow-hidden">
+        <>{loading ? <Loader /> :
+            < main className="flex flex-col gap-10 overflow-hidden">
                 <div className="grid grid-cols-1 gap-5 z-4 mb-10">
                     <div>
                         <h1 className="mt-5 text-3xl md:text-4xl font-bold p-0 mb-0">Summary</h1>
@@ -95,7 +95,8 @@ const Dashboard = () => {
                         <span className="flex justify-center font-semibold text-lg">Heatmap</span>
                     </div>
                 </div>
-            </main>
+            </main >
+        }
         </>
     )
 }
