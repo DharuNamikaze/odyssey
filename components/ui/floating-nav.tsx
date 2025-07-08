@@ -34,7 +34,7 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(false);
 
   const LoadingModal = () => {
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black flex items-center justify-center z-40">
       <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
     </div>
   }

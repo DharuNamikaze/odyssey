@@ -42,7 +42,7 @@ export function NavBar() {
           <span className="text-white bg-gray-700 p-2 rounded-full">👤</span> // 👤 or custom alt text
         ) : (
           <Image
-            className='hover:bg-[#688069] cursor-pointer rounded-full z-50'
+            className='hover:bg-[#688069] cursor-pointer rounded-full z-10'
             src={avatar || '/assets/consistencyKing.png'}
             width={35}
             height={35}

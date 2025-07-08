@@ -63,13 +63,13 @@ export function SideBar() {
         fetchBro()
     }, [])
     const LoadingModal = () => (
-        <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black flex items-center justify-center z-40">
             <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
         </div>
     );
 
     return (
-        <nav className="text-xs bg-gradient-to-tr from-black to-zinc-900 p-3 flex flex-col h-full w-[30vh] rounded-lg z-50 space-y-5 sticky ">
+        <nav className="text-xs bg-gradient-to-tr from-black to-zinc-900 p-3 flex flex-col h-full w-[30vh] rounded-lg z-30 space-y-5 sticky ">
             {loading && <LoadingModal />}
             <span className="cursor-pointerborder-2 border-black rounded-lg p-1 flex justify-between items-center text-center " > <strong>{bro?.displayName}</strong> <Link href="/Pages" className="">
                 <IconEdit className='w-5 h-5' />

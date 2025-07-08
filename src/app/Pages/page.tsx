@@ -6,7 +6,7 @@ import { auth } from '../../../lib/firebase';
 import { IconPlus, IconFidgetSpinner } from '@tabler/icons-react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { usePage } from '../../../context/PageContext';
-
+import Image from 'next/image';
 export default function Pages() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -117,9 +117,9 @@ export default function Pages() {
     }
   }
 
-  if (loading) {
-    return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+  {
+    loading &&
+      (<div className="fixed inset-0 bg-black flex items-center justify-center z-50">
         <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
       </div>)
   }
@@ -149,11 +149,14 @@ export default function Pages() {
         {page && page.map((p: Page) => (
           <div
             key={p.id}
-            className="p-6 border rounded-lg hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center "
+            className="  border rounded-3xl hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center flex-col "
           >
+            <span>
+              <Image src="/favicon.svg" alt="alt" height={100} width={100} />
+            </span>
             <div
               onClick={() => router.push(`/Pages/${p.id}`)}
-              className="flex-1 cursor-pointer"
+              className="flex-1 cursor-pointer pt-10 pb-5"
             >
               <div className="flex items-center gap-2 mb-2">
                 {p.icon && <span>{p.icon}</span>}

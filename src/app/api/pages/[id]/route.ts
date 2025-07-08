@@ -3,9 +3,9 @@ import { verifyFirebaseToken } from '../../../../../lib/middleware';
 import { adminn } from '../../../../../lib/firebaseAdmin';
 
 // Get a specific page
-export async function GET(req: NextRequest, context: any) { 
+export async function GET(req: NextRequest, context: any) {
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
 
     // Validate ID parameter
     if (!id || typeof id !== 'string') {
@@ -21,10 +21,7 @@ export async function GET(req: NextRequest, context: any) {
       uid = await verifyFirebaseToken(req);
     } catch (authError: any) {
       console.error('Authentication error:', authError.message);
-      return NextResponse.json(
-        { error: 'Authentication failed' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Authentication failed' }, { status: 401 });
     }
 
     // Get page from Firestore
@@ -57,7 +54,7 @@ export async function GET(req: NextRequest, context: any) {
         { status: 403 }
       );
     }
-
+//getting the actual page details and page itself here
     const page = {
       id: doc.id,
       ...pageData
@@ -68,7 +65,7 @@ export async function GET(req: NextRequest, context: any) {
   } catch (error: any) {
     console.error('API Error:', error);
 
-    // Handle different types of errors
+    // diff types of errors
     if (error.code === 'permission-denied') {
       return NextResponse.json(
         { error: 'Permission denied' },
@@ -89,4 +86,38 @@ export async function GET(req: NextRequest, context: any) {
       { status: 500 }
     );
   }
+}
+
+// delett method
+export async function DELETE(req: NextRequest, context: any) {
+  const { id } = await context.params;
+
+  try {
+    //type check first
+    if (!id || typeof id !== 'string') return NextResponse.json({ error: "Invalid Page id" }, { status: 400 })
+
+    // verify the token second
+    let uid: string;
+    try {
+      uid = await verifyFirebaseToken(req)
+    } catch (authErr: any) {
+      console.log(authErr, "Error with req token auth")
+      return NextResponse.json({ error: 'Authentication Failed with the Request' }, { status: 401 })
+    }
+    //and then do the thing
+
+    const pageData = await adminn.firestore().collection('pages').doc(id).get();
+    if (!pageData) return NextResponse.json({ error: "Page not found!" }, { status: 404 })
+
+  } catch (error: unknown) {
+
+    //at last case
+    // generic error
+    return (
+      NextResponse.json({
+        status: 500
+      })
+    )
+  }
+
 }

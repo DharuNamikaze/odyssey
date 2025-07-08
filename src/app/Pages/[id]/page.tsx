@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { Page } from '../types';
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-
 import { IconChevronLeft, IconTrash, IconFidgetSpinner } from '@tabler/icons-react'
 import useDebounce from '@/lib/debounce';
 
@@ -108,9 +107,6 @@ export default function PageEditor({ params }: ParamsProps) {
     }
   };
 
-
-
-
   // Debounced save function using the React hook
   const debouncedSave = useDebounce(async (newTitle: string, newContent: string) => {
     if (!page) return;
@@ -149,12 +145,10 @@ export default function PageEditor({ params }: ParamsProps) {
     debouncedSave(title, e.target.value);
   };
 
-  if (loading) {
-    return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
-        <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
-      </div>
-    );
+  {
+    loading && (<div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+      <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
+    </div>);
   }
 
   return (
@@ -174,7 +168,7 @@ export default function PageEditor({ params }: ParamsProps) {
 
           {/* Auto-save bro */}
           {autoSaveStatus === 'saving' && (
-            <span className="text-xs text-blue-400 animate-pulse">o-o</span>
+            <span className="text-xs text-blue-400 animate-pulse">{`o-o`}</span>
           )}
           {autoSaveStatus === 'saved' && (
             <span className="text-xs text-green-400 animate-pulse">{`>.<`}</span>
@@ -206,11 +200,12 @@ export default function PageEditor({ params }: ParamsProps) {
                   });
                   if (!response.ok) throw new Error('Failed to delete page');
                   setAutoSaveStatus('saved');
-                  setTimeout(() => setAutoSaveStatus('idle'), 1000);
+                  setTimeout(() => setAutoSaveStatus('idle'), 500);
                   router.push('/Pages');
-                } catch (error) {
+                } catch (error: unknown) {
                   setAutoSaveStatus('error');
-                  setTimeout(() => setAutoSaveStatus('idle'), 2000);
+                  console.log(error, "error crashing at autosaving")
+                  setTimeout(() => setAutoSaveStatus('idle'), 1000);
                 }
               }}
               className="px-2 py-2 text-sm bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
@@ -244,7 +239,7 @@ export default function PageEditor({ params }: ParamsProps) {
             </div>
           </>
         ) : (
-          <div className="text-center text-gray-400">
+          <div className="text-center text-gray-400 -z-10">
             <p>Unable to load page content</p>
           </div>
         )}
