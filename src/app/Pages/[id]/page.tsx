@@ -6,6 +6,7 @@ import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { IconChevronLeft, IconTrash, IconFidgetSpinner } from '@tabler/icons-react'
 import useDebounce from '@/lib/debounce';
+import Loader from '@/components/Loader';
 
 interface ParamsProps {
   params: Promise<{ id: string }> // Changed from paramId to id
@@ -240,7 +241,7 @@ export default function PageEditor({ params }: ParamsProps) {
           </>
         ) : (
           <div className="text-center text-gray-400 -z-10">
-            <p>Unable to load page content</p>
+            <Loader />
           </div>
         )}
       </div>

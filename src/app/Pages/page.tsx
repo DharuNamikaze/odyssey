@@ -148,6 +148,7 @@ export default function Pages() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {page && page.map((p: Page) => (
           <div
+            onClick={() => router.push(`/Pages/${p.id}`)}
             key={p.id}
             className="  border rounded-3xl hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center flex-col "
           >
@@ -155,7 +156,7 @@ export default function Pages() {
               <Image src="/favicon.svg" alt="alt" height={100} width={100} />
             </span>
             <div
-              onClick={() => router.push(`/Pages/${p.id}`)}
+
               className="flex-1 cursor-pointer pt-10 pb-5"
             >
               <div className="flex items-center gap-2 mb-2">

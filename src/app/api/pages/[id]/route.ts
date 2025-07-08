@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { verifyFirebaseToken } from '../../../../../lib/middleware';
 import { adminn } from '../../../../../lib/firebaseAdmin';
+import { error } from 'console';
 
 // Get a specific page
 export async function GET(req: NextRequest, context: any) {
@@ -54,7 +55,7 @@ export async function GET(req: NextRequest, context: any) {
         { status: 403 }
       );
     }
-//getting the actual page details and page itself here
+    //getting the actual page details and page itself here
     const page = {
       id: doc.id,
       ...pageData
@@ -104,17 +105,35 @@ export async function DELETE(req: NextRequest, context: any) {
       console.log(authErr, "Error with req token auth")
       return NextResponse.json({ error: 'Authentication Failed with the Request' }, { status: 401 })
     }
+    
+    const url = new URL(req.url);
+    const pageId = url.searchParams.get('id');
+
     //and then do the thing
+    const pageRef = adminn.firestore().collection('pages').doc(id)
+    //get the reference ☝️
+    const doc = await pageRef.get();
+    // get the actual documentsnapshot☝️
+    if (!doc.exists) return NextResponse.json({ error: "Page not found!" }, { status: 404 })
 
-    const pageData = await adminn.firestore().collection('pages').doc(id).get();
-    if (!pageData) return NextResponse.json({ error: "Page not found!" }, { status: 404 })
+    const pageData = doc.data();
+    console.log(pageData)
+    //now get the acutal data here from the ref->documentsnap-> data
+    if (!pageData) return NextResponse.json({ error: 'Page is corrupted ' })
 
+    if (pageData.userId != id)
+      return NextResponse.json({ error: "Unauthorized access to this page" }, { status: 403 })
+    try {
+      pageData.delete()
+    } catch (error: unknown) {
+      throw console.log("Error deleting the page from database", error)
+    }
   } catch (error: unknown) {
 
     //at last case
     // generic error
     return (
-      NextResponse.json({
+      NextResponse.json({ error: "Internal Server error" }, {
         status: 500
       })
     )
