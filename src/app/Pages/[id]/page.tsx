@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Page } from '../types';
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { IconChevronLeft, IconTrash, IconFidgetSpinner } from '@tabler/icons-react'
+import { IconChevronLeft, IconTrash, IconFidgetSpinner, IconPlus } from '@tabler/icons-react'
 import useDebounce from '@/lib/debounce';
 import Loader from '@/components/Loader';
 import "@blocknote/core/fonts/inter.css";
@@ -159,11 +159,11 @@ export default function PageEditor({ params }: ParamsProps) {
   const editor = useCreateBlockNote();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen ">
       <div className="max-w-3xl mx-auto px-6 py-12">
         {error && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
-            <p className="font-medium">Error:</p>
+            <p className="text-2xl">Error:</p>
             <p>{error}</p>
             {error.includes('not found') && (
               <p className="mt-2 text-sm">Redirecting to pages list...</p>
@@ -194,16 +194,18 @@ export default function PageEditor({ params }: ParamsProps) {
             <>
               <button
                 onClick={() => setShowDeleteModal(true)}
-                className="px-2 py-2 text-sm bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
+                className="px-2 py-2 text-sm bg-black text-white rounded-full hover:bg-red-700 transition-colors rotate-45 "
               >
-                <IconTrash />
+                <IconPlus />
               </button>
               {showDeleteModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                  <div className="bg-black rounded-lg p-6 shadow-lg text-center">
-                    <h2 className="text-lg font-bold mb-2">Delete Page?</h2>
-                    <p className="mb-4">Are you sure you want to delete this page? This action cannot be undone.</p>
-                    <div className="flex justify-center gap-4">
+                <div className="fixed inset-0 flex items-center justify-center bg-zinc-800 bg-opacity-70 z-50">
+                  <div className="bg-black rounded-lg px-8 py-4 shadow-lg text-center ">
+                    <div className="flex flex-col justify-center items-center space-y-1 ">
+                      <IconTrash className='animate-pulse transition-transform' />
+                      <p>Confirm Delete?</p>
+                    </div>
+                    <div className="flex justify-center gap-2 mt-3 ">
                       <button
                         onClick={async () => {
                           try {
@@ -217,9 +219,11 @@ export default function PageEditor({ params }: ParamsProps) {
                                 'Content-Type': 'application/json'
                               }
                             });
+
                             if (!response.ok) throw new Error('Failed to delete page');
                             setAutoSaveStatus('saved');
-                            setTimeout(() => setAutoSaveStatus('idle'), 500);
+                            router.refresh();
+                            setTimeout(() => setAutoSaveStatus('idle'), 300);
                             router.push('/Pages');
                           } catch (error: unknown) {
                             setAutoSaveStatus('error');
@@ -229,13 +233,13 @@ export default function PageEditor({ params }: ParamsProps) {
                             setShowDeleteModal(false);
                           }
                         }}
-                        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                        className="px-2 py-1.5 bg-black text-white rounded-xl hover:bg-red-700"
                       >
                         Delete
                       </button>
                       <button
                         onClick={() => setShowDeleteModal(false)}
-                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                        className="px-2 py-1.5 bg-gray-100 text-black rounded-xl hover:bg-gray-300"
                       >
                         Cancel
                       </button>
@@ -261,7 +265,7 @@ export default function PageEditor({ params }: ParamsProps) {
             </div>
 
             <div>
-              <BlockNoteView editor={editor} className='w-full min-h-[600px] text-lg leading-relaxed border border-cyan-200 resize-none bg-transparent' />;
+              <BlockNoteView editor={editor} className='w-full min-h-[600px] text-lg leading-relaxed rounded-xl border-4 border-cyan-200 resize-none bg-transparent' />
               <textarea
                 value={content}
                 onChange={handleContentChange}

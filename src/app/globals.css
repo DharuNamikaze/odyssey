@@ -17,7 +17,6 @@
   font-style: normal;
 }
 
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -35,7 +34,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
 }
 
@@ -138,13 +137,25 @@ body {
   justify-content: center;
 }
 
-.create-btn {
-  transition: all 0.3s ease-in;
-}
-
 .hi {
   height: 9.5rem;
 }
+
+.createLogBtn {
+  box-shadow: #6f5f9f;
+  background: #6f6f9f;
+  transition: all 0.3s ease-in;
+}
+
+.createLogBtn:hover {
+  box-shadow: #000;
+  background: #6f6f9f;
+  border: 3px #000;
+  rotate: 225deg;
+  transition: all 0.6s ease-out;
+}
+
+
 
 /* Add the missing spin keyframes */
 @keyframes spin {

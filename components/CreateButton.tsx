@@ -11,13 +11,13 @@ const CreateButton = () => {
         return () => op();
     }, [open])
 
-    function handleOpen (){
+    function handleOpen() {
         () => { }
     }
 
     return (
         <>
-            <button className={`z-50 fixed right-[2vh] top-[90.5vh] bg-black p-1  rounded-full create-btn`}  onClick={handleOpen}>
+            <button className={`z-50 fixed right-[2vh] top-[90.5vh] bg-black p-1 rounded-full createLogBtn`}   onClick={handleOpen}>
                 <IconPlus width={45} height={45} />
             </button>
         </>
