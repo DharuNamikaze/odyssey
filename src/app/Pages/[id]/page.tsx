@@ -7,6 +7,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { IconChevronLeft, IconTrash, IconFidgetSpinner } from '@tabler/icons-react'
 import useDebounce from '@/lib/debounce';
 import Loader from '@/components/Loader';
+import "@blocknote/core/fonts/inter.css";
+import { BlockNoteView } from "@blocknote/mantine";
+import "@blocknote/mantine/style.css";
+import { useCreateBlockNote } from "@blocknote/react";
 
 interface ParamsProps {
   params: Promise<{ id: string }> // Changed from paramId to id
@@ -151,6 +155,7 @@ export default function PageEditor({ params }: ParamsProps) {
       <IconFidgetSpinner className="w-8 h-8 text-white animate-spin" />
     </div>);
   }
+  const editor = useCreateBlockNote();
 
   return (
     <div className="min-h-screen">
@@ -230,6 +235,7 @@ export default function PageEditor({ params }: ParamsProps) {
             </div>
 
             <div>
+              <BlockNoteView editor={editor} className='w-full min-h-[600px] text-lg leading-relaxed border border-cyan-200 resize-none bg-transparent' />;
               <textarea
                 value={content}
                 onChange={handleContentChange}

@@ -123,16 +123,15 @@ export async function DELETE(req: NextRequest, context: any) {
 
     if (pageData.userId != uid)
       return NextResponse.json({ error: "Unauthorized access to this page" }, { status: 403 })
-    try {
-      pageRef.delete()
-      if (!doc.exists) return NextResponse.json({ status: 204 })
-      //delet the reference so that it deletes the documentsnap (actual doc)
-    } catch (error: unknown) {
-      throw console.log("Error deleting the page from database", error)
-    }
+
+    await pageRef.delete()
+
+    return new NextResponse(null, { status: 204 })
+    //delet the reference so that it deletes the documentsnap (actual doc)
 
   } catch (error: unknown) {
 
+    console.error("Erro deleting page from db ", error);
     //at last case
     // generic error
     return (
