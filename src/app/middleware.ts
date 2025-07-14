@@ -10,6 +10,7 @@ export function middleware(request: NextRequest) {
     || request.nextUrl.pathname.startsWith('/Achievements')
     || request.nextUrl.pathname.startsWith('/Profile')
     || request.nextUrl.pathname.startsWith('/Habits')
+    || request.nextUrl.pathname.startsWith('/GritEngine')
     || request.nextUrl.pathname.startsWith('/GritEngine'))) {
     return NextResponse.redirect(new URL('/', request.url));
   }
@@ -22,6 +23,7 @@ export const config = {
   matcher: [
     '/',
     '/Dashboard/:path*',
-    '/Pages/:path*'
+    '/Pages/:path*',
+    '/'
   ]
 };

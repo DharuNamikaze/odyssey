@@ -105,9 +105,9 @@ export async function DELETE(req: NextRequest, context: any) {
       console.log(authErr, "Error with req token auth")
       return NextResponse.json({ error: 'Authentication Failed with the Request' }, { status: 401 })
     }
-    
-    const url = new URL(req.url);
-    const pageId = url.searchParams.get('id');
+    // not used yet needed in future
+    // const url = new URL(req.url);
+    // const pageId = url.searchParams.get('id');
 
     //and then do the thing
     const pageRef = adminn.firestore().collection('pages').doc(id)
@@ -121,13 +121,16 @@ export async function DELETE(req: NextRequest, context: any) {
     //now get the acutal data here from the ref->documentsnap-> data
     if (!pageData) return NextResponse.json({ error: 'Page is corrupted ' })
 
-    if (pageData.userId != id)
+    if (pageData.userId != uid)
       return NextResponse.json({ error: "Unauthorized access to this page" }, { status: 403 })
     try {
-      pageData.delete()
+      pageRef.delete()
+      if (!doc.exists) return NextResponse.json({ status: 204 })
+      //delet the reference so that it deletes the documentsnap (actual doc)
     } catch (error: unknown) {
       throw console.log("Error deleting the page from database", error)
     }
+
   } catch (error: unknown) {
 
     //at last case

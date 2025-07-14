@@ -33,7 +33,7 @@ export default function Pages() {
   const fetchPages = useCallback(async (userId: string) => {
     try {
       const token = await auth.currentUser?.getIdToken();
-      if (!token) throw new Error("Not Authenticated");
+      if (!token) throw new Error("Not uthenticated");
       const response = await fetch('/api/pages', {
         headers: {
           'Authorization': `Bearer ${token}`
