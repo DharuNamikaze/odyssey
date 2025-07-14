@@ -26,6 +26,7 @@ export default function PageEditor({ params }: ParamsProps) {
   const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const router = useRouter();
   const { id } = use(params);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -190,34 +191,59 @@ export default function PageEditor({ params }: ParamsProps) {
             <IconChevronLeft />
           </button>
           {page && (
-            <button
-              onClick={async () => {
-                if (!confirm('Are you sure you want to delete this page? This action cannot be undone.')) return;
-                try {
-                  setAutoSaveStatus('saving');
-                  const token = await auth.currentUser?.getIdToken();
-                  if (!token) throw new Error('Not authenticated');
-                  const response = await fetch(`/api/pages/${page.id}`, {
-                    method: 'DELETE',
-                    headers: {
-                      'Authorization': `Bearer ${token}`,
-                      'Content-Type': 'application/json'
-                    }
-                  });
-                  if (!response.ok) throw new Error('Failed to delete page');
-                  setAutoSaveStatus('saved');
-                  setTimeout(() => setAutoSaveStatus('idle'), 500);
-                  router.push('/Pages');
-                } catch (error: unknown) {
-                  setAutoSaveStatus('error');
-                  console.log(error, "error crashing at autosaving")
-                  setTimeout(() => setAutoSaveStatus('idle'), 1000);
-                }
-              }}
-              className="px-2 py-2 text-sm bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
-            >
-              <IconTrash />
-            </button>
+            <>
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="px-2 py-2 text-sm bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
+              >
+                <IconTrash />
+              </button>
+              {showDeleteModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                  <div className="bg-black rounded-lg p-6 shadow-lg text-center">
+                    <h2 className="text-lg font-bold mb-2">Delete Page?</h2>
+                    <p className="mb-4">Are you sure you want to delete this page? This action cannot be undone.</p>
+                    <div className="flex justify-center gap-4">
+                      <button
+                        onClick={async () => {
+                          try {
+                            setAutoSaveStatus('saving');
+                            const token = await auth.currentUser?.getIdToken();
+                            if (!token) throw new Error('Not authenticated');
+                            const response = await fetch(`/api/pages/${page.id}`, {
+                              method: 'DELETE',
+                              headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json'
+                              }
+                            });
+                            if (!response.ok) throw new Error('Failed to delete page');
+                            setAutoSaveStatus('saved');
+                            setTimeout(() => setAutoSaveStatus('idle'), 500);
+                            router.push('/Pages');
+                          } catch (error: unknown) {
+                            setAutoSaveStatus('error');
+                            console.log(error, "error crashing at autosaving");
+                            setTimeout(() => setAutoSaveStatus('idle'), 1000);
+                          } finally {
+                            setShowDeleteModal(false);
+                          }
+                        }}
+                        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => setShowDeleteModal(false)}
+                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
 

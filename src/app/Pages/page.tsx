@@ -153,7 +153,7 @@ export default function Pages() {
             className="  border rounded-3xl hover:shadow-lg hover:bg-[#2e2e2f] transition-shadow cursor-pointer flex items-center flex-col "
           >
             <span>
-              <Image src="/favicon.svg" alt="alt" height={100} width={100} />
+              <Image src="/favicon.svg" alt="alt" priority={true} height={100} width={100} />
             </span>
             <div
 
