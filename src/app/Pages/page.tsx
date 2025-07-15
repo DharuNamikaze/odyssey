@@ -49,6 +49,7 @@ export default function Pages() {
   }, [setPage]);
 
   const createNewPage = async () => {
+    setLoading(true);
     try {
       const token = await auth.currentUser?.getIdToken();
       if (!token) {
@@ -83,6 +84,8 @@ export default function Pages() {
     } catch (error) {
       console.error('Error creating page:', error);
       // You might want to show this error to the user through a toast or alert
+    } finally {
+      setLoading(false)
     }
   };
 

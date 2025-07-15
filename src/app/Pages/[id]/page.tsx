@@ -208,6 +208,7 @@ export default function PageEditor({ params }: ParamsProps) {
                     <div className="flex justify-center gap-2 mt-3 ">
                       <button
                         onClick={async () => {
+                          setLoading(true)
                           try {
                             setAutoSaveStatus('saving');
                             const token = await auth.currentUser?.getIdToken();
@@ -219,18 +220,20 @@ export default function PageEditor({ params }: ParamsProps) {
                                 'Content-Type': 'application/json'
                               }
                             });
-
                             if (!response.ok) throw new Error('Failed to delete page');
                             setAutoSaveStatus('saved');
-                            router.refresh();
+
                             setTimeout(() => setAutoSaveStatus('idle'), 300);
                             router.push('/Pages');
+                            router.refresh();
+                            setLoading(!true)
                           } catch (error: unknown) {
                             setAutoSaveStatus('error');
                             console.log(error, "error crashing at autosaving");
-                            setTimeout(() => setAutoSaveStatus('idle'), 1000);
+                            setTimeout(() => setAutoSaveStatus('idle'), 500);
                           } finally {
                             setShowDeleteModal(false);
+                            setLoading(!true)
                           }
                         }}
                         className="px-2 py-1.5 bg-black text-white rounded-xl hover:bg-red-700"
