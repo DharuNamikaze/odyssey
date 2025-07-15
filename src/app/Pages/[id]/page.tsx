@@ -225,8 +225,7 @@ export default function PageEditor({ params }: ParamsProps) {
 
                             setTimeout(() => setAutoSaveStatus('idle'), 300);
                             router.push('/Pages');
-                            router.refresh();
-                            setLoading(!true)
+                            await router.refresh();
                           } catch (error: unknown) {
                             setAutoSaveStatus('error');
                             console.log(error, "error crashing at autosaving");
