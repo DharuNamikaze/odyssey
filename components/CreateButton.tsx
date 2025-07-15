@@ -17,7 +17,7 @@ const CreateButton = () => {
 
     return (
         <>
-            <button className={`z-50 fixed right-[2vh] top-[90.5vh] bg-black p-1 rounded-full createLogBtn`}   onClick={handleOpen}>
+            <button className={`z-50 fixed right-[2vh] top-[90.5vh] bg-black p-1 rounded-full createLogBtn`} onClick={handleOpen}>
                 <IconPlus width={45} height={45} />
             </button>
         </>

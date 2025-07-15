@@ -5,7 +5,7 @@ import { getAuth } from 'firebase-admin/auth';
 
 const key = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 if (!key) {
-  throw new Error("FIREBASE_SERVICE_ACCOUNT_KEY is not set");
+    throw new Error("FIREBASE_SERVICE_ACCOUNT_KEY is not set");
 }
 const serviceAccount = JSON.parse(key);
 
@@ -16,8 +16,7 @@ if (!admin.apps.length) {
 }
 const app = !getApps().length ? initializeApp({
     credential: cert(serviceAccount),
-})
-    : getApp()
+}) : getApp()
 
 const db = getFirestore(app)
 const auth = getAuth(app)

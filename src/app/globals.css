@@ -144,20 +144,17 @@ body {
 .createLogBtn {
   box-shadow: #6f5f9f;
   background: #6f6f9f;
-  transition: all 0.3s ease-in;
+  transition: all 0.3s ease-out;
 }
 
 .createLogBtn:hover {
   box-shadow: #000;
   background: #6f6f9f;
-  border: 3px #000;
-  rotate: 225deg;
-  transition: all 0.6s ease-out;
+  rotate: 135deg;
+  transition: all 0.5s ease-in;
 }
 
 
-
-/* Add the missing spin keyframes */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
