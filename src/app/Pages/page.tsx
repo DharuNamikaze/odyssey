@@ -49,8 +49,8 @@ export default function Pages() {
   }, [setPage]);
 
   const createNewPage = async () => {
-    setLoading(true);
     try {
+      setLoading(true);
       const token = await auth.currentUser?.getIdToken();
       if (!token) {
         throw new Error('Not authenticated');
@@ -85,7 +85,7 @@ export default function Pages() {
       console.error('Error creating page:', error);
       // You might want to show this error to the user through a toast or alert
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
