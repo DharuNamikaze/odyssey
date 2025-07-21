@@ -8,8 +8,8 @@ export interface Page {
   parentId?: string; // For nested pages
   icon?: string;
   coverImage?: string;
+  blocks?: any[];
 }
-
 
 export interface Block {
   id: string;
