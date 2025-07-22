@@ -304,10 +304,10 @@ export default function PageEditor({ params }: ParamsProps) {
         <div className="flex justify-end gap-3 mb-8 items-center">
           {/* Auto-save status */}
           {autoSaveStatus === 'saving' && (
-            <span className="text-xs text-blue-400 animate-pulse">Saving...</span>
+            <span className="text-xs text-blue-400 animate-pulse">{"-_-"}</span>
           )}
           {autoSaveStatus === 'saved' && (
-            <span className="text-xs text-green-400">Saved</span>
+            <span className="text-xs text-green-400">{"o_o"}</span>
           )}
           {autoSaveStatus === 'error' && (
             <span className="text-xs text-red-400">Save failed</span>
