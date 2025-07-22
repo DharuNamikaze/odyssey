@@ -1,5 +1,4 @@
 'use client'
-
 import { use, useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Page } from '../types';
@@ -14,6 +13,7 @@ import "@blocknote/mantine/style.css";
 
 import { BlockNoteView } from "@blocknote/mantine";
 import { useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteEditor } from '@blocknote/core';
 
 interface ParamsProps {
   params: Promise<{ id: string }>
@@ -28,14 +28,14 @@ export default function PageEditor({ params }: ParamsProps) {
   const [title, setTitle] = useState('');
   const [loadingState, setLoadingState] = useState<LoadingState>('loading');
   const [error, setError] = useState<string | null>(null);
-  
+
   // Editor state
   const [editorInitialized, setEditorInitialized] = useState(false);
   const [autoSaveStatus, setAutoSaveStatus] = useState<AutoSaveStatus>('idle');
-  
+
   // UI state
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  
+
   // Refs to prevent unnecessary re-renders
   const isInitializingRef = useRef(false);
   const pageIdRef = useRef<string | null>(null);
@@ -59,7 +59,7 @@ export default function PageEditor({ params }: ParamsProps) {
         router.push('/');
         return;
       }
-      
+
       // Only fetch if page ID changed
       if (pageIdRef.current !== id) {
         pageIdRef.current = id;
@@ -72,7 +72,7 @@ export default function PageEditor({ params }: ParamsProps) {
 
   const fetchPage = useCallback(async (pageId: string) => {
     if (isInitializingRef.current) return;
-    
+
     try {
       isInitializingRef.current = true;
       setLoadingState('loading');
@@ -97,20 +97,20 @@ export default function PageEditor({ params }: ParamsProps) {
       }
 
       const { page: fetchedPage } = await response.json();
-      
+
       // Update page state
       setPage(fetchedPage);
       setTitle(fetchedPage.title || '');
 
       // Initialize editor content
       await initializeEditorContent(fetchedPage);
-      
+
       setLoadingState('ready');
     } catch (err: any) {
       console.error('Error fetching page:', err);
       setError(err.message || 'Failed to load page');
       setLoadingState('error');
-      
+
       // Auto-redirect on 404
       if (err.message.includes('not found') || err.message.includes('404')) {
         setTimeout(() => router.push('/Pages'), 2000);
@@ -165,12 +165,12 @@ export default function PageEditor({ params }: ParamsProps) {
 
   const debouncedContentSave = useDebounce(async (blocks: any[]) => {
     if (!page || !blocks) return;
-    
+
     try {
       const markdown = await editor.blocksToMarkdownLossy(blocks);
-      await savePageData({ 
-        content: markdown.trim(), 
-        blocks: blocks 
+      await savePageData({
+        content: markdown.trim(),
+        blocks: blocks
       });
     } catch (err) {
       console.error('Failed to convert blocks to markdown:', err);
@@ -182,7 +182,7 @@ export default function PageEditor({ params }: ParamsProps) {
 
     try {
       setAutoSaveStatus('saving');
-      
+
       const token = await auth.currentUser?.getIdToken();
       if (!token) {
         throw new Error('Authentication required');
@@ -231,7 +231,7 @@ export default function PageEditor({ params }: ParamsProps) {
 
     try {
       setAutoSaveStatus('saving');
-      
+
       const token = await auth.currentUser?.getIdToken();
       if (!token) {
         throw new Error('Authentication required');
@@ -259,6 +259,11 @@ export default function PageEditor({ params }: ParamsProps) {
       setShowDeleteModal(false);
     }
   };
+
+  // handling edge case when clicking any where in the input 
+  const handleFocus = () => {
+    editor.focus();
+  }
 
   // Render loading state
   if (loadingState === 'loading') {
@@ -299,7 +304,7 @@ export default function PageEditor({ params }: ParamsProps) {
   return (
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-6 py-12">
-        
+
         {/* Header with controls */}
         <div className="flex justify-end gap-3 mb-8 items-center">
           {/* Auto-save status */}
@@ -350,10 +355,10 @@ export default function PageEditor({ params }: ParamsProps) {
             </div>
 
             {/* BlockNote editor */}
-            <div className="mb-6">
+            <div className="mb-6 -ml-14 " onClick={handleFocus}>
               <BlockNoteView
                 editor={editor}
-                className="w-full min-h-[600px] text-lg leading-relaxed rounded-xl border-4 border-cyan-200 bg-transparent"
+                className="w-full min-h-[600px] text-lg leading-relaxed rounded-xl bg-transparent"
                 onChange={handleEditorChange}
               />
             </div>
@@ -371,7 +376,7 @@ export default function PageEditor({ params }: ParamsProps) {
                 <IconTrash className="w-12 h-12 text-red-500" />
                 <h3 className="text-lg font-semibold text-gray-900">Delete Page?</h3>
                 <p className="text-gray-600 text-center">This action cannot be undone.</p>
-                
+
                 <div className="flex gap-3 w-full">
                   <button
                     onClick={handleDeletePage}

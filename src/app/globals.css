@@ -4,16 +4,8 @@
 @tailwind utilities;
 
 * {
-  font-family: 'Quicksand';
   font-optical-sizing: auto;
   font-weight: 400;
-  font-style: normal;
-}
-
-.quicksand {
-  font-family: "Quicksand", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
   font-style: normal;
 }
 

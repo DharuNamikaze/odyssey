@@ -32,7 +32,6 @@ It adapts to you — not the other way around.
 
 ##### 📅 Calendar integrations
 
-
 ## Introduction
 
 Odyssey is a prodcutive all-in-one web app which helps you to visualize your real life scoreboard
@@ -48,6 +47,11 @@ pnpm dev
 # or
 bun dev
 ```
+## Optimizations 
+
+#### Reduced FTTB (First Time To Byte)
+
+#### Load 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

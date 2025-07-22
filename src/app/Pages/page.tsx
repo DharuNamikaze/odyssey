@@ -171,6 +171,7 @@ export default function Pages() {
               </p>
             </div>
             {click && <input
+              title="checkbox"
               type="checkbox"
               checked={selectedPages.includes(p.id)}
               onChange={() => {
