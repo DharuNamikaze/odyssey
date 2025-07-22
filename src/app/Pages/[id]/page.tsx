@@ -1,6 +1,7 @@
 'use client'
 import { use, useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { Page } from '../types';
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -8,13 +9,18 @@ import { IconChevronLeft, IconTrash, IconFidgetSpinner, IconPlus } from '@tabler
 import useDebounce from '@/lib/debounce';
 import Loader from '@/components/Loader';
 
-import "@blocknote/core/fonts/inter.css";
-import "@blocknote/mantine/style.css";
-
-import { BlockNoteView } from "@blocknote/mantine";
-import { useCreateBlockNote } from "@blocknote/react";
-import { BlockNoteEditor } from '@blocknote/core';
-
+// Dynamic import to prevent SSR issues
+const BlockNoteEditor = dynamic(
+  () => import('../../../../components/BlockEditor'),
+  {
+    ssr: false,
+    loading: () => (
+      <>
+        <Loader />
+      </>
+    )
+  }
+);
 interface ParamsProps {
   params: Promise<{ id: string }>
 }
@@ -29,8 +35,7 @@ export default function PageEditor({ params }: ParamsProps) {
   const [loadingState, setLoadingState] = useState<LoadingState>('loading');
   const [error, setError] = useState<string | null>(null);
 
-  // Editor state
-  const [editorInitialized, setEditorInitialized] = useState(false);
+  // Auto-save state
   const [autoSaveStatus, setAutoSaveStatus] = useState<AutoSaveStatus>('idle');
 
   // UI state
@@ -42,15 +47,6 @@ export default function PageEditor({ params }: ParamsProps) {
 
   const router = useRouter();
   const { id } = use(params);
-
-  // Create editor instance once
-  const editor = useCreateBlockNote({
-    initialContent: [{
-      id: 'loading',
-      type: 'paragraph',
-      content: 'Loading...',
-    }],
-  });
 
   // Authentication and page loading effect
   useEffect(() => {
@@ -77,7 +73,6 @@ export default function PageEditor({ params }: ParamsProps) {
       isInitializingRef.current = true;
       setLoadingState('loading');
       setError(null);
-      setEditorInitialized(false);
 
       const token = await auth.currentUser?.getIdToken();
       if (!token) {
@@ -101,10 +96,6 @@ export default function PageEditor({ params }: ParamsProps) {
       // Update page state
       setPage(fetchedPage);
       setTitle(fetchedPage.title || '');
-
-      // Initialize editor content
-      await initializeEditorContent(fetchedPage);
-
       setLoadingState('ready');
     } catch (err: any) {
       console.error('Error fetching page:', err);
@@ -120,61 +111,18 @@ export default function PageEditor({ params }: ParamsProps) {
     }
   }, [router]);
 
-  const initializeEditorContent = useCallback(async (pageData: Page) => {
-    try {
-      let initialBlocks;
-
-      // Use existing blocks if available
-      if (pageData.blocks && Array.isArray(pageData.blocks) && pageData.blocks.length > 0) {
-        initialBlocks = pageData.blocks;
-      } else if (pageData.content) {
-        // Parse markdown content to blocks
-        try {
-          initialBlocks = await editor.tryParseMarkdownToBlocks(pageData.content);
-        } catch (parseError) {
-          console.warn('Failed to parse markdown:', parseError);
-          initialBlocks = [{
-            id: 'content-fallback',
-            type: 'paragraph',
-            content: pageData.content,
-          }];
-        }
-      } else {
-        // Default empty content
-        initialBlocks = [{
-          id: 'empty',
-          type: 'paragraph',
-          content: '',
-        }];
-      }
-
-      // Replace editor content
-      await editor.replaceBlocks(editor.document, initialBlocks);
-      setEditorInitialized(true);
-    } catch (err) {
-      console.error('Failed to initialize editor:', err);
-      setError('Failed to initialize editor');
-    }
-  }, [editor]);
-
   // Debounced save functions
   const debouncedTitleSave = useDebounce(async (newTitle: string) => {
     if (!page || !newTitle.trim()) return;
     await savePageData({ title: newTitle.trim() });
   }, 1000);
 
-  const debouncedContentSave = useDebounce(async (blocks: any[]) => {
+  const debouncedContentSave = useDebounce(async (blocks: any[], markdown: string) => {
     if (!page || !blocks) return;
-
-    try {
-      const markdown = await editor.blocksToMarkdownLossy(blocks);
-      await savePageData({
-        content: markdown.trim(),
-        blocks: blocks
-      });
-    } catch (err) {
-      console.error('Failed to convert blocks to markdown:', err);
-    }
+    await savePageData({
+      content: markdown,
+      blocks: blocks
+    });
   }, 800);
 
   const savePageData = async (updates: Partial<{ title: string; content: string; blocks: any[] }>) => {
@@ -221,9 +169,8 @@ export default function PageEditor({ params }: ParamsProps) {
     debouncedTitleSave(newTitle);
   };
 
-  const handleEditorChange = useCallback((editorInstance: any) => {
-    const blocks = editorInstance.document;
-    debouncedContentSave(blocks);
+  const handleEditorContentChange = useCallback((blocks: any[], markdown: string) => {
+    debouncedContentSave(blocks, markdown);
   }, [debouncedContentSave]);
 
   const handleDeletePage = async () => {
@@ -259,11 +206,6 @@ export default function PageEditor({ params }: ParamsProps) {
       setShowDeleteModal(false);
     }
   };
-
-  // handling edge case when clicking any where in the input 
-  const handleFocus = () => {
-    editor.focus();
-  }
 
   // Render loading state
   if (loadingState === 'loading') {
@@ -340,7 +282,7 @@ export default function PageEditor({ params }: ParamsProps) {
         </div>
 
         {/* Page content */}
-        {page && editorInitialized && (
+        {page && loadingState === 'ready' && (
           <>
             {/* Title input */}
             <div className="mb-6">
@@ -348,20 +290,18 @@ export default function PageEditor({ params }: ParamsProps) {
                 type="text"
                 value={title}
                 onChange={handleTitleChange}
-                className="w-full text-5xl font-bold text-gray-100 bg-transparent border-none focus:outline-none placeholder-gray-400"
+                className="w-full text-6xl font-bold text-gray-100 bg-transparent border-none focus:outline-none placeholder-gray-400"
                 placeholder="Untitled"
                 maxLength={100}
               />
             </div>
 
             {/* BlockNote editor */}
-            <div className="mb-6 -ml-14 " onClick={handleFocus}>
-              <BlockNoteView
-                editor={editor}
-                className="w-full min-h-[600px] text-lg leading-relaxed rounded-xl bg-transparent"
-                onChange={handleEditorChange}
-              />
-            </div>
+            <BlockNoteEditor
+              page={page}
+              onContentChange={handleEditorContentChange}
+              className="mb-6 -ml-14"
+            />
           </>
         )}
 
