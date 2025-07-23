@@ -68,7 +68,7 @@ const Dashboard = () => {
                         </div>
                         {/* Stats + Calendar */}
                         {/* Bento Grid Container */}
-                        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-3 auto-rows-auto ">
+                        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-3 auto-rows-auto ">
                             {/* Streak Card - Takes 2 columns */}
                             <div className="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-500 transition-all duration-300">
                                 <div className="flex items-center gap-3 mb-4">
@@ -82,7 +82,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Aura Card - Takes 2 columns */}
-                            <div className="md:col-span-1 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
+                            <div className="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="p-2 bg-yellow-500/20 rounded-lg">
                                         <Trophy className="w-6 text-yellow-400" />
@@ -94,7 +94,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Level Card - Takes 2 columns */}
-                            <div className="md:col-span-1 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
+                            <div className="md:col-span-4 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="p-2 bg-blue-500/20 rounded-lg">
                                         <TrendingUp className="w-6 h-6 text-blue-400" />
