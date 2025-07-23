@@ -3,12 +3,13 @@ import { use, useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Page } from '../types';
+import EmojiPicker from 'emoji-picker-react'
 import { auth } from '../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { IconChevronLeft, IconTrash, IconFidgetSpinner, IconPlus } from '@tabler/icons-react';
 import useDebounce from '@/lib/debounce';
 import Loader from '@/components/Loader';
-
+import Image from 'next/image';
 // Dynamic import to prevent SSR issues
 const BlockNoteEditor = dynamic(
   () => import('../../../../components/BlockEditor'),
@@ -244,97 +245,110 @@ export default function PageEditor({ params }: ParamsProps) {
 
   // Main render
   return (
-    <div className="min-h-screen">
-      <div className="max-w-3xl mx-auto px-6 py-12">
+    <div className=''>
+      <section>
+        { }
+        <Image src={"/"} height={45} width={100} alt='' />
 
-        {/* Header with controls */}
-        <div className="flex justify-end gap-3 mb-8 items-center">
-          {/* Auto-save status */}
-          {autoSaveStatus === 'saving' && (
-            <span className="text-xs text-blue-400 animate-pulse">{"-_-"}</span>
-          )}
-          {autoSaveStatus === 'saved' && (
-            <span className="text-xs text-green-400">{"o_o"}</span>
-          )}
-          {autoSaveStatus === 'error' && (
-            <span className="text-xs text-red-400">Save failed</span>
-          )}
+      </section>
 
-          {/* Back button */}
-          <button
-            onClick={() => router.push('/Pages')}
-            className="px-2 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
-            title="Back to Pages"
-          >
-            <IconChevronLeft />
-          </button>
+      <div className="min-h-screen">
+        <div className="max-w-3xl mx-auto px-6 py-12">
 
-          {/* Delete button */}
-          {page && (
+          {/* Header with controls */}
+          <div className="flex justify-end gap-3 mb-8 items-center">
+            {/* Auto-save status */}
+            {autoSaveStatus === 'saving' && (
+              <span className="text-xs text-blue-400 animate-pulse">{"-_-"}</span>
+            )}
+            {autoSaveStatus === 'saved' && (
+              <span className="text-xs text-green-400">{"o_o"}</span>
+            )}
+            {autoSaveStatus === 'error' && (
+              <span className="text-xs text-red-400">Save failed</span>
+            )}
+
+            {/* Back button */}
+            <span>
+              {/* <EmojiPicker /> */}
+
+            </span>
+
             <button
-              onClick={() => setShowDeleteModal(true)}
-              className="px-2 py-2 text-sm bg-black text-white rounded-full hover:bg-red-700 transition-colors rotate-45"
-              title="Delete Page"
+              onClick={() => router.push('/Pages')}
+              className="px-2 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+              title="Back to Pages"
             >
-              <IconPlus />
+              <IconChevronLeft />
             </button>
-          )}
-        </div>
 
-        {/* Page content */}
-        {page && loadingState === 'ready' && (
-          <>
-            {/* Title input */}
-            <div className="mb-6">
-              <input
-                type="text"
-                value={title}
-                onChange={handleTitleChange}
-                className="w-full text-6xl font-bold text-gray-100 bg-transparent border-none focus:outline-none placeholder-gray-400"
-                placeholder="Untitled"
-                maxLength={100}
+            {/* Delete button */}
+            {page && (
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="px-2 py-2 text-sm bg-black text-white rounded-full hover:bg-red-700 transition-colors rotate-45"
+                title="Delete Page"
+              >
+                <IconPlus />
+              </button>
+            )}
+          </div>
+
+          {/* Page content */}
+          {page && loadingState === 'ready' && (
+            <>
+              {/* Title input */}
+              <div className="mb-6">
+                <input
+                  type="text"
+                  value={title}
+                  onChange={handleTitleChange}
+                  className="w-full text-6xl font-bold text-gray-100 bg-transparent border-none focus:outline-none placeholder-gray-400"
+                  placeholder="Untitled"
+                  maxLength={100}
+                />
+              </div>
+
+              {/* BlockNote editor */}
+              <BlockNoteEditor
+                page={page}
+                onContentChange={handleEditorContentChange}
+                className="mb-6 -ml-14"
               />
-            </div>
+            </>
+          )}
 
-            {/* BlockNote editor */}
-            <BlockNoteEditor
-              page={page}
-              onContentChange={handleEditorContentChange}
-              className="mb-6 -ml-14"
-            />
-          </>
-        )}
+          {/* Loading fallback */}
+          {!page && loadingState === 'ready' && <Loader />}
 
-        {/* Loading fallback */}
-        {!page && loadingState === 'ready' && <Loader />}
+          {/* Delete confirmation modal */}
+          {showDeleteModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+              <div className="bg-white rounded-lg p-6 shadow-lg max-w-sm mx-4">
+                <div className="flex flex-col items-center space-y-4">
+                  <IconTrash className="w-12 h-12 text-red-500" />
+                  <h3 className="text-lg font-semibold text-gray-900">Delete Page?</h3>
+                  <p className="text-gray-600 text-center">This action cannot be undone.</p>
 
-        {/* Delete confirmation modal */}
-        {showDeleteModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-            <div className="bg-white rounded-lg p-6 shadow-lg max-w-sm mx-4">
-              <div className="flex flex-col items-center space-y-4">
-                <IconTrash className="w-12 h-12 text-red-500" />
-                <h3 className="text-lg font-semibold text-gray-900">Delete Page?</h3>
-                <p className="text-gray-600 text-center">This action cannot be undone.</p>
-
-                <div className="flex gap-3 w-full">
-                  <button
-                    onClick={handleDeletePage}
-                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
-                  >
-                    Delete
-                  </button>
-                  <button
-                    onClick={() => setShowDeleteModal(false)}
-                    className="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition-colors"
-                  >
-                    Cancel
-                  </button>
+                  <div className="flex gap-3 w-full">
+                    <button
+                      onClick={handleDeletePage}
+                      className="flex-1 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => setShowDeleteModal(false)}
+                      className="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

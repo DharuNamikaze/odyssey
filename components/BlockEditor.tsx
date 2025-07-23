@@ -98,7 +98,7 @@ export default function BlockNoteEditor({ page, onContentChange, className = "" 
     // Show loading state
     if (!page || !editorInitialized) {
         return (
-            <Loader />
+            <Loader/>
         );
     }
 
