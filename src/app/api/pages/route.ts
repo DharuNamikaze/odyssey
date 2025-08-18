@@ -111,7 +111,6 @@ export async function DELETE(req: NextRequest) {
     if (doc.data()?.userId !== uid) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
-
     await pageRef.delete();
 
     return NextResponse.json({ message: 'Page deleted successfully' });

@@ -15,6 +15,7 @@ import { getAuth } from '../../../lib/firebase';
 import { LineChart } from '../../../components/charts/LineChart';
 import { LineCustomChart } from '../../../components/charts/LineCustomChart'
 import Levels from '../../../data/levels';
+import { IconMoneybag } from "@tabler/icons-react";
 
 const Dashboard = () => {
     const [date, setDate] = useState<Date | null>(null);
@@ -61,16 +62,16 @@ const Dashboard = () => {
             {/* Desktop Version */}
             {loading ? <Loader /> :
                 < main className="flex flex-col gap-10 overflow-hidden">
-                    <div className="grid grid-cols-1 gap-5 z-4 mb-10">
+                    <div className="grid gap-5 z-4 mb-10">
                         <div>
-                            <h1 className="mt-5 text-3xl md:text-4xl font-bold p-0 mb-0">Summary</h1>
+                            <h1 className=" text-3xl md:text-4xl font-bold p-0 mb-0">Summary</h1>
                             <p className="text-neutral-400 mt-1 text-base md:text-lg">Welcome back! Here's an overview of your Activites.</p>
                         </div>
                         {/* Stats + Calendar */}
                         {/* Bento Grid Container */}
-                        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-3 auto-rows-auto ">
+                        <div className="grid md:grid-cols-4 lg:grid-cols-6 gap-2 auto-rows-auto ">
                             {/* Streak Card - Takes 2 columns */}
-                            <div className="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-500 transition-all duration-300">
+                            <div className="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-500 transition-all duration-300">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="p-2 bg-orange-500/20 rounded-lg">
                                         <Zap className="w-6 text-orange-400" />
@@ -82,7 +83,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Aura Card - Takes 2 columns */}
-                            <div className="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
+                            <div className="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="p-2 bg-yellow-500/20 rounded-lg">
                                         <Trophy className="w-6 text-yellow-400" />
@@ -94,7 +95,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Level Card - Takes 2 columns */}
-                            <div className="md:col-span-4 lg:col-span-1 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
+                            <div className="md:col-span-4 lg:col-span-2 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="p-2 bg-blue-500/20 rounded-lg">
                                         <TrendingUp className="w-6 h-6 text-blue-400" />
@@ -105,8 +106,20 @@ const Dashboard = () => {
                                 <p className="text-neutral-400 text-sm mt-2">Current level</p>
                             </div>
 
+                            {/* Additional Stats Cards */}
+                            <div className="md:col-span-2 lg:col-span-4  bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="p-2 bg-purple-500/20 rounded-lg">
+                                        <Target className="w-6 h-6 text-purple-400" />
+                                    </div>
+                                    <h2 className="text-xl font-semibold text-white">Habits</h2>
+                                </div>
+                                <p className="text-3xl font-bold text-purple-400">2.4k</p>
+                                <p className="text-neutral-400 text-sm mt-2">Followers</p>
+                            </div>
+
                             {/* Calendar Card - Takes full width on mobile, 4 columns on larger screens */}
-                            <div className="md:col-span-4 lg:col-span-4 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
+                            <div className="md:col-span-4 lg:col-span-2 lg:row-span-2    bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="p-2 bg-green-500/20 rounded-lg">
                                         <CalendarDays className="w-6 h-6 text-green-400" />
@@ -119,17 +132,6 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            {/* Additional Stats Cards */}
-                            <div className="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="p-2 bg-purple-500/20 rounded-lg">
-                                        <Target className="w-6 h-6 text-purple-400" />
-                                    </div>
-                                    <h2 className="text-xl font-semibold text-white">Habits</h2>
-                                </div>
-                                <p className="text-3xl font-bold text-purple-400">2.4k</p>
-                                <p className="text-neutral-400 text-sm mt-2">Followers</p>
-                            </div>
 
                             {/* Time Spent Card */}
                             <div className="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
@@ -142,7 +144,21 @@ const Dashboard = () => {
                                 <p className="text-3xl font-bold text-red-400">24h</p>
                                 <p className="text-neutral-400 text-sm mt-2">This week</p>
                             </div>
+
+                             {/* Some Spent Card */}
+                            <div className="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-black to-neutral-800 rounded-2xl p-6 border border-neutral-700 hover:border-neutral-600 transition-all duration-300">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="p-2 bg-red-600/50 rounded-lg">
+                                        <IconMoneybag className="w-6 h-6 text-red-400" />
+                                    </div>
+                                    <h2 className="text-xl font-semibold text-white">Money Spent</h2>
+                                </div>
+                                <p className="text-3xl font-bold text-red-400">24h</p>
+                                <p className="text-neutral-400 text-sm mt-2">This week</p>
+                            </div>
                         </div>
+
+
                         {/* Habits */}
                         <div className="p-4 md:p-8 rounded-2xl bg-gradient-to-tr from-black to-zinc-700 grid grid-cols-1 md:grid-cols-2 flex-1 gap-4 md:gap-2 border-[0.1px] border-neutral-700">
                             <div className="space-y-6 md:space-y-9">
