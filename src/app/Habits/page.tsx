@@ -485,50 +485,54 @@ const Habits = () => {
                       
                       // Check if this is the day when the first habit was created
                       const isHabitCreationDay = (() => {
-                        if (habits.length === 0) return false;
-                        
                         // Find the earliest habit creation date, filtering out invalid ones
-                        const creationDates = habits
-                          .map(h => h.createdAt)
-                          .filter(createdAt => {
-                            // Filter out null, undefined, empty objects, and invalid dates
-                            if (!createdAt) return false;
-                            if (typeof createdAt === 'object' && Object.keys(createdAt).length === 0) return false; // Empty object {}
-                            if (createdAt instanceof Date && isNaN(createdAt.getTime())) return false;
-                            if (typeof createdAt === 'string' && createdAt.trim() === '') return false;
-                            return true;
-                          });
+                        const validCreationDates: Date[] = [];
                         
-                        if (creationDates.length === 0) {
+                        for (const habit of habits) {
+                          if (habit.createdAt) {
+                            let date: Date | null = null;
+                            
+                            try {
+                              if (typeof habit.createdAt === 'object' && 'toDate' in habit.createdAt && typeof habit.createdAt.toDate === 'function') {
+                                // Firebase Timestamp
+                                date = (habit.createdAt as any).toDate();
+                              } else if (typeof habit.createdAt === 'string') {
+                                // ISO string
+                                date = new Date(habit.createdAt);
+                              } else if (habit.createdAt instanceof Date) {
+                                // Already a Date object
+                                date = habit.createdAt;
+                              } else {
+                                // Try to parse as timestamp
+                                date = new Date(habit.createdAt);
+                              }
+                              
+                              // Validate the date
+                              if (date && !isNaN(date.getTime())) {
+                                validCreationDates.push(date);
+                              }
+                            } catch (error) {
+                              console.error('Error parsing habit creation date:', habit.createdAt, error);
+                            }
+                          }
+                        }
+                        
+                        if (validCreationDates.length === 0) {
                           console.log('No valid creation dates found after filtering');
                           return false;
                         }
                         
                         try {
                           // Debug: Log the creation dates to see their format
-                          console.log('Valid creation dates:', creationDates);
-                          console.log('First creation date type:', typeof creationDates[0]);
-                          console.log('First creation date value:', creationDates[0]);
+                          console.log('Valid creation dates:', validCreationDates);
+                          console.log('First creation date type:', typeof validCreationDates[0]);
+                          console.log('First creation date value:', validCreationDates[0]);
                           
-                          // Handle different date formats
-                          let earliestCreationDate;
-                          if (creationDates[0] && typeof creationDates[0] === 'object' && 'toDate' in creationDates[0] && typeof creationDates[0].toDate === 'function') {
-                            // Firebase Timestamp
-                            earliestCreationDate = (creationDates[0] as any).toDate();
-                          } else if (creationDates[0] && typeof creationDates[0] === 'string') {
-                            // ISO string
-                            earliestCreationDate = new Date(creationDates[0]);
-                          } else if (creationDates[0] && creationDates[0] instanceof Date) {
-                            // Already a Date object
-                            earliestCreationDate = creationDates[0];
-                          } else {
-                            // Try to parse as timestamp
-                            earliestCreationDate = new Date(creationDates[0]);
-                          }
+                          // Find the earliest date
+                          const earliestCreationDate = new Date(Math.min(...validCreationDates.map(d => d.getTime())));
                           
                           if (isNaN(earliestCreationDate.getTime())) {
                             console.error('Invalid earliest creation date after parsing:', earliestCreationDate);
-                            console.error('Original value:', creationDates[0]);
                             return false;
                           }
                           
@@ -536,7 +540,7 @@ const Habits = () => {
                           return targetDateString === earliestDateString;
                         } catch (error) {
                           console.error('Error processing creation dates:', error);
-                          console.error('Creation dates array:', creationDates);
+                          console.error('Valid creation dates array:', validCreationDates);
                           return false;
                         }
                       })();
