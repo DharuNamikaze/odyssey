@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     // Memoized toggle function to prevent unnecessary re-renders
     const toggleSidebar = useCallback(() => {
         setIsSidebarOpen(prev => !prev);
-    }, []);.
+    }, []);
     
 
     return (

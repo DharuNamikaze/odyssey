@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import { Page } from './types';
 import { auth } from '../../../lib/firebase';
 import { IconPlus, IconFidgetSpinner } from '@tabler/icons-react';
-import { onAuthStateChanged } from 'firebase/auth';
 import { usePage } from '../../../context/PageContext';
 import Image from 'next/image';
+import ProtectedRoute from '../../../components/ProtectedRoute';
 export default function Pages() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -20,15 +20,12 @@ export default function Pages() {
       setLoading(false);
       return;
     }
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.push('/');
-        return;
-      }
+    // Get current user from auth context
+    const user = auth.currentUser;
+    if (user) {
       fetchPages(user.uid);
-    });
-    return () => unsubscribe();
-  }, [page, router]);
+    }
+  }, [page]);
 
   const fetchPages = useCallback(async (userId: string) => {
     try {
@@ -128,7 +125,8 @@ export default function Pages() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <ProtectedRoute>
+      <div className="container mx-auto px-4 py-8">
       <div className="flex justify-end gap-3 items-center text-center mb-8">
         <h1 className="text-3xl font-bold flex">My Pages</h1>
         <div className='flex items-center gap-4'>
@@ -187,5 +185,6 @@ export default function Pages() {
         ))}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

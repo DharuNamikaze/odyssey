@@ -1,6 +1,7 @@
 import React from "react";
 import './globals.css'
 import { PageProvider } from '../../context/PageContext';
+import { AuthProvider } from '../../context/AuthContext';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,9 +34,11 @@ export default function RootLayout({
       </head>
       <body>
         {/* {!bro && } */}
-        <PageProvider>
-          {children}
-        </PageProvider>
+        <AuthProvider>
+          <PageProvider>
+            {children}
+          </PageProvider>
+        </AuthProvider>
         {/* <div className="flex items-center justify-center w-full ">
           {/* <div className='absolute inset-70 inset-ring-amber-600 inset-ring border-1 z-50 flex justify-between px-5 py-5 bg-amber-100 text-black rounded-4xl '>Search
             <span>❌</span>

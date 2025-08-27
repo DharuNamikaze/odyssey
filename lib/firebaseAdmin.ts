@@ -22,4 +22,14 @@ const db = getFirestore(app)
 const auth = getAuth(app)
 const adminn = admin;
 
+// Function to verify Firebase ID token
+export const verifyAuth = async (idToken: string) => {
+  try {
+    const decodedToken = await auth.verifyIdToken(idToken);
+    return decodedToken;
+  } catch (error) {
+    throw new Error('Invalid token');
+  }
+};
+
 export { auth, db, adminn };

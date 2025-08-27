@@ -6,33 +6,28 @@ import { IconFidgetSpinner } from "@tabler/icons-react"
 import { IconBulb, IconBoltFilled, IconAward, IconBellRinging, IconBrain, IconSend } from '@tabler/icons-react';
 import { auth, signInWithPopup, } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
-import { onAuthStateChanged, User, GoogleAuthProvider } from "firebase/auth";
+import { User, GoogleAuthProvider } from "firebase/auth";
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 export function SparklesPreview() {
   const provider = new GoogleAuthProvider();
-
+  const { user, loading } = useAuth();
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        router.push(`/Dashboard`)
-      } else {
-        console.log("Hi")
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router])
+    if (user) {
+      router.push('/Dashboard');
+    }
+  }, [user, router]);
 
   const handleIn = async () => {
     try {
       const res = await signInWithPopup(auth, provider)
       const user = res.user;
+
+      // The token will be automatically stored by the AuthContext
 
       const userPayload = {
         Aura: 0,
@@ -69,7 +64,7 @@ export function SparklesPreview() {
 
   return (
     <div className="h-[40rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
-      {loading && <LoadingModal />}
+      {isLoading && <LoadingModal />}
       <motion.div
         className="flex space-x-4 space-y-5 justify-center"
         initial={{ opacity: 0, y: 50 }} // Fade in + Move up effect

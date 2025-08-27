@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Image from 'next/image';
-import { IconMenu2 } from '@tabler/icons-react';
-import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
+import { IconMenu2, IconLogout } from '@tabler/icons-react';
+import { useAuth } from '../context/AuthContext';
 
 interface NavBarProps {
   onMenuToggle?: () => void;
@@ -10,8 +10,8 @@ interface NavBarProps {
 
 export function NavBar({ onMenuToggle }: NavBarProps) {
   const [streak, setStreak] = useState<number>(0);
-  const [user, setUser] = useState<User | null>(null);
   const [imgError, setImgError] = useState(false);
+  const { user, signOut } = useAuth();
 
   // Memoize greeting calculation to avoid recalculating on every render
   const greeting = useMemo(() => {
@@ -37,15 +37,10 @@ export function NavBar({ onMenuToggle }: NavBarProps) {
     onMenuToggle?.();
   }, [onMenuToggle]);
 
-  // Firebase auth listener
+  // Reset image error when user changes
   useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setImgError(false); // Reset image error when user changes
-    });
-    return unsubscribe;
-  }, []);
+    setImgError(false);
+  }, [user]);
 
   // Update streak based on user state
   useEffect(() => {
@@ -101,6 +96,15 @@ export function NavBar({ onMenuToggle }: NavBarProps) {
             loading="lazy"
           />
         )}
+        
+        <button
+          onClick={signOut}
+          className="text-white hover:text-red-400 transition-colors p-2 rounded-full hover:bg-gray-700"
+          title="Sign out"
+          aria-label="Sign out"
+        >
+          <IconLogout size={20} />
+        </button>
       </div>
     </nav>
   );
