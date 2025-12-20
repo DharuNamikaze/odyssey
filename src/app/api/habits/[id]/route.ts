@@ -4,9 +4,10 @@ import { verifyAuth } from '../../../../../lib/firebaseAdmin';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const token = request.cookies.get('token')?.value;
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -15,7 +16,7 @@ export async function PUT(
     const decodedToken = await verifyAuth(token);
     const userId = decodedToken.uid;
 
-    const habitRef = db.collection('habits').doc(params.id);
+    const habitRef = db.collection('habits').doc(id);
     const habitDoc = await habitRef.get();
 
     if (!habitDoc.exists) {
@@ -43,9 +44,10 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const token = request.cookies.get('token')?.value;
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -54,7 +56,7 @@ export async function DELETE(
     const decodedToken = await verifyAuth(token);
     const userId = decodedToken.uid;
 
-    const habitRef = db.collection('habits').doc(params.id);
+    const habitRef = db.collection('habits').doc(id);
     const habitDoc = await habitRef.get();
 
     if (!habitDoc.exists) {
@@ -76,9 +78,10 @@ export async function DELETE(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const token = request.cookies.get('token')?.value;
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -87,7 +90,7 @@ export async function PATCH(
     const decodedToken = await verifyAuth(token);
     const userId = decodedToken.uid;
 
-    const habitRef = db.collection('habits').doc(params.id);
+    const habitRef = db.collection('habits').doc(id);
     const habitDoc = await habitRef.get();
 
     if (!habitDoc.exists) {
