@@ -645,7 +645,7 @@ const Habits = () => {
       <HabitModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        onSave={modalMode === 'create' ? handleCreateHabit : handleUpdateHabit}
+        onSave={modalMode === 'edit' ? handleUpdateHabit : handleCreateHabit}
         habit={editingHabit}
         mode={modalMode}
       />

@@ -1,7 +1,18 @@
 import React, { CSSProperties } from "react";
 import { scaleBand, scaleLinear, max } from "d3";
 
-const data = [
+interface ChartData {
+  key: string;
+  value: number;
+  color: string;
+}
+
+interface BarChartHorizontalLogoProps {
+  data?: ChartData[];
+}
+
+// Default data (fallback when no data provided)
+const defaultData: ChartData[] = [
   { key: "Company A", value: 55.8, color: "bg-pink-300 dark:bg-pink-400" },
   { key: "Company B", value: 34.3, color: "bg-purple-300 dark:bg-purple-400" },
   { key: "Company C", value: 27.1, color: "bg-indigo-300 dark:bg-indigo-400" },
@@ -14,15 +25,18 @@ const data = [
   },
 ];
 
-export default function BarChartHorizontalLogo() {
+export default function BarChartHorizontalLogo({ data = defaultData }: BarChartHorizontalLogoProps) {
+  // Use provided data or fallback to default
+  const chartData = data && data.length > 0 ? data : defaultData;
+  
   // Scales
   const yScale = scaleBand()
-    .domain(data.map((d) => d.key))
+    .domain(chartData.map((d) => d.key))
     .range([0, 100])
     .padding(0.2);
 
   const xScale = scaleLinear()
-    .domain([0, max(data.map((d) => d.value)) ?? 0])
+    .domain([0, max(chartData.map((d) => d.value)) ?? 0])
     .range([0, 100]);
 
   return (
@@ -46,7 +60,7 @@ export default function BarChartHorizontalLogo() {
           right-[var(--marginRight)]
           overflow-visible z-20"
       >
-        {data.map((entry, i) => {
+        {chartData.map((entry, i) => {
           if (xScale(entry.value) == 0) return null;
           return (
             <span
@@ -70,7 +84,7 @@ export default function BarChartHorizontalLogo() {
          translate-y-[var(--marginTop)]
          overflow-visible"
       >
-        {data.map((entry, i) => (
+        {chartData.map((entry, i) => (
           <div
             key={i}
             style={{
@@ -80,7 +94,7 @@ export default function BarChartHorizontalLogo() {
             className="absolute rounded-full overflow-hidden size-7 text-sm text-gray-700 -translate-y-1/2 pointer-events-none"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" className="">
-              {companyLogos[i]}
+              {companyLogos[i % companyLogos.length]}
             </svg>
           </div>
         ))}
@@ -98,7 +112,7 @@ export default function BarChartHorizontalLogo() {
         "
       >
         {/* Bars with Rounded Right Corners */}
-        {data.map((d, index) => {
+        {chartData.map((d, index) => {
           const barWidth = xScale(d.value);
           const barHeight = yScale.bandwidth();
 

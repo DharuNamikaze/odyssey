@@ -1,5 +1,6 @@
 import React from "react";
 import './globals.css'
+import { Analytics } from "@vercel/analytics/next"
 import { PageProvider } from '../../context/PageContext';
 import { AuthProvider } from '../../context/AuthContext';
 export default function RootLayout({
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+
         <meta charSet="UTF-8" />
         <meta
           name="viewport"
@@ -37,6 +39,7 @@ export default function RootLayout({
         <AuthProvider>
           <PageProvider>
             {children}
+            <Analytics/>
           </PageProvider>
         </AuthProvider>
         {/* <div className="flex items-center justify-center w-full ">

@@ -2,8 +2,17 @@ import { CSSProperties } from "react";
 import { scaleTime, scaleLinear, max, line as d3_line } from "d3";
 import { ClientTooltip, TooltipContent, TooltipTrigger } from "./Tooltip";
 
+interface ChartData {
+  date: Date;
+  value: number;
+}
+
+interface LineChartProps {
+  data?: ChartData[];
+}
+
 /* Original component: https://buildui.com/recipes/responsive-line-chart */
-const sales = [
+const defaultSales = [
   { date: "2023-04-30", value: 4 },
   { date: "2023-05-01", value: 6 },
   { date: "2023-05-02", value: 8 },
@@ -15,21 +24,24 @@ const sales = [
   { date: "2023-05-08", value: 7 },
   { date: "2023-05-09", value: 9 },
 ];
-const data = sales.map((d) => ({ ...d, date: new Date(d.date) }));
+const defaultData = defaultSales.map((d) => ({ ...d, date: new Date(d.date) }));
 
-export function LineChart() {
+export function LineChart({ data = defaultData }: LineChartProps) {
+  // Use provided data or fallback to default
+  const chartData = data && data.length > 0 ? data : defaultData;
+  
   const xScale = scaleTime()
-    .domain([data[0].date, data[data.length - 1].date])
+    .domain([chartData[0].date, chartData[chartData.length - 1].date])
     .range([0, 100]);
   const yScale = scaleLinear()
-    .domain([0, max(data.map((d) => d.value)) ?? 0])
+    .domain([0, max(chartData.map((d) => d.value)) ?? 0])
     .range([100, 0]);
 
-  const line = d3_line<(typeof data)[number]>()
+  const line = d3_line<(typeof chartData)[number]>()
     .x((d) => xScale(d.date))
     .y((d) => yScale(d.value));
 
-  const d = line(data);
+  const d = line(chartData);
 
   if (!d) {
     return null;
@@ -118,7 +130,7 @@ export function LineChart() {
           />
 
           {/* Circles and Tooltips */}
-          {data.map((d, index) => (
+          {chartData.map((d, index) => (
             <ClientTooltip key={index}>
               <TooltipTrigger>
                 <path
@@ -147,14 +159,14 @@ export function LineChart() {
                   {/* Invisible area closest to a specific point for the tooltip trigger */}
                   <rect
                     x={(() => {
-                      const prevX = index > 0 ? xScale(data[index - 1].date) : xScale(d.date);
+                      const prevX = index > 0 ? xScale(chartData[index - 1].date) : xScale(d.date);
                       return (prevX + xScale(d.date)) / 2;
                     })()}
                     y={0}
                     width={(() => {
-                      const prevX = index > 0 ? xScale(data[index - 1].date) : xScale(d.date);
+                      const prevX = index > 0 ? xScale(chartData[index - 1].date) : xScale(d.date);
                       const nextX =
-                        index < data.length - 1 ? xScale(data[index + 1].date) : xScale(d.date);
+                        index < chartData.length - 1 ? xScale(chartData[index + 1].date) : xScale(d.date);
                       const leftBound = (prevX + xScale(d.date)) / 2;
                       const rightBound = (xScale(d.date) + nextX) / 2;
                       return rightBound - leftBound;
@@ -179,10 +191,10 @@ export function LineChart() {
 
         {/* X Axis */}
         <div className="translate-y-2">
-          {data.map((day, i) => {
+          {chartData.map((day, i) => {
             const isFirst = i === 0;
-            const isLast = i === data.length - 1;
-            const isMax = day.value === Math.max(...data.map((d) => d.value));
+            const isLast = i === chartData.length - 1;
+            const isMax = day.value === Math.max(...chartData.map((d) => d.value));
             if (!isFirst && !isLast && !isMax) return null;
             return (
               <div key={i} className="overflow-visible text-zinc-500">
@@ -190,7 +202,7 @@ export function LineChart() {
                   style={{
                     left: `${xScale(day.date)}%`,
                     top: "100%",
-                    transform: `translateX(${i === 0 ? "0%" : i === data.length - 1 ? "-100%" : "-50%"})`, // The first and last labels should be within the chart area
+                    transform: `translateX(${i === 0 ? "0%" : i === chartData.length - 1 ? "-100%" : "-50%"})`, // The first and last labels should be within the chart area
                   }}
                   className="text-xs absolute"
                 >

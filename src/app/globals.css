@@ -21,6 +21,29 @@
   }
 }
 
+@layer components {
+  /* Floating Action Button Styles */
+  .fab-container {
+    @apply fixed right-4 bottom-4 z-50;
+  }
+  
+  .fab-main {
+    @apply bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .fab-secondary {
+    @apply bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .fab-danger {
+    @apply bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .fab-menu {
+    @apply absolute bottom-16 right-0 space-y-2 opacity-0 hover:opacity-100 transition-opacity duration-300;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

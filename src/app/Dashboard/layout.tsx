@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import SideBar from '../../../components/SideBar';
 import { NavBar } from '../../../components/NavBar';
+import CreateButton from '../../../components/CreateButton';
 import '../globals.css';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -55,6 +56,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     {children}
                 </div>
             </div>
+
+            {/* Floating Create Button */}
+            <CreateButton />
         </div>
     );
 }

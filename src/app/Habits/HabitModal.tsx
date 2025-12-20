@@ -49,7 +49,6 @@ const HabitModal: React.FC<HabitModalProps> = ({
 
     setLoading(true);
     try {
-      console.log('Submitting habit with data:', formData); // Debug log
       await onSave(formData);
       onClose();
     } catch (error) {
@@ -94,6 +93,9 @@ const HabitModal: React.FC<HabitModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Hidden Habit Type - Preserves the type based on modal mode */}
+          <input type="hidden" value={formData.type} />
+          
           {/* Habit Name */}
           <div>
             <label className="block text-sm font-medium text-neutral-300 mb-2">
@@ -104,7 +106,7 @@ const HabitModal: React.FC<HabitModalProps> = ({
               value={formData.name}
               onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
               className="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-white placeholder-neutral-400 focus:outline-none focus:border-purple-500 transition-colors"
-              placeholder="e.g., Morning meditation"
+              placeholder={formData.type === 'quit' ? 'e.g., Smoking, Procrastination' : 'e.g., Morning meditation'}
               required
             />
           </div>
@@ -146,7 +148,7 @@ const HabitModal: React.FC<HabitModalProps> = ({
           {/* Target Days */}
           <div>
             <label className="block text-sm font-medium text-neutral-300 mb-2">
-              Target Days
+              {formData.type === 'quit' ? 'Abstinence Goal' : 'Target Days'}
             </label>
             <input
               type="number"
@@ -158,7 +160,10 @@ const HabitModal: React.FC<HabitModalProps> = ({
               required
             />
             <p className="text-xs text-neutral-400 mt-1">
-              How many days do you want to maintain this habit?
+              {formData.type === 'quit' 
+                ? 'How many days do you want to stay away from this habit?' 
+                : 'How many days do you want to maintain this habit?'
+              }
             </p>
           </div>
 
@@ -174,14 +179,18 @@ const HabitModal: React.FC<HabitModalProps> = ({
             <button
               type="submit"
               disabled={loading || !formData.name.trim()}
-              className="flex-1 px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className={`flex-1 px-4 py-2 text-white rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
+                formData.type === 'quit'
+                  ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400'
+                  : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400'
+              }`}
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <Save className="w-4 h-4" />
               )}
-              {mode === 'create' ? 'Create' : mode === 'quit' ? 'Quit' : 'Save'}
+              {mode === 'create' ? 'Create' : mode === 'quit' ? 'Start Quitting' : 'Save'}
             </button>
           </div>
         </form>

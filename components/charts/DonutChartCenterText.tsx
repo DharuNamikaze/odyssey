@@ -106,6 +106,24 @@ const DonutChartCenterText = React.memo<DonutChartProps>(({
     );
   }
 
+  // No data state
+  if (chartData.length === 0) {
+    return (
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-lg text-zinc-500">{title}</p>
+            <p className="text-4xl transition-colors duration-300 font-bold text-zinc-400">
+              0
+            </p>
+            <p className="text-sm text-zinc-500">No data available</p>
+          </div>
+        </div>
+        <div className="max-w-[16rem] mx-auto aspect-square bg-zinc-100 rounded-full opacity-20"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       {/* Centered text */}

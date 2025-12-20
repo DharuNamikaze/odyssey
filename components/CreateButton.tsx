@@ -1,26 +1,89 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../src/app/globals.css';
-import { IconPlus } from '@tabler/icons-react'
+import { IconPlus } from '@tabler/icons-react';
+import HabitModal from '../src/app/Habits/HabitModal';
+import { useHabits } from '../src/app/Habits/useHabits';
 
 const CreateButton = () => {
-    const [open, setOpen] = useState<boolean>(false)
-    useEffect(() => {
-        const op = () => setOpen(!open)
-        console.log("Opened")
-        return () => op();
-    }, [open])
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [modalMode, setModalMode] = useState<'create' | 'quit'>('create');
+    const { createHabit } = useHabits();
 
-    function handleOpen() {
-        () => { }
-    }
+    const handleOpen = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleClose = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleSave = async (habitData: any) => {
+        try {
+            await createHabit(habitData);
+            handleClose();
+        } catch (error) {
+            console.error('Error creating habit:', error);
+        }
+    };
+
+    const openCreateHabit = () => {
+        setModalMode('create');
+        handleOpen();
+    };
+
+    const openQuitHabit = () => {
+        setModalMode('quit');
+        handleOpen();
+    };
 
     return (
         <>
-            <button type="button" title='log' className={`z-50 fixed right-[2vh] top-[90.5vh] bg-black p-1 rounded-full createLogBtn`} onClick={handleOpen}>
-                <IconPlus width={45} height={45} />
-            </button>
+            {/* Floating Action Button */}
+            <div className="fab-container group">
+                {/* Main Create Button */}
+                <button 
+                    type="button" 
+                    title="Create New Habit" 
+                    className="fab-main"
+                    onClick={openCreateHabit}
+                >
+                    <IconPlus width={24} height={24} className="text-white" />
+                </button>
+
+                {/* Quick Actions Menu */}
+                <div className="fab-menu">
+                    {/* Create New Habit */}
+                    <button
+                        onClick={openCreateHabit}
+                        className="fab-secondary"
+                        title="Create New Habit"
+                    >
+                        <IconPlus width={20} height={20} className="text-white" />
+                    </button>
+                    
+                    {/* Quit Bad Habit */}
+                    <button
+                        onClick={openQuitHabit}
+                        className="fab-danger"
+                        title="Quit Bad Habit"
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            {/* Habit Creation Modal */}
+            <HabitModal
+                isOpen={isModalOpen}
+                onClose={handleClose}
+                onSave={handleSave}
+                mode={modalMode}
+            />
         </>
-    )
-}
+    );
+};
+
 export default CreateButton;

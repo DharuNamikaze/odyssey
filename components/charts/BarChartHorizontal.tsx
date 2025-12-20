@@ -2,7 +2,18 @@ import React, { CSSProperties } from "react";
 import { scaleBand, scaleLinear, max} from "d3";
 import { AnimatedBar } from "../charts/AnimatedBar";
 
-const data = [
+interface ChartData {
+  key: string;
+  value: number;
+  color: string;
+}
+
+interface HorizontalBarChartProps {
+  data?: ChartData[];
+}
+
+// Default data (fallback when no data provided)
+const defaultData: ChartData[] = [
   { key: "Technology", value: 38.1, color: "#F5A5DB" },
   { key: "Financials", value: 25.3, color: "#B89DFB" },
   { key: "Energy", value: 23.1, color: "#758bcf" },
@@ -11,18 +22,21 @@ const data = [
   { key: "Utilities", value: 5.8, color: "#87db72" },
 ].toSorted((a, b) => b.value - a.value);
 
-export function HorizontalBarChart() {
+export function HorizontalBarChart({ data = defaultData }: HorizontalBarChartProps) {
+  // Use provided data or fallback to default
+  const chartData = data && data.length > 0 ? data : defaultData;
+  
   // Scales
   const yScale = scaleBand()
-    .domain(data.map((d) => d.key))
+    .domain(chartData.map((d) => d.key))
     .range([0, 100])
     .padding(0.175);
 
   const xScale = scaleLinear()
-    .domain([0, max(data.map((d) => d.value)) ?? 0])
+    .domain([0, max(chartData.map((d) => d.value)) ?? 0])
     .range([0, 100]);
 
-  const longestWord = max(data.map((d) => d.key.length)) || 1;
+  const longestWord = max(chartData.map((d) => d.key.length)) || 1;
   return (
     <div
       className="relative w-full h-72"
@@ -47,7 +61,7 @@ export function HorizontalBarChart() {
         "
       >
         {/* Bars with Rounded Right Corners */}
-        {data.map((d, index) => {
+        {chartData.map((d, index) => {
           const barWidth = xScale(d.value);
           const barHeight = yScale.bandwidth();
 
@@ -98,7 +112,7 @@ export function HorizontalBarChart() {
           overflow-visible"
       >
         <g className="translate-x-[calc(var(--marginLeft)-8px)]">
-          {data.map((entry, i) => (
+          {chartData.map((entry, i) => (
             <text
               key={i}
               x="0"
