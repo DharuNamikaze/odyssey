@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "gravity": {
+      "command": "node",
+      "args": [
+        "D:\\Dharu\\MCP\\Gravity\\mcp-server\\build\\index.js"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "diagnose_layout",
+        "connect_browser",
+        "get_element_tree",
+        "screenshot_element",
+        "check_accessibility",
+        "highlight_element",
+        "get_computed_layout",
+        "find_overlapping_elements",
+        "get_event_listeners",
+        "check_responsive",
+        "find_similar_elements"
+      ]
+    }
+  }
+}
