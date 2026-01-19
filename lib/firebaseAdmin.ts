@@ -3,12 +3,9 @@ import admin from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
 import { getAuth } from 'firebase-admin/auth';
 import { isTokenBlacklisted } from './tokenBlacklist';
+import { env } from './env';
 
-const key = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
-if (!key) {
-    throw new Error("FIREBASE_SERVICE_ACCOUNT_KEY is not set");
-}
-const serviceAccount = JSON.parse(key);
+const serviceAccount = JSON.parse(env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 if (!admin.apps.length) {
     admin.initializeApp({
