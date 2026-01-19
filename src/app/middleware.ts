@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { checkRateLimit, getRateLimitHeaders } from '../../lib/rateLimit';
 
 export async function middleware(request: NextRequest) {
   // Force HTTPS in production
@@ -11,6 +12,29 @@ export async function middleware(request: NextRequest) {
       `https://${request.headers.get('host')}${request.nextUrl.pathname}`,
       301
     );
+  }
+
+  // Rate limiting for API routes
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
+    const rateLimitResult = checkRateLimit(ip, { maxRequests: 100, windowMs: 60000 });
+
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { 
+          status: 429,
+          headers: getRateLimitHeaders(rateLimitResult)
+        }
+      );
+    }
+
+    // Add rate limit headers to response
+    const response = NextResponse.next();
+    const headers = getRateLimitHeaders(rateLimitResult);
+    Object.entries(headers).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
   }
 
   const token = request.cookies.get('token')?.value;
@@ -53,6 +77,7 @@ export async function middleware(request: NextRequest) {
 // Configure the paths that should be protected by the middleware
 export const config = {
   matcher: [
+    '/api/:path*',
     '/Dashboard/:path*',
     '/Pages/:path*',
     '/Achievements/:path*',
