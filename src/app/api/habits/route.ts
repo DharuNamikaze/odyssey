@@ -3,12 +3,13 @@ import { db } from '../../../../lib/firebaseAdmin';
 import { verifyAuth } from '../../../../lib/firebaseAdmin';
 import { createHabitSchema, validateSchema } from '../../../../lib/validation';
 import { logCreate } from '../../../../lib/auditLog';
+import { UnauthorizedError, ValidationError, handleApiError } from '../../../../lib/errors';
 
 export async function GET(request: NextRequest) {
   try {
     const token = request.cookies.get('token')?.value;
     if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      throw new UnauthorizedError('No authentication token provided');
     }
 
     const decodedToken = await verifyAuth(token);
@@ -31,8 +32,11 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ habits });
   } catch (error) {
-    console.error('Error fetching habits:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorResponse = handleApiError(error);
+    return NextResponse.json(
+      { error: errorResponse.message, details: errorResponse.details },
+      { status: errorResponse.statusCode }
+    );
   }
 }
 
@@ -40,7 +44,7 @@ export async function POST(request: NextRequest) {
   try {
     const token = request.cookies.get('token')?.value;
     if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      throw new UnauthorizedError('No authentication token provided');
     }
 
     const decodedToken = await verifyAuth(token);
@@ -51,10 +55,7 @@ export async function POST(request: NextRequest) {
     // Validate input with Zod
     const validation = validateSchema(createHabitSchema, body);
     if (!validation.success) {
-      return NextResponse.json({ 
-        error: 'Validation failed', 
-        details: validation.errors 
-      }, { status: 400 });
+      throw new ValidationError('Invalid habit data', validation.errors);
     }
 
     const { name, type, category, target } = validation.data!;
@@ -96,7 +97,10 @@ export async function POST(request: NextRequest) {
       updatedAt: new Date()
     });
   } catch (error) {
-    console.error('Error creating habit:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorResponse = handleApiError(error);
+    return NextResponse.json(
+      { error: errorResponse.message, details: errorResponse.details },
+      { status: errorResponse.statusCode }
+    );
   }
 }
