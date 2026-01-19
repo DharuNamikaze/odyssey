@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../../../lib/firebaseAdmin';
 import { verifyAuth } from '../../../../../lib/firebaseAdmin';
 import { updateHabitSchema, toggleHabitCompletionSchema, validateSchema } from '../../../../../lib/validation';
+import { logUpdate, logDelete } from '../../../../../lib/auditLog';
 
 export async function PUT(
   request: NextRequest,
@@ -46,6 +47,12 @@ export async function PUT(
 
     await habitRef.update(updateData);
     
+    // Audit log
+    await logUpdate(userId, 'habit', id, {
+      ip: request.ip || request.headers.get('x-forwarded-for') || undefined,
+      userAgent: request.headers.get('user-agent') || undefined,
+    });
+    
     return NextResponse.json({ message: 'Habit updated successfully' });
   } catch (error) {
     console.error('Error updating habit:', error);
@@ -79,6 +86,12 @@ export async function DELETE(
     }
 
     await habitRef.delete();
+    
+    // Audit log
+    await logDelete(userId, 'habit', id, {
+      ip: request.ip || request.headers.get('x-forwarded-for') || undefined,
+      userAgent: request.headers.get('user-agent') || undefined,
+    });
     
     return NextResponse.json({ message: 'Habit deleted successfully' });
   } catch (error) {

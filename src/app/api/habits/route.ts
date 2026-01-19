@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../../lib/firebaseAdmin';
 import { verifyAuth } from '../../../../lib/firebaseAdmin';
 import { createHabitSchema, validateSchema } from '../../../../lib/validation';
+import { logCreate } from '../../../../lib/auditLog';
 
 export async function GET(request: NextRequest) {
   try {
@@ -81,6 +82,12 @@ export async function POST(request: NextRequest) {
     };
 
     const docRef = await db.collection('habits').add(habitData);
+    
+    // Audit log
+    await logCreate(userId, 'habit', docRef.id, {
+      ip: request.ip || request.headers.get('x-forwarded-for') || undefined,
+      userAgent: request.headers.get('user-agent') || undefined,
+    });
     
     return NextResponse.json({ 
       id: docRef.id,
