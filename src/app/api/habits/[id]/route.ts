@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../../../lib/firebaseAdmin';
 import { verifyAuth } from '../../../../../lib/firebaseAdmin';
+import { updateHabitSchema, toggleHabitCompletionSchema, validateSchema } from '../../../../../lib/validation';
 
 export async function PUT(
   request: NextRequest,
@@ -28,8 +29,18 @@ export async function PUT(
     }
 
     const body = await request.json();
+    
+    // Validate input with Zod
+    const validation = validateSchema(updateHabitSchema, body);
+    if (!validation.success) {
+      return NextResponse.json({ 
+        error: 'Validation failed', 
+        details: validation.errors 
+      }, { status: 400 });
+    }
+
     const updateData = {
-      ...body,
+      ...validation.data,
       updatedAt: new Date()
     };
 
@@ -102,11 +113,17 @@ export async function PATCH(
     }
 
     const body = await request.json();
-    const { completed, date } = body;
-
-    if (typeof completed !== 'boolean') {
-      return NextResponse.json({ error: 'Invalid completed status' }, { status: 400 });
+    
+    // Validate input with Zod
+    const validation = validateSchema(toggleHabitCompletionSchema, body);
+    if (!validation.success) {
+      return NextResponse.json({ 
+        error: 'Validation failed', 
+        details: validation.errors 
+      }, { status: 400 });
     }
+
+    const { completed, date } = validation.data!;
 
     const habitData = habitDoc.data();
     if (!habitData) {

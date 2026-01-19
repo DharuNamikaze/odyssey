@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../../lib/firebaseAdmin';
 import { verifyAuth } from '../../../../lib/firebaseAdmin';
+import { createHabitSchema, validateSchema } from '../../../../lib/validation';
 
 export async function GET(request: NextRequest) {
   try {
@@ -45,18 +46,24 @@ export async function POST(request: NextRequest) {
     const userId = decodedToken.uid;
 
     const body = await request.json();
-    const { name, type, category, target } = body;
-
-    if (!name || !type || !category || !target) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    
+    // Validate input with Zod
+    const validation = validateSchema(createHabitSchema, body);
+    if (!validation.success) {
+      return NextResponse.json({ 
+        error: 'Validation failed', 
+        details: validation.errors 
+      }, { status: 400 });
     }
+
+    const { name, type, category, target } = validation.data!;
 
     const habitData = {
       userId,
       name,
       type,
       category,
-      target: parseInt(target),
+      target,
       streak: 0,
       completed: false,
       createdAt: new Date(),
