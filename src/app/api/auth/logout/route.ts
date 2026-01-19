@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { blacklistToken } from '../../../../../lib/tokenBlacklist';
 
 export async function POST(request: NextRequest) {
   try {
+    const token = request.cookies.get('token')?.value;
+    
+    // Blacklist the token if it exists
+    if (token) {
+      blacklistToken(token, 3600000); // Blacklist for 1 hour (token expiry time)
+    }
+    
     // Create a response that clears the token cookie
     const response = NextResponse.json({ message: 'Logged out successfully' });
     
